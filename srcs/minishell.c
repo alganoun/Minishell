@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/07/06 17:07:19 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/07/07 12:45:13 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		parsing(char *line, t_token **token_list)
 	return(0);
 }
 
-void	token_process(t_token **token) // j'ai nommé cette fonction de cette façon car je ne comprend pas encore très bien sa fonction.
+void	piping(t_token **token)
 {
 	if ((*token)->out == 1)
 	{
@@ -113,7 +113,7 @@ void	token_process(t_token **token) // j'ai nommé cette fonction de cette faço
 		(*token)->out = 1;
 }
 
-void	token_process2(t_token **token) // j'ai nommé cette fonction de cette façon car je ne comprend pas encore très bien sa fonction.
+void	exit_status(t_token **token)
 {
 	int i;
 	int wstatus;
@@ -146,13 +146,13 @@ int		minishell(char **env)
 			return(exit_free(&token, &line));
 		if (token != NULL)
 		{
-			token_process(&token);
+			piping(&token);
 			printf_all(token);
 			ret = cmd_selector(token, env);
 			free_struct(&token);
 		}
 	}
-	token_process2(&token);
+	exit_status(&token);
 	safe_free(&line);
 	return (0);
 }
