@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
-/*   Updated: 2021/07/07 09:28:34 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/07/22 19:59:06 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,29 @@ int		get_next_line(int fd, char **line)
 	return (r);
 }
 
+void		prompt(void)
+{
+	char	*tmp;
+	size_t	len;
+	size_t	slash;
+
+	tmp = getenv("USER");
+	ft_putstr_fd("\033[32;1m", 1);
+	ft_putstr_fd(tmp, 1);
+	ft_putstr_fd("@\033[0m:", 1);
+	tmp = getcwd(NULL, 0);
+	len = ft_strlen(tmp);
+	slash = 0;
+	while (--len && slash < 3)
+		if (tmp[len] == '/')
+			slash++;
+	ft_putstr_fd("\e[1;34m", 1);
+	while (tmp[++len])
+		ft_putchar_fd(tmp[len], 1);
+	ft_putstr_fd("$\e[0m ", 1);
+	free(tmp);
+}
+
 void	get_next_input(char **line)
 {
 	if (*line != NULL)
@@ -50,6 +73,7 @@ void	get_next_input(char **line)
 		safe_free(line);
 		*line = NULL;
 	}
-	*line = readline("[minishell-1.0$ ");
+	prompt();
+	*line = readline("");
 	add_history(*line);
 }
