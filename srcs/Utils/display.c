@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/10 22:08:12 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/19 15:55:08 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	get_next_input(char **line)
 	while (*line == NULL)
 	{
 		*line = readline(prompt());
+		if (!*line)
+			exit (g_sig.exit_status);
 		ft_putstr_fd("\n", 1);
 	}
 	add_history(*line);

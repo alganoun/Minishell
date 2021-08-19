@@ -2,7 +2,7 @@ NAME		=	Minishell
 
 HEAD 		=	./includes/*.h
 
-INC			=	-I./includes/
+INC			=	-I./includes/ -I/Users/$(USER)/.brew/opt/readline/include
 
 CC			=	gcc
 
@@ -58,7 +58,7 @@ $(NAME): $(OBJ)
 		&& make process
 
 process: $(OBJ)
-	@$(CC) $(FLAGS) $(INC) -lreadline -o $(NAME) $(OBJ) $(LIBFT)
+	@$(CC) -lreadline -L /Users/$(USER)/.brew/opt/readline/lib $(FLAGS) $(INC) -o $(NAME) $(OBJ) $(LIBFT)
 	@make clean && echo "\033[0;32mMinishell compilation was succesfull.\033[0m"
 
 %.o: %.c
