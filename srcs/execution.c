@@ -6,22 +6,15 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:39 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/12 13:25:08 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/19 12:57:13 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	**strenv(char *s, char **env)
+char	*build_line(char **tab, char *line)
 {
-	char **dst;
-	dst = ft_split(my_getenv(s, env) + ft_strlen(s), ':');
-	return (dst);
-}
-
-char *build_line(char **tab, char *line)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -33,10 +26,10 @@ char *build_line(char **tab, char *line)
 	return (line);
 }
 
-char**	build_cmd(t_token *token)
+char	**build_cmd(t_token *token)
 {
-	char **cmd;
-	char *line;
+	char	**cmd;
+	char	*line;
 
 	if (token->option == NULL && token->arg == NULL)
 		return (ft_split(token->cmd, ' '));
@@ -52,10 +45,10 @@ char**	build_cmd(t_token *token)
 
 char	**bin(t_shell **shell, char *cmd)
 {
-	int i;
-	int sum;
-	char **path;
-	char **tab;
+	int		i;
+	int		sum;
+	char	**path;
+	char	**tab;
 
 	i = 0;
 	sum = 0;
@@ -66,7 +59,9 @@ char	**bin(t_shell **shell, char *cmd)
 		i++;
 	}
 	i = 0;
-	tab = malloc(sizeof(char *) * (sum + ((2 + ft_strlen(cmd)) * i))); //protéger le malloc ?
+	tab = malloc(sizeof(char *) * (sum + ((2 + ft_strlen(cmd)) * i)));
+	if (tab == NULL)
+		return (NULL);
 	while (path[i])
 	{
 		tab[i] = ft_strjoin(path[i], "/");
@@ -78,14 +73,16 @@ char	**bin(t_shell **shell, char *cmd)
 
 void	exec_cmd(t_token *token, t_shell **shell)
 {
-	int i;
-	char **tab;
-	char **cmd;
-	struct stat buf;
+	int			i;
+	char		**tab;
+	char		**cmd;
+	struct stat	buf;
 
 	i = 0;
 	cmd = build_cmd(token);
 	tab = bin(shell, cmd[0]);
+	if (tab == NULL)
+		return ;
 	while (tab[i])
 	{
 		if (stat(tab[i], &buf) == 0)
@@ -98,10 +95,10 @@ void	exec_cmd(t_token *token, t_shell **shell)
 
 void	exec_cmd_fork(t_token *token, t_shell **shell)
 {
-	int i;
-	char **tab;
-	char **cmd;
-	struct stat buf;
+	int			i;
+	char		**tab;
+	char		**cmd;
+	struct stat	buf;
 
 	i = 0;
 	cmd = build_cmd(token);

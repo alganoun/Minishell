@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   piping.C                                           :+:      :+:    :+:   */
+/*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:47 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/12 21:40:17 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/19 12:59:39 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		pip(int *a, int *b, int *c, int close_all)
+void	pip(int *a, int *b, int *c, int close_all)
 {
 	if (close_all == TRUE)
 	{
@@ -30,8 +30,8 @@ void		pip(int *a, int *b, int *c, int close_all)
 
 void	child(t_token *token, t_shell **shell, int fd[2], int *fdd)
 {
-	int out;
-	int in;
+	int	out;
+	int	in;
 
 	out = 1;
 	in = 0;
@@ -42,10 +42,10 @@ void	child(t_token *token, t_shell **shell, int fd[2], int *fdd)
 	choose(token, shell, TRUE);
 }
 
-int			fork_process(t_token *token, t_shell **shell, int fdd)
+int	fork_process(t_token *token, t_shell **shell, int fdd)
 {
-	int 	fd[2];
-	
+	int	fd[2];
+
 	fd[0] = -1;
 	fd[1] = -1;
 	if (pipe(fd))

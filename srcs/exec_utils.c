@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:46:26 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/11 00:44:23 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/19 12:58:47 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		sigint(int sig)
+void	sigint(int sig)
 {
 	if ((sig == SIGINT || sig == SIGQUIT) && g_sig.pid != 0)
 	{
@@ -37,4 +37,12 @@ void		sigint(int sig)
 		g_sig.exit_status = 1;
 		ft_putstr_fd(prompt(), 1);
 	}
+}
+
+char	**strenv(char *s, char **env)
+{
+	char	**dst;
+
+	dst = ft_split(my_getenv(s, env) + ft_strlen(s), ':');
+	return (dst);
 }

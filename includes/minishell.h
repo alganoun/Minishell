@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/12 21:13:18 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/19 13:14:51 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define ERR 5
 # define PIPE 6
 
-typedef struct	s_sig
+typedef struct s_sig
 {
 	int				sigint;
 	int				sigquit;
@@ -67,12 +67,12 @@ typedef struct	s_sig
 
 t_sig	g_sig;
 
-typedef struct		s_shell
+typedef struct s_shell
 {
 	char			**env;
 }					t_shell;
 
-typedef struct		s_token
+typedef struct s_token
 {
 	char			*cmd;
 	char			**redir;
@@ -80,14 +80,14 @@ typedef struct		s_token
 	char			**arg;
 	char			*operator;
 	struct s_token	*next;
-	int 			fd[2];
+	int				fd[2];
 	char			type;
 	int				std;
-	char 			in;
-	char 			out;
+	char			in;
+	char			out;
 	int				ret;
-	pid_t 			pids[700];
-	int 			pid_index;
+	pid_t			pids[700];
+	int				pid_index;
 }					t_token;
 
 /*------------UTILS---------------*/
@@ -103,7 +103,7 @@ int			reallocate_tab(char ***tab, char *str);
 void		free_struct(t_token **token);
 int			exit_free(t_token **token, char **line);
 void		quote_remover(char **str);
-char 		*my_getenv(char *name, char **env);
+char		*my_getenv(char *name, char **env);
 int			variable_len(char *str);
 char		**value_name_tab(char **env);
 void		get_variable_value(char **str, char **env);
@@ -122,13 +122,13 @@ int			display_txt(char *str);
 ssize_t		write_output(char *str);
 int			write_errors(int option, char *str);
 int			fd_write_errors(char *cmd);
-int			write_exec_errors();
-char 		*prompt(void);
+int			write_exec_errors(void);
+char		*prompt(void);
 
 /*------------PARSING---------------*/
 t_token		*token_last(t_token *token);
 void		token_add_back(t_token **atoken, t_token **new);
-t_token		*token_new();
+t_token		*token_new(void);
 void		option_finder(char *str, t_token **token);
 int			pipe_finder(char *str, t_token **token);
 int			redir_finder(char **tab, t_token **token);
@@ -138,7 +138,7 @@ int			input_process(char *line, t_token **token);
 int			input_process2(char **pre_token, t_token **token);
 
 /*------------BUILT-INS---------------*/
-int			pwd_process();
+int			pwd_process(void);
 int			echo_process(t_token *token, char **env);
 int			export_process(t_token *token, char ***env);
 int			unset_process(t_token *token, char ***env);
@@ -147,9 +147,10 @@ void		cd_process(t_token *token, char ***env);
 void		version_process(t_token *token);
 
 /*------------EXECUTION---------------*/
-int 		run_process(t_token *token, t_shell **shell);
+int			run_process(t_token *token, t_shell **shell);
 int			fork_process(t_token *token, t_shell **shell, int fdd);
 void		execution(t_token *token, t_shell **shell, int pipe);
+char		**strenv(char *s, char **env);
 void		exec_cmd(t_token *token, t_shell **shell);
 void		exec_cmd_fork(t_token *token, t_shell **shell);
 void		choose(t_token *token, t_shell **shell, int pipe);

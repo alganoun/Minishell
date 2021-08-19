@@ -6,15 +6,15 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 21:21:41 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/13 01:16:39 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/19 12:45:13 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int run_process(t_token *token, t_shell **shell)
+int	run_process(t_token *token, t_shell **shell)
 {
-	int fdd;
+	int	fdd;
 
 	fdd = dup(0);
 	if (ft_strcmp(token->cmd, "exit") == 0)
@@ -23,7 +23,7 @@ int run_process(t_token *token, t_shell **shell)
 		choose(token, shell, FALSE);
 	while (token->next)
 	{
-		while(token->out || token->in)
+		while (token->out || token->in)
 		{
 			fdd = fork_process(token, shell, fdd);
 			if (token->in)
@@ -36,7 +36,7 @@ int run_process(t_token *token, t_shell **shell)
 	return (TRUE);
 }
 
-void		exec_builtin(t_token *token, t_shell **shell)
+void	exec_builtin(t_token *token, t_shell **shell)
 {
 	if (ft_strcmp(token->cmd, "exit") == 0)
 		exit_prog(&token, NULL, token->ret);
@@ -54,10 +54,10 @@ void		exec_builtin(t_token *token, t_shell **shell)
 		env_process((*shell)->env);
 	else if (ft_strcmp(token->cmd, "minishell") == 0)
 		version_process(token);
-	return;
+	return ;
 }
 
-int		is_builtin(t_token *token)
+int	is_builtin(t_token *token)
 {
 	if (ft_strcmp(token->cmd, "exit") == 0)
 		return (TRUE);

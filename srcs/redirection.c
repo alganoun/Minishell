@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 14:17:24 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/13 01:17:44 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/19 13:02:36 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	redir_dup(t_token *token, t_shell **shell, int pipe)
 	savein = 0;
 	saveout1 = 0;
 	saveout2 = 0;
-
 	if (token->type == IN || token->type == INDEL)
 		redir_dup2(&token->std, &savein, 0);
 	if (token->type == TRUNC || token->type == APPEND)
@@ -66,16 +65,18 @@ int	set_type(char *redir)
 
 void	redirection(t_token *token, t_shell **shell, int pipe)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	token->type = set_type(token->redir[i]);
 	while (token->type)
 	{
 		if (token->type == TRUNC)
-			token->std = open(token->redir[i + 1], O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+			token->std = open(token->redir[i + 1], \
+				O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 		else if (token->type == APPEND)
-			token->std = open(token->redir[i + 1], O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+			token->std = open(token->redir[i + 1], \
+				O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
 		else if (token->type == IN)
 			token->std = open(token->redir[i + 1], O_RDONLY, S_IRWXU);
 		else if (token->type == INDEL)

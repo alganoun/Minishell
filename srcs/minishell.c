@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/12 23:21:22 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/19 12:42:53 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	printf_all(t_token *token) // Il faut supprimer cette fonction avant le ren
 
 void	init_shell(char **old_env, t_shell **shell)
 {
-	int i;
-	int lenght;
+	int	i;
+	int	lenght;
 
 	i = 0;
 	lenght = tablen(old_env);
@@ -65,8 +65,8 @@ void	init_shell(char **old_env, t_shell **shell)
 
 void	piping(t_token **token)
 {
-	t_token *tmpA;
-	t_token *tmpB;
+	t_token	*tmpA;
+	t_token	*tmpB;
 
 	if ((*token)->next)
 	{
@@ -85,16 +85,16 @@ void	piping(t_token **token)
 	}
 }
 
-int		minishell(t_shell **shell)
+int	minishell(t_shell **shell)
 {
-	int ret;
-	char *line;
-	t_token *token;
+	int		ret;
+	char	*line;
+	t_token	*token;
 
 	ret = 1;
 	token = NULL;
 	line = NULL;
-	while(ret != 0)
+	while (ret != 0)
 	{
 		get_next_input(&line);
 		if (parsing(line, &token) != -1 && token != NULL)
@@ -106,22 +106,21 @@ int		minishell(t_shell **shell)
 		}
 	}
 	safe_free(&line);
-	//exit_status(&token);
 	return (0);
 }
 
-int		main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-	(void)argc;
-	(void)argv;
 	t_shell	*shell;
 
+	(void)argc;
+	(void)argv;
 	signal(SIGQUIT, sigint);
 	signal(SIGINT, sigint);
 	init_shell(env, &shell);
 	if (display_txt("banner.txt") == -1)
 		return (-1);
 	if (minishell(&shell) == -1)
-		return (-1); // imprimer un message d'erreur ici
+		return (g_sig.exit_status);
 	return (0);
 }

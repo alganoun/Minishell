@@ -29,7 +29,7 @@ SRCS		= ./srcs/Utils/common_utils.c \
 				./srcs/execution.c \
 				./srcs/piping.c \
 				./srcs/exit.c \
-				./srcs/signal.c \
+				./srcs/exec_utils.c \
 				./srcs/redirection.c \
 				./srcs/Built_ins/pwd.c \
 				./srcs/Built_ins/env.c \
