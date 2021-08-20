@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:22:24 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/19 12:59:01 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/20 14:04:08 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	exit_prog(t_token **token, char *exit_message, int status)
 		free_struct(token);
 	if (exit_message)
 		ft_putendl_fd(exit_message, STDERR_FILENO);
+	rl_clear_history();
 	exit(status);
 }
 
