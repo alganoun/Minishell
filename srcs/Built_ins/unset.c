@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 14:42:10 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/09 09:54:41 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/24 01:07:21 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		count_to_keep(char *str, char **env)
 	return (count);
 }
 
-int		unset_process(t_token *token, char ***env)
+int		unset_process(t_token *token, char ***env) // il faut encore faire des tests dessus
 {
 	int i;
 	int index;

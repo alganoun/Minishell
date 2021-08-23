@@ -6,11 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/08/23 19:13:27 by allanganoun      ###   ########.fr       */
-=======
-/*   Updated: 2021/08/20 14:08:05 by musoufi          ###   ########lyon.fr   */
->>>>>>> 8a1e323d04b6ef4ddb70e73e84e6ba84e95e6ae4
+/*   Updated: 2021/08/24 01:06:03 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
