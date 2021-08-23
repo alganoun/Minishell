@@ -6,7 +6,11 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/21 15:59:45 by allanganoun      ###   ########.fr       */
+=======
+/*   Updated: 2021/08/20 16:12:04 by musoufi          ###   ########lyon.fr   */
+>>>>>>> 8a1e323d04b6ef4ddb70e73e84e6ba84e95e6ae4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +72,9 @@ void	get_next_input(char **line)
 		safe_free(line);
 		*line = NULL;
 	}
-	while (*line == NULL)
-	{
-		*line = readline(prompt());
-		if (!*line)
-			exit (g_sig.exit_status);
-		ft_putstr_fd("\n", 1);
-	}
-	add_history(*line);
+	*line = readline(prompt());
+	if (!*line)
+		exit (g_sig.exit_status);
+	if (*line && **line)
+		add_history(*line);
 }

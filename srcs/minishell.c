@@ -6,7 +6,11 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/23 19:13:27 by allanganoun      ###   ########.fr       */
+=======
+/*   Updated: 2021/08/20 14:08:05 by musoufi          ###   ########lyon.fr   */
+>>>>>>> 8a1e323d04b6ef4ddb70e73e84e6ba84e95e6ae4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +89,7 @@ void	piping(t_token **token)
 	}
 }
 
-int	minishell(t_shell **shell)
+void	minishell(t_shell **shell)
 {
 	int		ret;
 	char	*line;
@@ -100,13 +104,12 @@ int	minishell(t_shell **shell)
 		if (parsing(line, &token) != -1 && token->cmd != NULL)
 		{
 			piping(&token);
-			printf_all(token);
+			//printf_all(token);
 			ret = run_process(token, shell);
 			free_struct(&token);
 		}
 	}
-	safe_free(&line);
-	return (0);
+	exit_prog(&token, NULL, g_sig.exit_status);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -120,7 +123,6 @@ int	main(int argc, char **argv, char **env)
 	init_shell(env, &shell);
 	if (display_txt("banner.txt") == -1)
 		return (-1);
-	if (minishell(&shell) == -1)
-		return (g_sig.exit_status);
+	minishell(&shell);
 	return (0);
 }
