@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/19 15:55:08 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/21 15:59:45 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int		display_txt(char *str)
+{
+	int fd;
+	int ret;
+	char *line;
+	ret = 1;
+
+	fd = open(str, O_RDONLY);
+	if (fd > 0)
+	{
+		while(ret > 0)
+		{
+			ret = get_next_line(fd, &line);
+			write_output(line);
+			free(line);
+		}
+		ret = get_next_line(fd, &line);
+		write_output(line);
+		free(line);
+	}
+	if (ret != 0)
+		return (write_errors(1, str));
+	return (0);
+}
 
 char *prompt(void)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   common_utils4.c                                    :+:      :+:    :+:   */
+/*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 01:40:44 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/09 01:42:15 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/22 17:02:43 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,13 @@ void	squote_missing_space(char **str, char **tmp, int *i, int *j)
 
 void	dchev_missing_space(char **str, char **tmp, int *i, int *j)
 {
-	(*tmp)[(*j)++] = ' ';
+	int a;
+
+	a = *i;
+	while (a > 0 && (*str)[a - 1] > 47 && (*str)[a - 1] < 58)
+		a--;
+	if ((*str)[a - 1] != ' ')
+		(*tmp)[(*j)++] = ' ';
 	(*tmp)[(*j)++] = (*str)[(*i)++];
 	(*tmp)[(*j)++] = (*str)[(*i)++];
 	(*tmp)[(*j)++] = ' ';
@@ -46,7 +52,13 @@ void	dchev_missing_space(char **str, char **tmp, int *i, int *j)
 
 void	pipechev_missing_space(char **str, char **tmp, int *i, int *j)
 {
-	(*tmp)[(*j)++] = ' ';
+	int a;
+
+	a = *i;
+	while (a > 0 && (*str)[a - 1] > 47 && (*str)[a - 1] < 58)
+		a--;
+	if ((*str)[a - 1] != ' ')
+		(*tmp)[(*j)++] = ' ';
 	(*tmp)[(*j)++] = (*str)[(*i)++];
 	(*tmp)[(*j)++] = ' ';
 }

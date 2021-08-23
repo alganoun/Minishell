@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/12 13:34:42 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/24 00:34:05 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		write_errors(int option, char *str)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": command not found", STDERR_FILENO);
-		return (0);
+		//return (0);
 	}
 	else if (option == 3)
 		ft_putendl_fd("Quotes open, close them", STDERR_FILENO);
@@ -36,6 +36,12 @@ int		write_errors(int option, char *str)
 		ft_putendl_fd("PATH error", STDERR_FILENO);
 	else if (option == 5)
 		ft_putendl_fd("redirection error detected", STDERR_FILENO);
+	else if (option == 6)
+	{
+		ft_putstr_fd("export: `", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd("' not a valid identifier", STDERR_FILENO);
+	}
 	return (-1);
 }
 

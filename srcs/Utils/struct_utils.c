@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:53:22 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/10 20:32:33 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/23 20:16:04 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int		init_struct(t_token **token)
 		.cmd = NULL,
 		.redir = NULL,
 		.option = NULL,
+		.exp = 0,
 		.arg = NULL,
 		.operator = NULL,
 		.next = NULL,
@@ -66,20 +67,20 @@ t_token	*token_new()
 	return (token);
 }
 
-void	token_cleaning(t_token **token)
-{
-	int i;
-
-	i = 0;
-
-	if ((*token)->cmd)
-		quote_remover(&((*token)->cmd));
-	while ((*token)->option && (*token)->option[i] != NULL)
-		quote_remover(&((*token)->option[i++]));
-	i = 0;
-	while ((*token)->arg && (*token)->arg[i] != NULL)
-		quote_remover(&((*token)->arg[i++]));
-	while ((*token)->redir && (*token)->redir[i] != NULL)
-		quote_remover(&((*token)->redir[i++]));
-	*token = (*token)->next;
-}
+//void	token_cleaning(t_token **token)
+//{
+//	int i;
+//
+//	i = 0;
+//
+//	if ((*token)->cmd)
+//		quote_remover(&((*token)->cmd));
+//	while ((*token)->option && (*token)->option[i] != NULL)
+//		quote_remover(&((*token)->option[i++]));
+//	i = 0;
+//	while ((*token)->arg && (*token)->arg[i] != NULL)
+//		quote_remover(&((*token)->arg[i++]));
+//	while ((*token)->redir && (*token)->redir[i] != NULL)
+//		quote_remover(&((*token)->redir[i++]));
+//	*token = (*token)->next;
+//}

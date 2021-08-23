@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/09 09:51:16 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/24 00:54:03 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,11 @@ char	**value_name_tab(char **env)
 	char **tab;
 
 	i = 0;
-	tab = ft_malloc(sizeof(char *) * (tablen(env) + 1));
-	while (env[i] != NULL)
-	{
-		tab[i] = ft_strdup(env[i]);
-		i++;
-	}
-	tab[i] = NULL;
-	i = 0;
-	while (tab[i] != NULL)
+	tab = ft_tabdup(env);
+	while (tab && tab[i] != NULL)
 	{
 		j = 0;
-		while (tab[i][j] != '=')
+		while (tab[i][j] && tab[i][j] != '=')
 			j++;
 		tab[i][j] = '\0';
 		i++;
@@ -86,6 +79,8 @@ int		value_existence(char *str, char **tab)
 
 	tmp = ft_strdup(str);
 	i = variable_len(tmp) + 1;
+	if (i == 1)
+		return (1);
 	tmp[i] = '\0';
 	i = 0;
 	while (tab[i] != NULL)
@@ -93,7 +88,7 @@ int		value_existence(char *str, char **tab)
 		if (ft_strcmp(tmp, tab[i]) == 0)
 		{
 			safe_free(&tmp);
-			return (1);
+			return (i);
 		}
 		i++;
 	}

@@ -6,64 +6,101 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:07:55 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/09 09:52:32 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/24 00:50:54 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	add_missing_space2(char **str, int count)
+char	*str_export_format(char *str)
 {
 	int i;
 	int j;
-	char *tmp;
+	char *new_str;
 
 	i = 0;
 	j = 0;
-	tmp = ft_malloc(ft_strlen(*str) + (count * 2) + 1);
-	while ((*str)[i])
+	new_str = ft_malloc(ft_strlen(str) + 3);
+	while (str[i])
 	{
-		if ((*str)[i] == '"')
-			dquote_missing_space(str, &tmp, &i, &j);
-		else if ((*str)[i] == '\'')
-			squote_missing_space(str, &tmp, &i, &j);
-		else if ((*str)[i] == '|' || ((*str)[i] == '>' && (*str)[i + 1] != '>')
-			|| ((*str)[i] == '<' && (*str)[i + 1] != '<'))
-			pipechev_missing_space(str, &tmp, &i, &j);
-		else if (((*str)[i] == '>' && (*str)[i + 1] == '>')
-			|| ((*str)[i] == '<' && (*str)[i + 1] == '<'))
-			dchev_missing_space(str, &tmp, &i, &j);
-		else
-			tmp[j++] = (*str)[i++];
+		if (str[i - 1] == '=')
+			new_str[j++] = '"';
+		new_str[j++] = str[i++];
+		if (str[i] == '\0' && ft_strchr(str, '=') != NULL)
+			new_str[j++] = '"';
 	}
-	tmp[j] = '\0';
-	*str = tmp;
+	new_str[j] = '\0';
+	return (new_str);
 }
 
-int		add_missing_space(char **str)
+char	*sort_tab_export(char **tab)
 {
 	int i;
-	int count;
+	int j;
+	int k;
 
 	i = 0;
-	count = 0;
-	while ((*str)[i])
+	j = 1;
+	while (tab[j] != NULL)
 	{
-		if ((*str)[i] == '"')
-			i = double_quote(*str, i);
-		else if ((*str)[i] == '\'')
-			i = simple_quote(*str, i) ;
-		if (i == -1)
-			return (write_errors(BAD_QUOTES, NULL));
-		else if ((*str)[i] == '|' || ((*str)[i] == '>' && (*str)[i + 1] != '>')
-			|| ((*str)[i] == '<' && (*str)[i + 1] != '<'))
+		k = 0;
+		while(tab[i][k] == tab[j][k])
+			k++;
+		if (tab[i][k] > tab[j][k])
 		{
-			if ((*str)[i + 1] == '\0')
-				return (write_errors(REDIR_ERROR, NULL));
-			count++;
+			i++;
+			j = i + 1;
 		}
-		i++;
+		else if (tab[i][k] < tab[j][k])
+			j++;
 	}
-	add_missing_space2(str, count);
-	return (0);
+	return (tab[i]);
+}
+
+void	reallocate_unsorted_tab(char ***tab, char *str)
+{
+	int i;
+	int j;
+	char **new_tab;
+
+	i = 0;
+	j = 0;
+	new_tab = malloc(sizeof(char *) * tablen(*tab));
+	while((*tab)[i] != NULL)
+	{
+		if (ft_strcmp((*tab)[i], str) == 0)
+			i++;
+		else
+			new_tab[j++] = ft_strdup((*tab)[i++]);
+	}
+	new_tab[j] = NULL;
+	free(*tab);
+	*tab = new_tab;
+}
+
+void	print_sorted_tab(char **tab)
+{
+	int i;
+	int tab_len;
+	char **tab2;
+	char **tmp;
+
+	i = 0;
+	tab_len = tablen(tab);
+	tab2 = ft_tabdup(tab);
+	tmp = malloc(sizeof(char *) * (tab_len + 1));
+	while (tab_len > 0)
+	{
+		tmp[i] = ft_strjoin("declare -x ",
+					str_export_format(sort_tab_export(tab2)));
+		reallocate_unsorted_tab(&tab2, sort_tab_export(tab2));
+		i++;
+		tab_len--;
+	}
+	tmp[i] = NULL;
+	i = 0;
+	while (tmp[i] != NULL)
+		write_output(tmp[i++]);
+	free_tab(&tab2);
+	free_tab(&tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/09 09:54:42 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/22 17:12:53 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ int		redir_finder(char **tab, t_token **token) // à reduire
 	j = 0;
 	if (tab[i] != NULL)
 	{
-		if ((tab[i][j] == '>' && tab[i][j + 1] == '\0')
-			|| (tab[i][j] == '<' && tab[i][j + 1] == '\0')
-			|| (tab[i][j] == '>' && tab[i][j + 1] == '>' && tab[i][j + 2] == '\0')
-			|| (tab[i][j] == '<' && tab[i][j + 1] == '<' && tab[i][j + 2] == '\0'))
+		if (is_redir(tab[i]) == 1)
 		{
 			if (tab[i + 1] == NULL)
 				return (write_errors(REDIR_ERROR, NULL));
@@ -120,7 +117,8 @@ void	arg_finder(char *str, t_token **token)
 			i++;
 		if ((ft_strcmp((*token)->cmd, "echo") == 0
 			&& ft_strcmp(str, "-n") != 0)
-			|| str[i] != '-')
+			|| str[i] != '-' || (ft_strcmp((*token)->cmd, "cd") == 0
+			&& ft_strcmp(str, "-") == 0))
 		{
 			if ((*token)->arg == NULL)
 			{

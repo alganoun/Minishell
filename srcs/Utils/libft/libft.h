@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:21:55 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/09 09:42:14 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/22 03:58:13 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),\
 void				ft_rm_whitespace(char **str);
 int					get_next_line(int fd, char **line);
 void				*ft_malloc(size_t size);
+char				**ft_tabdup(char **tab);
+int					tablen(char **tab);
 
 #endif

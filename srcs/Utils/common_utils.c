@@ -6,20 +6,34 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 08:00:40 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/09 09:45:30 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/24 00:39:58 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		 tablen(char **tab)
+int		space_into_dot(char **str)
 {
 	int i;
 
 	i = 0;
-	while (tab[i] != NULL)
+	if (add_missing_space(str) == -1)
+		return (-1);
+	if (*str == NULL)
+		return (write_errors(REDIR_ERROR, NULL));
+	while ((*str)[i])
+	{
+		if ((*str)[i] == '"')
+			i = double_quote(*str, i);
+		else if ((*str)[i] == '\'')
+			i = simple_quote(*str, i) ;
+		else if ((*str)[i] == ';' || (*str)[i] == '\\')
+			return (write_errors(BAD_CHAR, NULL));
+		else if ((*str)[i] == ' ')
+			(*str)[i] = 13;
 		i++;
-	return (i);
+	}
+	return (0);
 }
 
 int		variable_len(char *str)
@@ -47,28 +61,36 @@ int		variable_len(char *str)
 	return (count);
 }
 
-int		display_txt(char *str)
+int		is_redir(char *str)
 {
-	int fd;
-	int ret;
-	char *line;
-	ret = 1;
+	int i = 0;
+	while (str[i] > 47 && str[i] < 58)
+		i++;
+	if ((str[i] == '>' && str[i + 1] == '\0')
+			|| (str[i] == '<' && str[i + 1] == '\0')
+			|| (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '\0')
+			|| (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '\0'))
+		return (1);
+	return (0);
+}
 
-	fd = open(str, O_RDONLY);
-	if (fd > 0)
+int		variable_existence(char *str, char **tab)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	if (str && str[0] == '$')
+		str++;
+	while (str && tab && tab[i] != NULL)
 	{
-		while(ret > 0)
-		{
-			ret = get_next_line(fd, &line);
-			write_output(line);
-			free(line);
-		}
-		ret = get_next_line(fd, &line);
-		write_output(line);
-		free(line);
+		while (str[count] != '=')
+			count++;
+		if (ft_strncmp(str, tab[i], count) == 0)
+			return (i);
+		i++;
 	}
-	if (ret != 0)
-		return (write_errors(1, str));
 	return (0);
 }
 
@@ -85,9 +107,11 @@ int		reallocate_tab(char ***tab, char *str)
 		tmp[i] = (*tab)[i];
 		i++;
 	}
-	tmp[i] = str;
+	tmp[i] = ft_strdup(str);
 	tmp[i + 1] = NULL;
 	free(*tab);
 	*tab = tmp;
 	return (0);
 }
+
+

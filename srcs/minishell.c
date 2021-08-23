@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/19 12:42:53 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/23 19:13:27 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	minishell(t_shell **shell)
 	while (ret != 0)
 	{
 		get_next_input(&line);
-		if (parsing(line, &token) != -1 && token != NULL)
+		if (parsing(line, &token) != -1 && token->cmd != NULL)
 		{
 			piping(&token);
 			printf_all(token);

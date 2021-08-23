@@ -17,7 +17,8 @@ LIBFT		=	$(LIBFT_PATH)/libft.a
 SRCS		= ./srcs/Utils/common_utils.c \
 				./srcs/Utils/common_utils2.c \
 				./srcs/Utils/common_utils3.c \
-				./srcs/Utils/common_utils4.c \
+				./srcs/Utils/parsing_utils.c \
+				./srcs/Utils/parsing_utils2.c \
 				./srcs/Utils/free_utils.c \
 				./srcs/Utils/display.c \
 				./srcs/Utils/struct_utils.c \

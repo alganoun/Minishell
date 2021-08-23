@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_tablen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/15 16:06:24 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/24 00:48:00 by allanganoun      ###   ########.fr       */
+/*   Created: 2021/08/22 03:48:18 by allanganoun       #+#    #+#             */
+/*   Updated: 2021/08/22 03:49:05 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int		env_process(char **env)
+int		tablen(char **tab)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while (env[i] != NULL)
-	{
-		if (ft_strchr(env[i], '=') != NULL)
-		{
-			ft_putstr_fd(env[i], 1);
-			ft_putchar_fd('\n', 1);
-		}
+	while (tab[i] != NULL)
 		i++;
-	}
-	return (TRUE);
+	return (i);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/19 13:14:51 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/23 19:58:52 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define BAD_QUOTES		3
 # define PATH_ERROR		4
 # define REDIR_ERROR	5
+# define VAR_NOT_FOUND	6
 # define BUFFER_SIZE	1024
 # define EXIT_MSG	"\n[Process completed]"
 
@@ -78,6 +79,7 @@ typedef struct s_token
 	char			**redir;
 	char			**option;
 	char			**arg;
+	int				exp;
 	char			*operator;
 	struct s_token	*next;
 	int				fd[2];
@@ -102,7 +104,7 @@ int			tablen(char **tab);
 int			reallocate_tab(char ***tab, char *str);
 void		free_struct(t_token **token);
 int			exit_free(t_token **token, char **line);
-void		quote_remover(char **str);
+void		quote_remover(char **str, t_token **token);
 char		*my_getenv(char *name, char **env);
 int			variable_len(char *str);
 char		**value_name_tab(char **env);
@@ -116,6 +118,11 @@ void		dquote_missing_space(char **str, char **tmp, int *i, int *j);
 void		squote_missing_space(char **str, char **tmp, int *i, int *j);
 void		dchev_missing_space(char **str, char **tmp, int *i, int *j);
 void		pipechev_missing_space(char **str, char **tmp, int *i, int *j);
+int			variable_existence(char *str, char **tab);
+char		**value_name_tab(char **env);
+void		add_dollar(char ***tab);
+void		print_sorted_tab(char **tab);
+int			is_redir(char *str);
 
 /*------------DISPLAY---------------*/
 int			display_txt(char *str);

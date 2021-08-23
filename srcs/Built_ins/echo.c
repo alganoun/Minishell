@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 12:42:11 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/07/25 23:08:53 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/23 20:18:52 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,35 @@
 	// return (TRUE);
 // }
 
+void	echo_write(t_token *token, char *str, int i)
+{
+	write (1, str, ft_strlen(str));
+	if (token->arg[i + 1] != NULL)
+		write (1, " ", 1);
+}
+
 int		echo_process(t_token *token, char **env)
 {
 	int i;
-	int j;
 	char *str;
 
 	i = 0;
-	j = 0;
 	while (token->arg && token->arg[i] != NULL)
 	{
+		quote_remover(&(token->arg[i]), &token);
 		str = ft_strdup(token->arg[i]);
-		get_variable_value(&str, env);
-		write (1, str, ft_strlen(str));
-		if (token->arg[i + 1] != NULL)
-			write (1, " ", 1);
+		if (token->exp == 0)
+			get_variable_value(&str, env);
+		echo_write(token, str, i);
 		safe_free(&str);
 		i++;
 	}
+	i = 0;
 	if (token->option)
 	{
-		while (ft_strcmp(token->option[j], "-n") != 0)
-			j++;
-		if (token->option[j] == NULL)
+		while (ft_strcmp(token->option[i], "-n") != 0)
+			i++;
+		if (token->option[i] == NULL)
 			write(1, "\n", 1);
 	}
 	else

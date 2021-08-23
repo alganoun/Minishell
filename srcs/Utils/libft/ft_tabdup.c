@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_tabdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/15 16:06:24 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/24 00:48:00 by allanganoun      ###   ########.fr       */
+/*   Created: 2021/08/22 03:46:39 by allanganoun       #+#    #+#             */
+/*   Updated: 2021/08/22 03:58:07 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int		env_process(char **env)
+char	**ft_tabdup(char **tab)
 {
-	int	i;
+	int i;
+	char **dup;
 
 	i = 0;
-	while (env[i] != NULL)
+	dup = ft_malloc(sizeof(char *) * (tablen(tab) + 1));
+	while (tab[i] != NULL)
 	{
-		if (ft_strchr(env[i], '=') != NULL)
-		{
-			ft_putstr_fd(env[i], 1);
-			ft_putchar_fd('\n', 1);
-		}
+		dup[i] = ft_strdup(tab[i]);
 		i++;
 	}
-	return (TRUE);
+	dup[i] = NULL;
+	return (dup);
 }

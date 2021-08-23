@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 11:55:03 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/09 09:54:43 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/23 20:45:53 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,31 @@ int		double_quote(char *str, int i)
 	return (i);
 }
 
-int		space_into_dot(char **str)
+int		quote_remover_cpy(char *str, int option)
 {
 	int i;
+	int len;
 
-	i = 0;
-	if (add_missing_space(str) == -1)
-		return (-1);
-	if (*str == NULL)
-		return (write_errors(REDIR_ERROR, NULL));
-	while ((*str)[i])
+	len = 0;
+	if (option == 1)
 	{
-		if ((*str)[i] == '"')
-			i = double_quote(*str, i);
-		else if ((*str)[i] == '\'')
-			i = simple_quote(*str, i) ;
-		else if ((*str)[i] == ';' || (*str)[i] == '\\')
-			return (write_errors(BAD_CHAR, NULL));
-		else if ((*str)[i] == ' ')
-			(*str)[i] = 13;
-		i++;
+		i = 0;
+		while (str && str[i])
+			if (str[i++] != '"')
+				len++;
 	}
-	return (0);
+	else if (option == 2)
+	{
+		i = 0;
+		while (str && str[i])
+			if (str[i++] != '\'')
+				len++;
+	}
+	return (len);
 }
 
-void	quote_remover2(char **str, int len)
+
+void	quote_remover2(char **str, int len, int option)
 {
 	char *tmp;
 	int i;
@@ -73,7 +73,7 @@ void	quote_remover2(char **str, int len)
 	tmp = ft_malloc(len + 1);
 	i = 0;
 	j = 0;
-	while ((*str)[i] && (*str)[0] == '"')
+	while ((*str)[i] && option == 1)
 	{
 		if (((*str)[i] != '"' && (*str)[i] != '\\')
 			|| ((*str)[i] == '\\' && (*str)[i + 1] != '"')
@@ -81,7 +81,7 @@ void	quote_remover2(char **str, int len)
 			tmp[j++] = (*str)[i];
 		i++;
 	}
-	while ((*str)[i] && (*str)[0] == '\'')
+	while ((*str)[i] && option == 2)
 	{
 		if (((*str)[i] != '\'' && (*str)[i] != '\\')
 			|| ((*str)[i] == '\\' && (*str)[i + 1] != '\'')
@@ -94,29 +94,26 @@ void	quote_remover2(char **str, int len)
 	*str = tmp;
 }
 
-void	quote_remover(char **str)
+void	quote_remover(char **str, t_token **token)
 {
-	int len;
+	int found;
 	int	i;
 
 	i = 0;
-	len = 0;
-	if (*str)
+	found = 0;
+	while (*str && (*str)[i] && found == 0)
 	{
-		while ((*str)[i] && (*str)[0] == '"')
-		{
-			if ((*str)[i] != '"')
-				len++;
-			i++;
-		}
-		while ((*str)[i] && (*str)[0] == '\'')
-		{
-			if ((*str)[i] != '\'')
-				len++;
-			i++;
-		}
-		if (len > 0)
-			quote_remover2(str, len);
+		if ((*str)[i] == '"')
+			found = 1;
+		else if ((*str)[i] == '\'')
+			found = 2;
+		i++;
 	}
+	if (found == 1 || found == 0)
+		(*token)->exp = 0;
+	else if (found == 2)
+		(*token)->exp = 1;
+	if (*str && found > 0)
+		quote_remover2(str, quote_remover_cpy(*str, found), found);
 }
 
