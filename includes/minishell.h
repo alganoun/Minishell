@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/25 00:45:27 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/25 18:30:34 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void		redirection(t_token *token, t_shell **shell, int pipe);
 
 /*------------SIGNAL&EXIT---------------*/
 void		exit_cmd(t_token *token);
-void		exit_prog(t_token **token, char *exit_message, int status);
+void		exit_prog(t_token **token, char *exit_message, long status);
 void		sig_int(int code);
 void		sig_quit(int code);
 void		sig_init(void);

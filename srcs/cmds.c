@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 21:21:41 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/25 02:34:50 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/25 15:27:40 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	run_process(t_token *token, t_shell **shell)
 	int	fdd;
 
 	fdd = dup(0);
-	if (ft_strcmp(token->cmd, "exit") == 0)
+	if (ft_strcmp(token->cmd, "exit") == 0 && !token->next)
 		exit_cmd(token);
-	if (token->next == NULL)
+	else if (token->next == NULL)
 		choose(token, shell, FALSE);
 	while (token->next)
 	{
