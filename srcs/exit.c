@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:22:24 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/20 14:04:08 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/25 19:36:43 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_strisnum(const char *str)
 	i = 0;
 	if (str == NULL)
 		return (0);
-	if (str[0] == '-')
+	if (str[0] == '-' || str[0] == '+')
 		i++;
 	while (str[i])
 	{
@@ -30,7 +30,7 @@ int	ft_strisnum(const char *str)
 	return (1);
 }
 
-void	exit_prog(t_token **token, char *exit_message, int status)
+void	exit_prog(t_token **token, char *exit_message, long status)
 {
 	if (token)
 		free_struct(token);
@@ -40,20 +40,77 @@ void	exit_prog(t_token **token, char *exit_message, int status)
 	exit(status);
 }
 
-void	exit_cmd(t_token *token)
+char**	quote_remover_exit(t_token *token)
 {
 	if (token->arg)
 	{
-		if (token->arg[0] && token->arg[1])
-			exit_prog(&token, "minishell: exit: too many arguments", 1);
-		else if (token->arg[0] && ft_strisnum(token->arg[0]) == 0)
+		quote_remover(&token->arg[0], &token);
+		return (token->arg);
+	}
+	else if (token->option)
+	{
+		quote_remover(&token->option[0], &token);
+		return (token->option);
+	}
+	return (NULL);
+}
+
+long	*ft_atols(const char *str, long *dst)
+{
+	int i;
+	int signcheck;
+	__int128_t nb;
+	
+	i = 0;
+	nb = 0;
+	signcheck = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-')
+	{
+		signcheck = -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		nb = nb * 10 + (str[i] - 48);
+		i++;
+	}
+	if (nb > LONG_MAX || nb < LONG_MIN)
+		return (NULL);
+	*dst = nb * signcheck;
+	return (dst);
+}
+
+
+void	exit_cmd(t_token *token)
+{
+	char **arg;
+	void *status;
+	long nb;
+	
+	if (token->arg || token->option)
+	{
+		arg = quote_remover_exit(token);
+		if (token->arg == NULL && token->option)
+			status = ft_atols(token->option[0], &nb);
+		else
+			status = ft_atols(token->arg[0], &nb);
+		if ((token->arg && token->option) || (arg[0] && arg[1]))
 		{
-			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-			ft_putstr_fd(token->arg[0], STDERR_FILENO);
+			ft_putendl_fd("exit\nminishell: exit: too many arguments", STDERR_FILENO);
+			exit_prog(&token, "exit", 1);
+		}
+		else if ((arg[0] && ft_strisnum(arg[0]) == 0) || (status == NULL))
+		{
+			ft_putstr_fd("exit\nminishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd(arg[0], STDERR_FILENO);
 			exit_prog(&token, ": numeric argument required", 255);
 		}
-		else if (token->arg[0] && ft_strisnum(token->arg[0]) != 0)
-			exit_prog(&token, "exit", ft_atoi(token->arg[0]));
+		else if (arg[0] && ft_strisnum(arg[0]) != 0)
+			exit_prog(&token, "exit", nb);
 	}
 	else
 		exit_prog(&token, "exit", 0);

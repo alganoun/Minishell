@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/08/21 15:59:45 by allanganoun      ###   ########.fr       */
-=======
-/*   Updated: 2021/08/20 16:12:04 by musoufi          ###   ########lyon.fr   */
->>>>>>> 8a1e323d04b6ef4ddb70e73e84e6ba84e95e6ae4
+/*   Updated: 2021/08/25 15:09:01 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
