@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 21:21:41 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/23 20:18:36 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/25 02:34:50 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ void	choose(t_token *token, t_shell **shell, int pipe)
 
 void	execution(t_token *token, t_shell **shell, int pipe)
 {
-	quote_remover(&token->cmd, &token);
-	if (token->exp == 0)
-		get_variable_value(&token->cmd, (*shell)->env);
 	if (is_builtin(token) == FALSE && pipe == TRUE)
 		exec_cmd(token, shell);
 	else if (is_builtin(token) == FALSE && pipe == FALSE)

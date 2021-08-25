@@ -6,11 +6,28 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 15:02:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/23 19:13:27 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/25 01:08:58 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int		is_echo_option(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str && str[i] == '-')
+	{
+		i++;
+		while (str && str[i] && str[i] == 'n')
+			i++;
+		if (str && str[i] != '\0')
+			return (-1);
+		return (1);
+	}
+	return (0);
+}
 
 void	chev_fd(char *str, int i, int *count)
 {

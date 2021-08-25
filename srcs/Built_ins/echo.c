@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 12:42:11 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/23 20:18:52 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/25 02:40:41 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		echo_process(t_token *token, char **env)
 	i = 0;
 	if (token->option)
 	{
-		while (ft_strcmp(token->option[i], "-n") != 0)
+		while (is_echo_option(token->option[i]) == -1)
 			i++;
 		if (token->option[i] == NULL)
 			write(1, "\n", 1);

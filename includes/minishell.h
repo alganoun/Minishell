@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/23 19:58:52 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/25 00:45:27 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char		**value_name_tab(char **env);
 void		add_dollar(char ***tab);
 void		print_sorted_tab(char **tab);
 int			is_redir(char *str);
+int			is_echo_option(char *str);
 
 /*------------DISPLAY---------------*/
 int			display_txt(char *str);
@@ -136,13 +137,13 @@ char		*prompt(void);
 t_token		*token_last(t_token *token);
 void		token_add_back(t_token **atoken, t_token **new);
 t_token		*token_new(void);
-void		option_finder(char *str, t_token **token);
+void		option_finder(char *s, t_token **token, char **env);
 int			pipe_finder(char *str, t_token **token);
 int			redir_finder(char **tab, t_token **token);
-void		arg_finder(char *str, t_token **token);
-int			parsing(char *line, t_token **token_list);
-int			input_process(char *line, t_token **token);
-int			input_process2(char **pre_token, t_token **token);
+void		arg_finder(char *s, t_token **token, char **env);
+int			parsing(char *line, t_token **token_list, char **env);
+int			input_process(char *line, t_token **token, char **env);
+int			input_process2(char **pre_token, t_token **token, char **env);
 
 /*------------BUILT-INS---------------*/
 int			pwd_process(void);
