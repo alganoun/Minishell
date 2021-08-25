@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/22 17:12:53 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/25 01:07:20 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,22 @@ int		redir_finder(char **tab, t_token **token) // à reduire
 	return (0);
 }
 
-void	 option_finder(char *str, t_token **token)
+void	 option_finder(char *s, t_token **token, char **env)
 {
 	int i;
+	char *str;
 
 	i = 0;
+	str = ft_strdup(s);
 	if (str !=	NULL)
 	{
-		if (str[i] == '"') // il faut que je regarde pour mieux parser les options.
-			i++;
+		if (str[i] != '\'')
+			get_variable_value(&str, env);
+		quote_remover(&str, token);
 		if ((ft_strcmp((*token)->cmd, "echo") != 0
 			&& str[i] == '-' && str[i + 1] != '\0')
-				|| (ft_strcmp((*token)->cmd, "echo") == 0
-					&& ft_strcmp(str, "-n") == 0))
+			|| (ft_strcmp((*token)->cmd, "echo") == 0
+				&& is_echo_option(str) == 1))
 		{
 			if ((*token)->option == NULL)
 			{
@@ -106,17 +109,20 @@ void	global_variable_finder(char **str, char **env)
 	}
 }
 
-void	arg_finder(char *str, t_token **token)
+void	arg_finder(char *s, t_token **token, char **env)
 {
 	int i;
+	char *str;
 
 	i = 0;
+	str = ft_strdup(s);
 	if (str !=	NULL)
 	{
-		if (str[i] == '"')  //gérer les erreurs de guilllemets ouverts ici
-			i++;
+		if (str[i] != '\'')
+			get_variable_value(&str, env);
+		quote_remover(&str, token);
 		if ((ft_strcmp((*token)->cmd, "echo") == 0
-			&& ft_strcmp(str, "-n") != 0)
+			&& is_echo_option(str) != 1)
 			|| str[i] != '-' || (ft_strcmp((*token)->cmd, "cd") == 0
 			&& ft_strcmp(str, "-") == 0))
 		{

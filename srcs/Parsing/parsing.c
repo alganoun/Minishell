@@ -6,19 +6,35 @@
 /*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 21:30:25 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/23 18:22:32 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/25 02:36:41 by allanganoun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		input_process2(char **pre_token, t_token **token)
+void	token_filler(char *pre_token, t_token **token, char **env, int option)
+{
+	if (option == 1)
+	{
+		(*token)->cmd = pre_token;
+		quote_remover(&((*token)->cmd), token);
+		if ((*token)->exp == 0)
+			get_variable_value(&((*token)->cmd), env);
+	}
+	if (option == 2)
+	{
+		option_finder(pre_token, token, env);
+		arg_finder(pre_token, token, env);
+	}
+}
+
+int		input_process2(char **pre_token, t_token **token, char **env)
 {
 	int i;
 	t_token *new;
 
 	i = 1;
-	(*token)->cmd = pre_token[0];
+	token_filler(pre_token[0], token, env, 1);
 	while (pre_token && pre_token[i] != NULL)
 	{
 		if (pipe_finder(pre_token[i], token) == 1)
@@ -35,34 +51,30 @@ int		input_process2(char **pre_token, t_token **token)
 			if (redir_finder(&pre_token[i], token) > 0)
 				i++;
 			else
-			{
-				option_finder(pre_token[i], token);
-				arg_finder(pre_token[i], token);
-			}
+				token_filler(pre_token[i], token, env, 2);
 		}
 		i++;
 	}
 	return (0);
 }
 
-int		input_process(char *line, t_token **token)
+int		input_process(char *line, t_token **token, char **env)
 {
 	int i;
 	int j;
 
 	i = 0;
 	char **pre_token;
-	(void)token;
 	j = 0;
 	if (space_into_dot(&line) == -1)
 		return (-1);
 	pre_token = ft_split(line, 13);
-	input_process2(pre_token, token);
+	input_process2(pre_token, token, env);
 	//token_cleaning(token);
 	return (0);
 }
 
-int		parsing(char *line, t_token **token_list)
+int		parsing(char *line, t_token **token_list, char **env)
 {
 	int		i;
 	t_token	*new;
@@ -72,7 +84,7 @@ int		parsing(char *line, t_token **token_list)
 	free_struct(token_list);
 	init_struct(&new);
 	token_add_back(token_list, &new);
-	if (input_process(line, &new) == -1)
+	if (input_process(line, &new, env) == -1)
 		return (-1);
 	return(0);
 }

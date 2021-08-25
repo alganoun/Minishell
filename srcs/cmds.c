@@ -88,9 +88,6 @@ void	choose(t_token *token, t_shell **shell, int pipe)
 
 void	execution(t_token *token, t_shell **shell, int pipe)
 {
-	quote_remover(&token->cmd, &token);
-	if (token->exp == 0)
-		get_variable_value(&token->cmd, (*shell)->env);
 	if (is_builtin(token) == FALSE && pipe == TRUE)
 		exec_cmd(token, shell);
 	else if (is_builtin(token) == FALSE && pipe == FALSE)

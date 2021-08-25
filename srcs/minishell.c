@@ -97,10 +97,11 @@ void	minishell(t_shell **shell)
 	while (ret != 0)
 	{
 		get_next_input(&line);
-		if (parsing(line, &token) != -1 && token->cmd != NULL)
+		if (parsing(line, &token, (*shell)->env) != -1
+			&& token->cmd != NULL)
 		{
 			piping(&token);
-			//printf_all(token);
+			printf_all(token);
 			ret = run_process(token, shell);
 			free_struct(&token);
 		}
