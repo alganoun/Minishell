@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/25 01:07:20 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/28 22:43:55 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,13 @@ int		redir_finder(char **tab, t_token **token) // à reduire
 	return (0);
 }
 
-void	 option_finder(char *s, t_token **token, char **env)
+void	 option_finder(char *str, t_token **token)
 {
 	int i;
-	char *str;
 
 	i = 0;
-	str = ft_strdup(s);
 	if (str !=	NULL)
 	{
-		if (str[i] != '\'')
-			get_variable_value(&str, env);
-		quote_remover(&str, token);
 		if ((ft_strcmp((*token)->cmd, "echo") != 0
 			&& str[i] == '-' && str[i + 1] != '\0')
 			|| (ft_strcmp((*token)->cmd, "echo") == 0
@@ -83,7 +78,7 @@ void	 option_finder(char *s, t_token **token, char **env)
 			if ((*token)->option == NULL)
 			{
 				(*token)->option = (char **)ft_malloc(sizeof(char *) * 2);
-				(*token)->option[0] = ft_strdup(str);
+				(*token)->option[0] = str;
 				(*token)->option[1] = NULL;
 			}
 			else
@@ -92,35 +87,13 @@ void	 option_finder(char *s, t_token **token, char **env)
 	}
 }
 
-void	global_variable_finder(char **str, char **env)
+void	arg_finder(char *str, t_token **token)
 {
 	int i;
 
 	i = 0;
-	char *new_str;
-	while (env[i] != NULL)
-	{
-		if (strncmp(*str, env[i], ft_strlen(*str)) == 0)
-		{
-			new_str = ft_strdup(env[i] + ft_strlen(*str) + 1);
-			safe_free(str);
-			*str = new_str;
-		}
-	}
-}
-
-void	arg_finder(char *s, t_token **token, char **env)
-{
-	int i;
-	char *str;
-
-	i = 0;
-	str = ft_strdup(s);
 	if (str !=	NULL)
 	{
-		if (str[i] != '\'')
-			get_variable_value(&str, env);
-		quote_remover(&str, token);
 		if ((ft_strcmp((*token)->cmd, "echo") == 0
 			&& is_echo_option(str) != 1)
 			|| str[i] != '-' || (ft_strcmp((*token)->cmd, "cd") == 0

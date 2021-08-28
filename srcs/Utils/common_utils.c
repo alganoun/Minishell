@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 08:00:40 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/24 00:39:58 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/28 22:51:58 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ int		space_into_dot(char **str)
 		return (write_errors(REDIR_ERROR, NULL));
 	while ((*str)[i])
 	{
-		if ((*str)[i] == '"')
+		if (((*str)[i] == '"' && i == 0)
+			|| ((*str)[i] == '"' && (*str)[i - 1] != '\\'))
 			i = double_quote(*str, i);
-		else if ((*str)[i] == '\'')
+		else if (((*str)[i] == '\'' && i == 0)
+			|| ((*str)[i] == '\'' && (*str)[i - 1] != '\\'))
 			i = simple_quote(*str, i) ;
-		else if ((*str)[i] == ';' || (*str)[i] == '\\')
+		else if ((*str)[i] == ';') // il faut changer la detection du '/'
 			return (write_errors(BAD_CHAR, NULL));
 		else if ((*str)[i] == ' ')
 			(*str)[i] = 13;

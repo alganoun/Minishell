@@ -15,7 +15,8 @@ LIBFT_PATH	=	./srcs/utils/libft
 LIBFT		=	$(LIBFT_PATH)/libft.a
 
 SRCS		= ./srcs/Utils/common_utils.c \
-				./srcs/Utils/common_utils2.c \
+				./srcs/Utils/quote_utils.c \
+				./srcs/Utils/quote_utils2.c \
 				./srcs/Utils/common_utils3.c \
 				./srcs/Utils/parsing_utils.c \
 				./srcs/Utils/parsing_utils2.c \
@@ -24,6 +25,7 @@ SRCS		= ./srcs/Utils/common_utils.c \
 				./srcs/Utils/struct_utils.c \
 				./srcs/Utils/write_utils.c \
 				./srcs/Utils/variable_utils.c \
+				./srcs/Utils/variable_utils2.c \
 				./srcs/Parsing/input_process.c \
 				./srcs/minishell.c \
 				./srcs/cmds.c \

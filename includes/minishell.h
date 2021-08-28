@@ -3,18 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/25 18:30:34 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/28 23:54:55 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+// il faut gérer les expansions dans le get_variable_value
+// il faut gérer la bonne suppression des quotes dans le quote_remover
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
 # define TRUE 1
 # define FALSE 0
+# define SUCCESS 1
 
 # define BLUE '\001\e[1;34m\002'
 # define GREEN '\001\033[32;1m\002'
@@ -104,7 +108,7 @@ int			tablen(char **tab);
 int			reallocate_tab(char ***tab, char *str);
 void		free_struct(t_token **token);
 int			exit_free(t_token **token, char **line);
-void		quote_remover(char **str, t_token **token);
+int			quote_remover(char **str);
 char		*my_getenv(char *name, char **env);
 int			variable_len(char *str);
 char		**value_name_tab(char **env);
@@ -119,11 +123,16 @@ void		squote_missing_space(char **str, char **tmp, int *i, int *j);
 void		dchev_missing_space(char **str, char **tmp, int *i, int *j);
 void		pipechev_missing_space(char **str, char **tmp, int *i, int *j);
 int			variable_existence(char *str, char **tab);
+int			value_existence(char *str, char **tab);
 char		**value_name_tab(char **env);
 void		add_dollar(char ***tab);
 void		print_sorted_tab(char **tab);
 int			is_redir(char *str);
 int			is_echo_option(char *str);
+int			is_printable_quote(char *str, int i, char c);
+void		printable_quote_cpy(char *str, char **tmp, int *i, int *j);
+void		printable_quote_cpy2(char *str, char **tmp, int *i, int *j);
+int			is_exportable(char *str);
 
 /*------------DISPLAY---------------*/
 int			display_txt(char *str);
@@ -137,17 +146,17 @@ char		*prompt(void);
 t_token		*token_last(t_token *token);
 void		token_add_back(t_token **atoken, t_token **new);
 t_token		*token_new(void);
-void		option_finder(char *s, t_token **token, char **env);
+void		option_finder(char *str, t_token **token);
 int			pipe_finder(char *str, t_token **token);
 int			redir_finder(char **tab, t_token **token);
-void		arg_finder(char *s, t_token **token, char **env);
+void		arg_finder(char *str, t_token **token);
 int			parsing(char *line, t_token **token_list, char **env);
 int			input_process(char *line, t_token **token, char **env);
 int			input_process2(char **pre_token, t_token **token, char **env);
 
 /*------------BUILT-INS---------------*/
 int			pwd_process(void);
-int			echo_process(t_token *token, char **env);
+int			echo_process(t_token *token);
 int			export_process(t_token *token, char ***env);
 int			unset_process(t_token *token, char ***env);
 int			env_process(char **env);
@@ -173,3 +182,6 @@ void		sig_init(void);
 void		sigint(int sig);
 
 #endif
+
+
+// Pour eexport il se pourrait que l'on puisse se passer des $

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 21:21:41 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/25 15:27:40 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/28 22:49:55 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	exec_builtin(t_token *token, t_shell **shell)
 	if (ft_strcmp(token->cmd, "exit") == 0)
 		exit_prog(&token, NULL, token->ret);
 	else if (ft_strcmp(token->cmd, "echo") == 0)
-		echo_process(token, (*shell)->env);
+		echo_process(token);
 	else if (ft_strcmp(token->cmd, "cd") == 0)
 		cd_process(token, &(*shell)->env);
 	else if (ft_strcmp(token->cmd, "pwd") == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:22:24 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/25 19:36:43 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/08/29 00:04:34 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ char**	quote_remover_exit(t_token *token)
 {
 	if (token->arg)
 	{
-		quote_remover(&token->arg[0], &token);
+		//quote_remover(&token->arg[0], &token);
 		return (token->arg);
 	}
 	else if (token->option)
 	{
-		quote_remover(&token->option[0], &token);
+		//quote_remover(&token->option[0], &token);
 		return (token->option);
 	}
 	return (NULL);
@@ -60,7 +60,7 @@ long	*ft_atols(const char *str, long *dst)
 	int i;
 	int signcheck;
 	__int128_t nb;
-	
+
 	i = 0;
 	nb = 0;
 	signcheck = 1;
@@ -90,7 +90,7 @@ void	exit_cmd(t_token *token)
 	char **arg;
 	void *status;
 	long nb;
-	
+
 	if (token->arg || token->option)
 	{
 		arg = quote_remover_exit(token);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 12:42:11 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/25 02:40:41 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/28 22:48:20 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	echo_write(t_token *token, char *str, int i)
 		write (1, " ", 1);
 }
 
-int		echo_process(t_token *token, char **env)
+int		echo_process(t_token *token)
 {
 	int i;
 	char *str;
@@ -56,10 +56,7 @@ int		echo_process(t_token *token, char **env)
 	i = 0;
 	while (token->arg && token->arg[i] != NULL)
 	{
-		quote_remover(&(token->arg[i]), &token);
 		str = ft_strdup(token->arg[i]);
-		if (token->exp == 0)
-			get_variable_value(&str, env);
 		echo_write(token, str, i);
 		safe_free(&str);
 		i++;

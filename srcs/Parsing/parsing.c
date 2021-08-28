@@ -3,48 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 21:30:25 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/25 02:36:41 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/28 23:55:02 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	token_filler(char *pre_token, t_token **token, char **env, int option)
+int		token_filler(char *pre_token, t_token **token, char **env, int option)
 {
+	get_variable_value(&pre_token, env);
+	if (quote_remover(&pre_token) == -1)
+		return (-1);
 	if (option == 1)
-	{
 		(*token)->cmd = pre_token;
-		quote_remover(&((*token)->cmd), token);
-		if ((*token)->exp == 0)
-			get_variable_value(&((*token)->cmd), env);
-	}
 	if (option == 2)
 	{
-		option_finder(pre_token, token, env);
-		arg_finder(pre_token, token, env);
+		option_finder(pre_token, token);
+		arg_finder(pre_token, token);
 	}
+	return (SUCCESS);
+}
+
+int		input_process3(char *pre_token, t_token **token, char **env)
+{
+	t_token *new;
+
+	init_struct(&new);
+	new->next = (*token)->next->next;
+	(*token)->next->next = new;
+	if (token_filler(pre_token, token, env, 1) == -1)
+		return (-1);
+	*token = new;
+	return (SUCCESS);
 }
 
 int		input_process2(char **pre_token, t_token **token, char **env)
 {
 	int i;
-	t_token *new;
 
 	i = 1;
-	token_filler(pre_token[0], token, env, 1);
+	if (token_filler(pre_token[0], token, env, 1) == -1)
+		return (-1);
 	while (pre_token && pre_token[i] != NULL)
 	{
 		if (pipe_finder(pre_token[i], token) == 1)
 		{
 			i++;
-			init_struct(&new);
-			new->next = (*token)->next->next;
-			(*token)->next->next = new;
-			new->cmd = pre_token[i];
-			*token = new;
+			if (input_process3(pre_token[i], token, env) == -1)
+				return (-1);
 		}
 		else
 		{
@@ -55,7 +64,7 @@ int		input_process2(char **pre_token, t_token **token, char **env)
 		}
 		i++;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 int		input_process(char *line, t_token **token, char **env)
@@ -69,7 +78,8 @@ int		input_process(char *line, t_token **token, char **env)
 	if (space_into_dot(&line) == -1)
 		return (-1);
 	pre_token = ft_split(line, 13);
-	input_process2(pre_token, token, env);
+	if (input_process2(pre_token, token, env) == -1)
+		return (-1);
 	//token_cleaning(token);
 	return (0);
 }
@@ -81,7 +91,7 @@ int		parsing(char *line, t_token **token_list, char **env)
 	i = 0;
 
 	if (*token_list != NULL)
-	free_struct(token_list);
+		free_struct(token_list);
 	init_struct(&new);
 	token_add_back(token_list, &new);
 	if (input_process(line, &new, env) == -1)

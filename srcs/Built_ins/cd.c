@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/23 20:14:50 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/29 00:05:06 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ void	go_to_dir(t_token *token, char ***env)
 {
 	if (*token->arg)
 	{
-		quote_remover(&(*token->arg), &token);
-		if (token->exp == 0)
-			get_variable_value(&(*token->arg), *env);
 		if (ft_strcmp(*token->arg, "~") == 0)
 		{
 			if (chdir(ft_strjoin("/Users/", my_getenv("USER", *env))) != 0)

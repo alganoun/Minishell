@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 12:34:34 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/24 00:48:16 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/29 00:13:35 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,20 @@ int		check_name(char *name)
 	return (0);
 }
 
-void	rm_dollar_str(char **str)
+int		is_exportable(char *str)
 {
-	char *tmp;
+	int i;
 
-	if ((*str)[0] == '$')
+	i = 0;
+	while (str[i] && str[i] != '=' && ft_isalnum(str[i]) == 1)
 	{
-		tmp = ft_malloc(ft_strlen(*str));
-		ft_strcpy(tmp, &((*str)[1]));
-		safe_free(str);
-		*str = tmp;
+		if (str[i] == '\'' || str[i] == '"')
+			i++;
+		i++;
 	}
+	if (str[i] != '=' && str[i] != '\0')
+		return (FALSE);
+	return (SUCCESS);
 }
 
 char	**export_name_tab(char **env)
@@ -69,20 +72,15 @@ void	export_process2(t_token *token, char ***env, char **str, char **tab)
 {
 	if (variable_existence(*str, tab) > 0 && check_name(*str) > 0)
 	{
-		if ((*str)[0] == '$')
-			(*str)++;
-		if (token->exp == 1)
-			get_variable_value(str, *env);
 		free((*env)[variable_existence(*str, tab)]);
 		(*env)[variable_existence(*str, tab)] = ft_strdup(*str);
 	}
-	else if ((*str)[0] == '$')
+	else if (is_exportable(*str) == 0)
 		write_errors(6, &((*str)[check_name(*str)]));
 	else
 	{
 		if (token->exp == 1)
 			get_variable_value(str, *env);
-		printf("test = %s\n", *str);
 		reallocate_tab(env, *str);
 	}
 }
@@ -95,16 +93,12 @@ int		export_process(t_token *token, char ***env)
 
 	i = 0;
 	tab = export_name_tab(*env);
-	if (token->arg)
-		quote_remover(&(token->arg[i]), &token);
-	if (token->arg == NULL ||
-		(token->arg[i][0] == '$' && check_name(token->arg[i]) == 0))
+	if (token->arg == NULL || token->arg[0][0] == '\0')
 			print_sorted_tab(*env);
 	else
 	{
 		while (token->arg && token->arg[i] != NULL)
 		{
-			quote_remover(&(token->arg[i]), &token);
 			str = ft_strdup(token->arg[i]);
 			export_process2(token, env, &str, tab);
 			i++;

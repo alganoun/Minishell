@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 15:02:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/25 01:08:58 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/08/28 19:38:12 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ void	add_missing_space2(char **str, int count)
 	tmp = ft_malloc(ft_strlen(*str) + (count * 2) + 1);
 	while ((*str)[i])
 	{
-		if ((*str)[i] == '"')
+		if (((*str)[i] == '"' && i == 0)
+			|| ((*str)[i] == '"' && (*str)[i - 1] != '\\'))
 			dquote_missing_space(str, &tmp, &i, &j);
-		else if ((*str)[i] == '\'')
+		else if (((*str)[i] == '\'' && i == 0)
+			|| ((*str)[i] == '\'' && (*str)[i - 1] != '\\'))
 			squote_missing_space(str, &tmp, &i, &j);
 		else if ((*str)[i] == '|' || ((*str)[i] == '>' && (*str)[i + 1] != '>')
 			|| ((*str)[i] == '<' && (*str)[i + 1] != '<'))
@@ -70,7 +72,7 @@ void	add_missing_space2(char **str, int count)
 		else
 			tmp[j++] = (*str)[i++];
 	}
-	tmp[j] = '\0';
+	tmp[j] = '\0'; //peut être qu'il faut free ce str
 	*str = tmp;
 }
 
@@ -83,9 +85,11 @@ int		add_missing_space(char **str)
 	count = 0;
 	while ((*str)[i])
 	{
-		if ((*str)[i] == '"')
+		if (((*str)[i] == '"' && i == 0)
+			|| ((*str)[i] == '"' && (*str)[i - 1] != '\\'))
 			i = double_quote(*str, i);
-		else if ((*str)[i] == '\'')
+		else if (((*str)[i] == '\'' && i == 0)
+			|| ((*str)[i] == '\'' && (*str)[i - 1] != '\\'))
 			i = simple_quote(*str, i) ;
 		if (i == -1)
 			return (write_errors(BAD_QUOTES, NULL));
