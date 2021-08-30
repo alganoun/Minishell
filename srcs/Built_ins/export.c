@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 12:34:34 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/30 19:27:55 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/08/30 22:41:28 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		check_name(char *name)
 	i = 0;
 	while (name[i])
 	{
-		if (name[i] == '=')
+		if (name[i] == '=' && i > 0)
 			return (i);
 		i++;
 	}
@@ -39,7 +39,7 @@ int		is_exportable(char *str)
 			i++;
 		i++;
 	}
-	if (str[i] != '=' && str[i] != '\0')
+	if ((str[i] != '=' && str[i] != '\0') || (str[i] == '=' && str[i + 1] == '\0'))
 		return (FALSE);
 	return (SUCCESS);
 }
@@ -70,15 +70,92 @@ char	**export_name_tab(char **env)
 	return (tab);
 }
 
+int is_forbiden_name2(char *str, int i, int only_assign)
+{
+	while (str[i])
+	{
+		if (str[i] == '=' && only_assign > 0)
+			i--;
+		else if (!ft_isalpha(str[i]))
+		{
+			if (str[i] == '_' || str[i] == '?' || str[i] == '\\')
+					g_sig.exit_status = 0;
+			else
+					g_sig.exit_status = 1;
+			return (TRUE);
+		}
+		i--;
+	}
+	return (FALSE);
+}
+
+int     is_forbiden_name(char *str)
+{
+	int i;
+	char *end;
+	int only_assign;
+
+	i = 0;
+	only_assign = 0;
+	end = ft_strrchr(str, '=');
+	if (end == NULL)
+		return (FALSE);
+	if (str[i] == '=' && !str[i + 1])
+	{
+		g_sig.exit_status = 1;
+		return (TRUE);
+	}
+	while (&str[i] != end)
+	{
+		if (str[i] == '=' && only_assign == i)
+			only_assign = 0;
+		else
+			only_assign++;
+		i++;
+	}
+	i--;
+	return (is_forbiden_name2(str, i, only_assign));
+}
+
+int	is_assign_operator(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	i--;
+	while (str[i])
+	{
+		if (str[i] != '=' || str[i] == 0)
+			return (FALSE);
+		i--;
+	}
+	return (TRUE);
+}
+
 void	export_process2(t_token *token, char ***env, char **str, char **tab)
 {
-	if (variable_existence(*str, tab) > 0 && check_name(*str) > 0)
+	if (check_name(*str) == 0 && is_assign_operator(*str) == FALSE)
+		g_sig.exit_status = 0;
+	else if (variable_existence(*str, tab) > 0 && check_name(*str) > 0)
 	{
 		free((*env)[variable_existence(*str, tab)]);
 		(*env)[variable_existence(*str, tab)] = ft_strdup(*str);
 	}
 	else if (is_exportable(*str) == 0)
+	{
+		is_forbiden_name(*str);
+		if (is_assign_operator(*str) == TRUE)
+			g_sig.exit_status = 1;
 		write_errors(6, &((*str)[check_name(*str)]));
+	}
+	else if (is_forbiden_name(*str) == TRUE)
+	{
+		if (is_assign_operator(*str) == TRUE)
+			g_sig.exit_status = 1;
+		write_errors(6, &((*str)[check_name(*str)]));
+	}
 	else
 	{
 		if (token->exp == 1)
