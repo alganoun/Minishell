@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/28 22:43:55 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/08/30 18:57:22 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ int		redir_finder(char **tab, t_token **token) // à reduire
 	return (0);
 }
 
-void	 option_finder(char *str, t_token **token)
+int		option_finder(char *str, t_token **token)
 {
 	int i;
 
 	i = 0;
-	if (str !=	NULL)
+	if (str !=	NULL && (*token)->arg == NULL)
 	{
 		if ((ft_strcmp((*token)->cmd, "echo") != 0
 			&& str[i] == '-' && str[i + 1] != '\0')
@@ -80,11 +80,14 @@ void	 option_finder(char *str, t_token **token)
 				(*token)->option = (char **)ft_malloc(sizeof(char *) * 2);
 				(*token)->option[0] = str;
 				(*token)->option[1] = NULL;
+				return (SUCCESS);
 			}
 			else
 				reallocate_tab(&((*token)->option), str);
+				return (SUCCESS);
 		}
 	}
+	return (FALSE);
 }
 
 void	arg_finder(char *str, t_token **token)
@@ -94,9 +97,7 @@ void	arg_finder(char *str, t_token **token)
 	i = 0;
 	if (str !=	NULL)
 	{
-		if ((ft_strcmp((*token)->cmd, "echo") == 0
-			&& is_echo_option(str) != 1)
-			|| str[i] != '-' || (ft_strcmp((*token)->cmd, "cd") == 0
+		if (str[i] || (ft_strcmp((*token)->cmd, "cd") == 0
 			&& ft_strcmp(str, "-") == 0))
 		{
 			if ((*token)->arg == NULL)

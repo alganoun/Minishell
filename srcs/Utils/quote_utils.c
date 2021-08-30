@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 11:55:03 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/28 23:54:49 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/08/29 10:29:34 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int		quote_remover_cpy(char *str, int *len, char c, int *i)
 	{
 		if (str[*i] == c)
 			quit = 1;
-		else if (c == '\'' && str[*i] == '\\' && str[(*i) + 1] == c)
-			return (write_errors(1, NULL));
+		//else if (c == '\'' && str[*i] == '\\' && str[(*i) + 1] == c)
+		//	return (write_errors(1, NULL));
 		else if (str[(*i)++] != c)
 			(*len)++;
 	}
@@ -48,6 +48,8 @@ void	quote_remover2(char **str, int len)
 		else if (((*str)[i] == '\'' && i == 0)
 			|| ((*str)[i] == '\'' && (*str)[i - 1] != '\\'))
 			printable_quote_cpy2(*str, &tmp, &i, &j);
+		else if ((*str)[i] && (*str)[i] == '\\' && (*str)[i - 1] == '\\')
+			tmp[j++] = (*str)[i++];
 		else if ((*str)[i] && (*str)[i] != '\\')
 			tmp[j++] = (*str)[i];
 		i++;

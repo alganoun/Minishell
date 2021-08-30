@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 21:30:25 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/28 23:55:02 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/08/30 18:56:11 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int		token_filler(char *pre_token, t_token **token, char **env, int option)
 		(*token)->cmd = pre_token;
 	if (option == 2)
 	{
-		option_finder(pre_token, token);
-		arg_finder(pre_token, token);
+		if (option_finder(pre_token, token) == 0)
+			arg_finder(pre_token, token);
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 12:34:34 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/29 00:15:40 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/08/30 19:27:55 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		check_name(char *name)
 	i = 0;
 	while (name[i])
 	{
-		if (name[i] == '=' && (i > 0))
+		if (name[i] == '=')
 			return (i);
 		i++;
 	}
@@ -31,6 +31,8 @@ int		is_exportable(char *str)
 	int i;
 
 	i = 0;
+	if (str[0] == '=')
+		return (FALSE);
 	while (str[i] && str[i] != '=' && ft_isalnum(str[i]) == 1)
 	{
 		if (str[i] == '\'' || str[i] == '"')

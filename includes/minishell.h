@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/28 23:54:55 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/08/30 18:55:23 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ char		*prompt(void);
 t_token		*token_last(t_token *token);
 void		token_add_back(t_token **atoken, t_token **new);
 t_token		*token_new(void);
-void		option_finder(char *str, t_token **token);
+int			option_finder(char *str, t_token **token);
 int			pipe_finder(char *str, t_token **token);
 int			redir_finder(char **tab, t_token **token);
 void		arg_finder(char *str, t_token **token);
