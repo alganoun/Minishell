@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/29 00:05:06 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 11:53:34 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ void	replace_old_dir(char **env_str, char *old_dir)
 
 void	go_to_dir(t_token *token, char ***env)
 {
-	if (*token->arg)
-	{
-		if (ft_strcmp(*token->arg, "~") == 0)
+		if (token->arg == NULL || ft_strcmp(*token->arg, "~") == 0)
 		{
 			if (chdir(ft_strjoin("/Users/", my_getenv("USER", *env))) != 0)
 				write_cd_errors(token);
@@ -55,7 +53,6 @@ void	go_to_dir(t_token *token, char ***env)
 		}
 		else if (chdir(token->arg[0]) != 0)
 			write_cd_errors(token);
-	}
 }
 
 void	cd_process(t_token *token, char ***env)
