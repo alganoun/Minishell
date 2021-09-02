@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/30 18:55:23 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 11:40:41 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_token
 
 /*------------UTILS---------------*/
 
-void		get_next_input(char **line);
+void		get_next_input(char **line, char **env);
 int			init_struct(t_token **token);
 void		free_tab(char ***tab);
 void		safe_free(char **str);
@@ -140,7 +140,6 @@ ssize_t		write_output(char *str);
 int			write_errors(int option, char *str);
 int			fd_write_errors(char *cmd);
 int			write_exec_errors(void);
-char		*prompt(void);
 
 /*------------PARSING---------------*/
 t_token		*token_last(t_token *token);

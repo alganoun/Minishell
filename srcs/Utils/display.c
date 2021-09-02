@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/25 15:09:01 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 11:43:24 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ int		display_txt(char *str)
 	return (0);
 }
 
-char *prompt(void)
+char *prompt(char **env)
 {
 	char *tmp;
 	char *line;
 	size_t len;
 
-	line = ft_strjoin("[", getenv("USER"));
+	line = ft_strjoin("[", my_getenv("USER", env));
 	line = ft_strjoin(line, "]");
 	tmp = getcwd(NULL, 0);
-	if (ft_strcmp(tmp, ft_strjoin("/Users/", getenv("USER"))) == 0) // il faut faire gaffe à utiliser notre env et pas celui du zsh
+	if (ft_strcmp(tmp, ft_strjoin("/Users/", my_getenv("USER", env))) == 0) // il faut faire gaffe à utiliser notre env et pas celui du zsh
 		tmp = "~";
 	else
 	{
@@ -61,14 +61,14 @@ char *prompt(void)
 	return (line);
 }
 
-void	get_next_input(char **line)
+void	get_next_input(char **line, char **env)
 {
 	if (*line != NULL)
 	{
 		safe_free(line);
 		*line = NULL;
 	}
-	*line = readline(prompt());
+	*line = readline(prompt(env));
 	if (!*line)
 		exit (g_sig.exit_status);
 	if (*line && **line)

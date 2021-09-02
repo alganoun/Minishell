@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/02 11:18:31 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 11:41:00 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	minishell(t_shell **shell)
 	line = NULL;
 	while (ret != 0)
 	{
-		get_next_input(&line);
+		get_next_input(&line, (*shell)->env);
 		if (ft_strlen(line) > 0 && parsing(line, &token, (*shell)->env) != -1
 			&& token->cmd != NULL)
 		{
