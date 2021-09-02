@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/02 10:22:30 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 12:56:58 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,16 @@ void	replace_word(char **str, char *name, char *value, char **tab)
 void	get_variable_value(char **str, char **env)
 {
 	char **tab;
+	char **env2;
+
 	int i;
-	(void)str;
-	tab = value_name_tab(env);
+	env2 = ft_tabdup(env);
+	reallocate_tab(&env2, ft_strjoin("$?=", ft_itoa(g_sig.exit_status)));
+	tab = value_name_tab(env2);
 	i = 0;
 	while(tab[i] != NULL && *str)
 	{
-		replace_word(str, tab[i], my_getenv(tab[i] + 1, env), tab);
+		replace_word(str, tab[i], my_getenv(tab[i] + 1, env2), tab);
 		i++;
 	}
 	free_tab(&tab);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 02:13:06 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/27 04:16:43 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/09/02 12:57:36 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
