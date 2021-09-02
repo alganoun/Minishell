@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 15:02:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/28 19:38:12 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 11:15:00 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,21 @@ void	add_missing_space2(char **str, int count)
 	*str = tmp;
 }
 
+int		add_missing_space_op(char **str, int *i, int *count)
+{
+	int j;
+
+	j = *i;
+	while ((*str)[j + 1] == ' ')
+		j++;
+	if ((*str)[j + 1] == '\0')
+		return (write_errors(REDIR_ERROR, &((*str)[*i])));
+	(*count)++;
+	chev_fd(*str, *i, count);
+	return (0);
+
+}
+
 int		add_missing_space(char **str)
 {
 	int i;
@@ -95,12 +110,8 @@ int		add_missing_space(char **str)
 			return (write_errors(BAD_QUOTES, NULL));
 		else if ((*str)[i] == '|' || ((*str)[i] == '>' && (*str)[i + 1] != '>')
 			|| ((*str)[i] == '<' && (*str)[i + 1] != '<'))
-		{
-			if ((*str)[i + 1] == '\0')
-				return (write_errors(REDIR_ERROR, NULL));
-			count++;
-			chev_fd(*str, i, &count);
-		}
+			if (add_missing_space_op(str, &i, &count) == -1)
+				return (-1);
 		i++;
 	}
 	add_missing_space2(str, count);
