@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/28 22:42:02 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 10:22:30 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		count_to_copy(char *str)
 
 	i = 0;
 	count = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] == '$')
 			i += variable_len(&str[i]);
@@ -66,7 +66,7 @@ int		count_word(char *str, char *to_replace)
 
 	i = 0;
 	count = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] == '$')
 		{
@@ -91,7 +91,7 @@ void	replace_word(char **str, char *name, char *value, char **tab)
 	j = 0;
 	result = ft_malloc(count_to_copy(*str) + count_word(*str, name)
 			* ft_strlen(value) + 1);
-	while ((*str)[i] != '\0')
+	while (str && (*str)[i] != '\0')
 	{
 		if ((*str)[i] == '$' && is_convertible(*str, i) == SUCCESS)
 		{
@@ -118,7 +118,7 @@ void	get_variable_value(char **str, char **env)
 	(void)str;
 	tab = value_name_tab(env);
 	i = 0;
-	while(tab[i] != NULL)
+	while(tab[i] != NULL && *str)
 	{
 		replace_word(str, tab[i], my_getenv(tab[i] + 1, env), tab);
 		i++;

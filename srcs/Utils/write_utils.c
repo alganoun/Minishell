@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/02 09:47:25 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 10:36:41 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ ssize_t		write_output(char *str)
 int		write_errors2(int option, char *str)
 {
 	if (option == 5)
-		ft_putendl_fd("redirection error detected", STDERR_FILENO);
+		ft_putendl_fd("syntax error near unexpected token `newline'",
+						STDERR_FILENO);
 	else if (option == 6)
 	{
 		ft_putstr_fd("export: `", STDERR_FILENO);

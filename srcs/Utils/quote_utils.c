@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 11:55:03 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/29 10:29:34 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 10:23:51 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	quote_remover2(char **str, int len)
 	i = 0;
 	j = 0;
 	//(*str)[ft_strlen(*str) + 1] = '\0';
-	while ((*str)[i] != '\0')
+	while (*str && (*str)[i] != '\0')
 	{
 		if (((*str)[i] == '"' && i == 0)
 			|| ((*str)[i] == '"' && (*str)[i - 1] != '\\'))

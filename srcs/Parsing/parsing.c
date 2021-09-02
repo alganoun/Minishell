@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 21:30:25 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/02 09:26:59 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 10:47:48 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ int		input_process2(char **pre_token, t_token **token, char **env)
 		}
 		else
 		{
-			if (redir_finder(&pre_token[i], token) > 0)
+			if (redir_finder(&pre_token[i], token) == -1)
+				return (-1);
+			else if (redir_finder(&pre_token[i], token) > 0)
 				i++;
 			else
 				token_filler(pre_token[i], token, env, 2);
