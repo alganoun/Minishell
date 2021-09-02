@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/30 18:57:22 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 09:35:57 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		pipe_finder(char *str, t_token **token)
 		if (str[i] == '|' && str[i + 1] == '\0')
 		{
 			init_struct(&new);
-			new->operator = ft_strdup(str);
+			new->operator = str;
 			new->next = (*token)->next;
 			(*token)->next = new;
 			return (1);

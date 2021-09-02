@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/24 00:34:05 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/09/02 09:47:25 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,30 @@ ssize_t		write_output(char *str)
 	return ((write(1, str, ft_strlen(str))) + (write(1, "\n", 1)));
 }
 
+int		write_errors2(int option, char *str)
+{
+	if (option == 5)
+		ft_putendl_fd("redirection error detected", STDERR_FILENO);
+	else if (option == 6)
+	{
+		ft_putstr_fd("export: `", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd("' not a valid identifier", STDERR_FILENO);
+	}
+	else if (option == 7)
+	{
+		ft_putstr_fd("export: ", STDERR_FILENO);
+		write(STDERR_FILENO, str, 2);
+		ft_putendl_fd(": not a valid option", STDERR_FILENO);
+	}
+	return (-1);
+}
+
 int		write_errors(int option, char *str)
 {
 	ft_putstr_fd("Minishell: ", STDERR_FILENO);
 	if (option == 1)
-	{
 		ft_putendl_fd("use of unsupported character", STDERR_FILENO);
-	}
 	else if (option == 2)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
@@ -34,14 +51,8 @@ int		write_errors(int option, char *str)
 		ft_putendl_fd("Quotes open, close them", STDERR_FILENO);
 	else if (option == 4)
 		ft_putendl_fd("PATH error", STDERR_FILENO);
-	else if (option == 5)
-		ft_putendl_fd("redirection error detected", STDERR_FILENO);
-	else if (option == 6)
-	{
-		ft_putstr_fd("export: `", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd("' not a valid identifier", STDERR_FILENO);
-	}
+	else if (option > 4)
+		return (write_errors2(option, str));
 	return (-1);
 }
 

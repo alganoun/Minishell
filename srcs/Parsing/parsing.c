@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 21:30:25 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/30 18:56:11 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 09:26:59 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		input_process3(char *pre_token, t_token **token, char **env)
 	init_struct(&new);
 	new->next = (*token)->next->next;
 	(*token)->next->next = new;
-	if (token_filler(pre_token, token, env, 1) == -1)
+	if (token_filler(pre_token, &new, env, 1) == -1)
 		return (-1);
 	*token = new;
 	return (SUCCESS);

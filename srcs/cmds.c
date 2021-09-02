@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 21:21:41 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/28 22:49:55 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 10:01:45 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	exec_builtin(t_token *token, t_shell **shell)
 	else if (ft_strcmp(token->cmd, "export") == 0)
 		export_process(token, &(*shell)->env);
 	else if (ft_strcmp(token->cmd, "unset") == 0)
+	{
 		unset_process(token, &(*shell)->env);
+		printf("TEST = %d\n", g_sig.exit_status);
+	}
 	else if (ft_strcmp(token->cmd, "env") == 0)
 		env_process((*shell)->env);
 	else if (ft_strcmp(token->cmd, "minishell") == 0)
