@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/02 12:56:58 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 13:00:39 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	get_variable_value(char **str, char **env)
 
 	int i;
 	env2 = ft_tabdup(env);
-	reallocate_tab(&env2, ft_strjoin("$?=", ft_itoa(g_sig.exit_status)));
+	reallocate_tab(&env2, ft_strjoin("?=", ft_itoa(g_sig.exit_status)));
 	tab = value_name_tab(env2);
 	i = 0;
 	while(tab[i] != NULL && *str)
@@ -127,4 +127,5 @@ void	get_variable_value(char **str, char **env)
 		i++;
 	}
 	free_tab(&tab);
+	free_tab(&env2);
 }
