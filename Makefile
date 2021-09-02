@@ -62,7 +62,7 @@ $(NAME): $(OBJ)
 
 process: $(OBJ)
 	@$(CC) -lreadline -L /Users/$(USER)/.brew/opt/readline/lib $(FLAGS) $(INC) -o $(NAME) $(OBJ) $(LIBFT)
-	@make clean && echo "\033[0;32mMinishell compilation was succesfull.\033[0m"
+	@echo "\033[0;32mMinishell compilation was succesfull.\033[0m"
 
 %.o: %.c
 	@$(CC) $(FLAGS) $(INC) -o $@ -c $<
