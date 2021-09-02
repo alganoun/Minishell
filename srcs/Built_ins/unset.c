@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 14:42:10 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/02 10:11:32 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 11:22:57 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int static	is_forbiden_name(char *str)
 	i = 0;
 	while (str[i])
 	{
-		printf("CHAR = %c\n", str[i]);
 		if (!ft_isalpha(str[i]))
 		{
 			if (str[i] == '_' || (str[i] == '$' && str[i + 1] == '?')
