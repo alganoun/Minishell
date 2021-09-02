@@ -6,11 +6,23 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:39 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/19 12:57:13 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 13:49:19 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void		status_child(void)
+{
+	if (WIFEXITED(g_sig.pid))
+		g_sig.sigquit = WEXITSTATUS(g_sig.pid);
+	if (WIFSIGNALED(g_sig.pid))
+	{
+		g_sig.sigquit = WTERMSIG(g_sig.pid);
+		if (g_sig.sigquit != 131)
+			g_sig.sigquit += 128;
+	}
+}
 
 char	*build_line(char **tab, char *line)
 {
@@ -118,4 +130,5 @@ void	exec_cmd_fork(t_token *token, t_shell **shell)
 		exit_prog(&token, NULL, token->ret);
 	}
 	wait(&g_sig.pid);
+	status_child();
 }

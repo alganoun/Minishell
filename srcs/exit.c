@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:22:24 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/29 00:04:34 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/02 13:50:00 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	ft_strisnum(const char *str)
 
 void	exit_prog(t_token **token, char *exit_message, long status)
 {
+	g_sig.exit_status = status;
 	if (token)
 		free_struct(token);
 	if (exit_message)
@@ -43,15 +44,9 @@ void	exit_prog(t_token **token, char *exit_message, long status)
 char**	quote_remover_exit(t_token *token)
 {
 	if (token->arg)
-	{
-		//quote_remover(&token->arg[0], &token);
 		return (token->arg);
-	}
 	else if (token->option)
-	{
-		//quote_remover(&token->option[0], &token);
 		return (token->option);
-	}
 	return (NULL);
 }
 
