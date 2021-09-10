@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 21:30:25 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/02 11:09:53 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/06 20:58:40 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int		token_filler(char *pre_token, t_token **token, char **env, int option)
 {
-	get_variable_value(&pre_token, env);
+	if (ft_strchr(pre_token, '$') != NULL)
+		get_variable_value(&pre_token, env);
 	if (quote_remover(&pre_token) == -1)
 		return (-1);
 	if (option == 1)
@@ -67,7 +68,7 @@ int		input_process2(char **pre_token, t_token **token, char **env)
 	return (SUCCESS);
 }
 
-int		input_process(char *line, t_token **token, char **env)
+int		input_process(char **line, t_token **token, char **env)
 {
 	int i;
 	int j;
@@ -75,16 +76,17 @@ int		input_process(char *line, t_token **token, char **env)
 	i = 0;
 	char **pre_token;
 	j = 0;
-	if (space_into_dot(&line) == -1)
+	if (space_into_dot(line) == -1)
 		return (-1);
-	pre_token = ft_split(line, 13);
+	pre_token = ft_split(*line, 13);
 	if (input_process2(pre_token, token, env) == -1)
 		return (-1);
-	//token_cleaning(token);
+	free(pre_token);
+	pre_token = NULL;
 	return (0);
 }
 
-int		parsing(char *line, t_token **token_list, char **env)
+int		parsing(char **line, t_token **token_list, char **env)
 {
 	int		i;
 	t_token	*new;
@@ -96,5 +98,6 @@ int		parsing(char *line, t_token **token_list, char **env)
 	token_add_back(token_list, &new);
 	if (input_process(line, &new, env) == -1)
 		return (-1);
+	safe_free(line);
 	return(0);
 }

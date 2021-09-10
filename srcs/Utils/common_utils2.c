@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   common_utils3.c                                    :+:      :+:    :+:   */
+/*   common_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:07:55 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/24 00:50:54 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/09/09 02:09:32 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*str_export_format(char *str)
 	new_str = ft_malloc(ft_strlen(str) + 3);
 	while (str[i])
 	{
-		if (str[i - 1] == '=')
+		if ( i != 0 && str[i - 1] == '=')
 			new_str[j++] = '"';
 		new_str[j++] = str[i++];
 		if (str[i] == '\0' && ft_strchr(str, '=') != NULL)

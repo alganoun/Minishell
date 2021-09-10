@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/02 11:22:23 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/10 18:15:32 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int		redir_finder(char **tab, t_token **token) // à reduire
 			if ((*token)->redir == NULL)
 			{
 				(*token)->redir = ft_malloc(sizeof(char *) * 3);
-				(*token)->redir[0] = ft_strdup(tab[0]);
-				(*token)->redir[1] = ft_strdup(tab[1]);
+				(*token)->redir[0] = tab[0];
+				(*token)->redir[1] = tab[1];
 				(*token)->redir[2] = NULL;
 			}
 			else

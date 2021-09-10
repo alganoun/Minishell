@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/02 11:41:00 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/10 18:06:48 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ void	minishell(t_shell **shell)
 	while (ret != 0)
 	{
 		get_next_input(&line, (*shell)->env);
-		if (ft_strlen(line) > 0 && parsing(line, &token, (*shell)->env) != -1
+		if (ft_strlen(line) > 0 && parsing(&line, &token, (*shell)->env) != -1
 			&& token->cmd != NULL)
 		{
 			piping(&token);
-			printf_all(token);
+			//printf_all(token);
 			ret = run_process(token, shell);
 			free_struct(&token);
 		}
@@ -121,5 +121,6 @@ int	main(int argc, char **argv, char **env)
 	if (display_txt("banner.txt") == -1)
 		return (-1);
 	minishell(&shell);
+	free_env(&shell);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 08:00:40 by alganoun          #+#    #+#             */
-/*   Updated: 2021/08/30 19:21:34 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/06 12:17:01 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		reallocate_tab(char ***tab, char *str)
 		tmp[i] = (*tab)[i];
 		i++;
 	}
-	tmp[i] = ft_strdup(str);
+	tmp[i] = str;
 	tmp[i + 1] = NULL;
 	free(*tab);
 	*tab = tmp;

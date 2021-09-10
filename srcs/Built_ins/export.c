@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 12:34:34 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/02 09:48:47 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/09 02:12:37 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**export_name_tab(char **env)
 
 int is_forbiden_name2(char *str, int i, int only_assign)
 {
-	while (str[i])
+	while (i != 0 && str[i])
 	{
 		if (str[i] == '=' && only_assign > 0)
 			i--;

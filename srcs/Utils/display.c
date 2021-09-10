@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/02 11:43:24 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/06 18:24:40 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,38 +37,59 @@ int		display_txt(char *str)
 	return (0);
 }
 
+char *prompt2(char **tmp2, char **tmp, char **line)
+{
+	*tmp2 = ft_strjoin(*line, " ");
+	safe_free(line);
+	*line = ft_strjoin(*tmp2, *tmp);
+	safe_free(tmp2);
+	safe_free(tmp);
+	*tmp2 = ft_strjoin(*line, " • ");
+	safe_free(line);
+	return (*tmp2);
+}
+
 char *prompt(char **env)
 {
 	char *tmp;
+	char *tmp2;
 	char *line;
 	size_t len;
 
-	line = ft_strjoin("[", my_getenv("USER", env));
-	line = ft_strjoin(line, "]");
-	tmp = getcwd(NULL, 0);
-	if (ft_strcmp(tmp, ft_strjoin("/Users/", my_getenv("USER", env))) == 0) // il faut faire gaffe à utiliser notre env et pas celui du zsh
-		tmp = "~";
+	tmp2 = ft_strjoin("[", my_getenv("USER", env));
+	line = ft_strjoin(tmp2, "]");
+	safe_free(&tmp2);
+	tmp2 = getcwd(NULL, 0);
+	tmp = ft_strjoin("/Users/", my_getenv("USER", env));
+	if (ft_strcmp(tmp2, tmp) == 0) // il faut faire gaffe à utiliser notre env et pas celui du zsh
+	{	
+		safe_free(&tmp);
+		tmp = ft_strdup("~");
+	}
 	else
 	{
-		len = ft_strlen(tmp);
-		while (tmp[len] != '/')
+		safe_free(&tmp);
+		len = ft_strlen(tmp2);
+		while (tmp2[len] != '/')
 			len--;
-		tmp = &tmp[len + 1];
+		tmp = ft_strdup(&tmp2[len + 1]);
 	}
-	line = ft_strjoin(line, " ");
-	line = ft_strjoin(line, tmp);
-	line = ft_strjoin(line, " • ");
-	return (line);
+	safe_free(&tmp2);
+	return (prompt2(&tmp2, &tmp, &line));
 }
 
 void	get_next_input(char **line, char **env)
 {
-	if (*line != NULL)
-	{
-		safe_free(line);
-		*line = NULL;
-	}
-	*line = readline(prompt(env));
+	char *prompt_line;
+
+	prompt_line = prompt(env);
+	// if (*line != NULL
+	// {
+	// 	safe_free(line);
+	// 	*line = NULL;
+	// }
+	*line = readline(prompt_line);
+	safe_free(&prompt_line);
 	if (!*line)
 		exit (g_sig.exit_status);
 	if (*line && **line)

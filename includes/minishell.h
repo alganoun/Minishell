@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/02 11:40:41 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/06 18:28:02 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int			is_printable_quote(char *str, int i, char c);
 void		printable_quote_cpy(char *str, char **tmp, int *i, int *j);
 void		printable_quote_cpy2(char *str, char **tmp, int *i, int *j);
 int			is_exportable(char *str);
+void		free_env(t_shell **shell);
 
 /*------------DISPLAY---------------*/
 int			display_txt(char *str);
@@ -149,8 +150,8 @@ int			option_finder(char *str, t_token **token);
 int			pipe_finder(char *str, t_token **token);
 int			redir_finder(char **tab, t_token **token);
 void		arg_finder(char *str, t_token **token);
-int			parsing(char *line, t_token **token_list, char **env);
-int			input_process(char *line, t_token **token, char **env);
+int			parsing(char **line, t_token **token_list, char **env);
+int			input_process(char **line, t_token **token, char **env);
 int			input_process2(char **pre_token, t_token **token, char **env);
 
 /*------------BUILT-INS---------------*/

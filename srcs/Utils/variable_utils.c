@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/02 13:50:52 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/09 02:06:33 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		is_convertible(char *str, int index)
 	return (SUCCESS);
 }
 
-int		count_to_copy(char *str)
+int		count_to_copy(char *str, char *to_replace)
 {
 	int i;
 	int count;
@@ -50,7 +50,7 @@ int		count_to_copy(char *str)
 	count = 0;
 	while (str && str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && ft_strstr(&(str[i]), to_replace) == &(str[i]))
 			i += variable_len(&str[i]);
 		else
 			count++;
@@ -89,8 +89,8 @@ void	replace_word(char **str, char *name, char *value, char **tab)
 
 	i = 0;
 	j = 0;
-	result = ft_malloc(count_to_copy(*str) + count_word(*str, name)
-			* ft_strlen(value) + 1);
+	result = malloc(count_to_copy(*str, name) + 
+		(count_word(*str, name) * ft_strlen(value)) + 1);
 	while (str && (*str)[i] != '\0')
 	{
 		if ((*str)[i] == '$' && is_convertible(*str, i) == SUCCESS)
@@ -102,23 +102,27 @@ void	replace_word(char **str, char *name, char *value, char **tab)
 				j += ft_strlen(value);
 			}
 			else if (value_existence(&((*str)[i]), tab) == 0)
-				i += variable_len(&((*str)[i])) + 1;
+				i += variable_len(&((*str)[i])); // voir si il ya besoin de rajouter un +1 ou pas
 		}
-		result[j++] = (*str)[i++]; // il faut faire attention à la copie
+		if ((*str)[i] != '\0')
+			result[j++] = (*str)[i++]; // il faut faire attention à la copie
 	}
 	result[j] = '\0';
-	safe_free(str);
+	safe_free(str); // il faut réduire ici
 	*str = result;
+	result = NULL;
 }
 
 void	get_variable_value(char **str, char **env)
 {
 	char **tab;
 	char **env2;
+	char *sig_int;
 
 	int i;
+	sig_int = ft_itoa(g_sig.sigquit);
 	env2 = ft_tabdup(env);
-	reallocate_tab(&env2, ft_strjoin("?=", ft_itoa(g_sig.sigquit)));
+	reallocate_tab(&env2, ft_strjoin("?=", sig_int));
 	tab = value_name_tab(env2);
 	i = 0;
 	while(tab[i] != NULL && *str)
@@ -126,6 +130,7 @@ void	get_variable_value(char **str, char **env)
 		replace_word(str, tab[i], my_getenv(tab[i] + 1, env2), tab);
 		i++;
 	}
+	safe_free(&sig_int);
 	free_tab(&tab);
 	free_tab(&env2);
 }

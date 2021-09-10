@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 15:02:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/02 11:15:00 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/06 18:29:57 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	add_missing_space2(char **str, int count)
 			tmp[j++] = (*str)[i++];
 	}
 	tmp[j] = '\0'; //peut être qu'il faut free ce str
+	safe_free(str);
 	*str = tmp;
 }
 
