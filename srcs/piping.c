@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:47 by musoufi           #+#    #+#             */
-/*   Updated: 2021/08/19 12:59:39 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/18 17:03:32 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ int	fork_process(t_token *token, t_shell **shell, int fdd)
 		child(token, shell, fd, &fdd);
 	wait(&g_sig.pid);
 	pip(&fdd, &fdd, &fd[1], TRUE);
+	status_child();
 	return (fd[0]);
 }

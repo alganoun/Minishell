@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 21:21:41 by musoufi           #+#    #+#             */
-/*   Updated: 2021/09/06 16:20:56 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/18 17:34:13 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,9 @@ void	execution(t_token *token, t_shell **shell, int pipe)
 	else if (is_builtin(token) == FALSE && pipe == FALSE)
 		exec_cmd_fork(token, shell);
 	else
+	{
 		exec_builtin(token, shell);
+		if (token->out || token->in)
+			exit_prog(&token, NULL, g_sig.sigquit);
+	}
 }
