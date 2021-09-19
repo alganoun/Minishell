@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/06 18:28:02 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/19 12:08:06 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ void		exec_cmd(t_token *token, t_shell **shell);
 void		exec_cmd_fork(t_token *token, t_shell **shell);
 void		choose(t_token *token, t_shell **shell, int pipe);
 void		redirection(t_token *token, t_shell **shell, int pipe);
+void		status_child(void);
 
 /*------------SIGNAL&EXIT---------------*/
 void		exit_cmd(t_token *token);

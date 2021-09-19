@@ -6,11 +6,11 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/10 18:15:32 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/19 12:05:38 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int		pipe_finder(char *str, t_token **token)
 {
