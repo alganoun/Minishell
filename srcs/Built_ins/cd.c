@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/09 02:34:46 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/20 17:23:11 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,14 @@ void	replace_old_dir(char **env_str, char *old_dir)
 void	go_to_dir(t_token *token, char ***env)
 {
 		char *dir;
-		char *tild;
-		
+
 		dir = NULL;
-		tild = ft_strjoin("/Users/", my_getenv("USER", *env));
-		if (token->arg == NULL || ft_strcmp(*token->arg, "~") == 0)
-		{
-			if (chdir(tild) != 0)
-				write_cd_errors(token);
-		}
-		else if (ft_strcmp(*token->arg, "-") == 0 || token->arg == NULL)
+		if (ft_strcmp(*token->arg, "-") == 0 || token->arg == NULL)
 		{
 			if (chdir(my_getenv("OLDPWD", *env)) != 0)
 				write_cd_errors(token);
 			if (ft_strcmp(*token->arg, "-") == 0)
-			{	
+			{
 				dir = getcwd(NULL,0);
 				write_output(dir);
 				safe_free(&dir);
@@ -67,7 +60,6 @@ void	go_to_dir(t_token *token, char ***env)
 		}
 		else if (chdir(token->arg[0]) != 0)
 			write_cd_errors(token);
-		safe_free(&tild);
 }
 
 void	cd_process(t_token *token, char ***env)

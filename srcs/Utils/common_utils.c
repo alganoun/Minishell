@@ -6,13 +6,13 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 08:00:40 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/06 12:17:01 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/20 17:02:29 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		space_into_dot(char **str)
+int		space_into_dot(char **str, char **env)
 {
 	int i;
 
@@ -23,6 +23,8 @@ int		space_into_dot(char **str)
 		return (write_errors(REDIR_ERROR, NULL));
 	while ((*str)[i])
 	{
+		if ((*str)[i] == '~')
+			tild_replacer(str, env);
 		if (((*str)[i] == '"' && i == 0)
 			|| ((*str)[i] == '"' && (*str)[i - 1] != '\\'))
 			i = double_quote(*str, i);

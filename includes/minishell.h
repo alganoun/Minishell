@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/19 12:08:06 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/20 17:21:04 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		get_next_input(char **line, char **env);
 int			init_struct(t_token **token);
 void		free_tab(char ***tab);
 void		safe_free(char **str);
-int			space_into_dot(char **str);
+int			space_into_dot(char **str, char **env);
 int			coma_into_dot(char **str);
 int			tablen(char **tab);
 int			reallocate_tab(char ***tab, char *str);
@@ -134,6 +134,7 @@ void		printable_quote_cpy(char *str, char **tmp, int *i, int *j);
 void		printable_quote_cpy2(char *str, char **tmp, int *i, int *j);
 int			is_exportable(char *str);
 void		free_env(t_shell **shell);
+void		tild_replacer(char **str, char **env);
 
 /*------------DISPLAY---------------*/
 int			display_txt(char *str);

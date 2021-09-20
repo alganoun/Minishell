@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 01:40:44 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/28 22:24:59 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/20 17:22:18 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,30 @@ void	pipechev_missing_space(char **str, char **tmp, int *i, int *j)
 		(*tmp)[(*j)++] = ' ';
 	(*tmp)[(*j)++] = (*str)[(*i)++];
 	(*tmp)[(*j)++] = ' ';
+}
+
+void	tild_replacer(char **str, char **env)
+{
+	int i;
+	int j;
+	char *new_str;
+	char *tild;
+
+	i = 0;
+	j = 0;
+	tild = ft_strjoin("/Users/", my_getenv("USER", env));
+	new_str = ft_malloc(ft_strlen(tild) + ft_strlen(*str) + 1);
+	while (str && (*str)[i])
+	{
+		if ((*str)[i] == '~')
+		{
+			ft_strcpy(&new_str[j], tild);
+			j += ft_strlen(tild);
+			i++;
+		}
+		new_str[j++] = (*str)[i++];
+	}
+	new_str[j] = '\0';
+	safe_free(str);
+	*str = new_str;
 }
