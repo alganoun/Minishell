@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/02 11:13:05 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/19 15:51:16 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		write_errors2(int option, char *str)
 		else
 			ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("'", STDERR_FILENO);
+		g_sig.exit_status = 2;
 	}
 	else if (option == 6)
 	{
@@ -48,12 +49,12 @@ int		write_errors(int option, char *str)
 	ft_putstr_fd("Minishell: ", STDERR_FILENO);
 	if (option == 1)
 		ft_putendl_fd("use of unsupported character", STDERR_FILENO);
-	else if (option == 2)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": command not found", STDERR_FILENO);
-		//return (0);
-	}
+	// else if (option == 2)
+	// {
+	// 	ft_putstr_fd(str, STDERR_FILENO);
+	// 	ft_putendl_fd(": command not found", STDERR_FILENO);
+	// 	//return (0);
+	// }
 	else if (option == 3)
 		ft_putendl_fd("Quotes open, close them", STDERR_FILENO);
 	else if (option == 4)
@@ -74,7 +75,10 @@ int	fd_write_errors(char *cmd)
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	if (ft_strchr(cmd, '/') == NULL)
+	{
 		ft_putendl_fd(": command not found", STDERR_FILENO);
+		ret = 127;
+	}
 	else if (fd == -1 && dir == NULL)
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	else if (fd == -1 && dir != NULL)
