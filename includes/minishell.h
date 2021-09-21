@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/22 00:08:22 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/22 00:15:13 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define PATH_ERROR		4
 # define REDIR_ERROR	5
 # define VAR_NOT_FOUND	6
-# define ERROR7			7
+# define NOT_VALID_OPT	7
 # define NOFILEORDIR	8
 # define IS_DIRECTORY	9
 # define PERM_DENIED	10
