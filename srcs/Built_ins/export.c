@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 12:34:34 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/09 02:12:37 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/22 00:13:35 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int		export_process(t_token *token, char ***env)
 	i = 0;
 	tab = export_name_tab(*env);
 	if (token->option)
-		return (write_errors(7, token->option[0]));
+		return (write_errors(NOT_VALID_OPT, token->option[0]));
 	if (token->arg == NULL || token->arg[0][0] == '\0')
 			print_sorted_tab(*env);
 	else

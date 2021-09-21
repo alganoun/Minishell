@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/19 15:51:16 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/22 00:13:19 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,25 @@ ssize_t		write_output(char *str)
 	return ((write(1, str, ft_strlen(str))) + (write(1, "\n", 1)));
 }
 
+int		write_errors3(int option)
+{
+	if (option == NOFILEORDIR)
+	{
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+		g_sig.exit_status = 127;
+	}
+	else if (option == IS_DIRECTORY)
+		ft_putendl_fd(": is a directory", STDERR_FILENO);
+	else if (option == PERM_DENIED)
+		ft_putendl_fd(": Permission denied", STDERR_FILENO);
+	if (option > 8)
+		g_sig.exit_status = 126;
+	return (-1);
+}
+
 int		write_errors2(int option, char *str)
 {
-	if (option == 5)
+	if (option == REDIR_ERROR)
 	{
 		ft_putstr_fd("syntax error near unexpected token `",STDERR_FILENO);
 		if(str[0] == '>' || str[0] == '<')
@@ -29,35 +45,37 @@ int		write_errors2(int option, char *str)
 		ft_putendl_fd("'", STDERR_FILENO);
 		g_sig.exit_status = 2;
 	}
-	else if (option == 6)
+	else if (option == VAR_NOT_FOUND)
 	{
 		ft_putstr_fd("export: `", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("' not a valid identifier", STDERR_FILENO);
 	}
-	else if (option == 7)
+	else if (option == NOT_VALID_OPT)
 	{
 		ft_putstr_fd("export: ", STDERR_FILENO);
 		write(STDERR_FILENO, str, 2);
 		ft_putendl_fd(": not a valid option", STDERR_FILENO);
 	}
+	else if (option > 7)
+		return (write_errors3(option));
 	return (-1);
 }
 
 int		write_errors(int option, char *str)
 {
 	ft_putstr_fd("Minishell: ", STDERR_FILENO);
-	if (option == 1)
+	if (option == BAD_CHAR)
 		ft_putendl_fd("use of unsupported character", STDERR_FILENO);
-	// else if (option == 2)
-	// {
-	// 	ft_putstr_fd(str, STDERR_FILENO);
-	// 	ft_putendl_fd(": command not found", STDERR_FILENO);
-	// 	//return (0);
-	// }
-	else if (option == 3)
+	else if (option == WRONG_CMD)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
+		g_sig.exit_status = 127;
+	}
+	else if (option == BAD_QUOTES)
 		ft_putendl_fd("Quotes open, close them", STDERR_FILENO);
-	else if (option == 4)
+	else if (option == PATH_ERROR)
 		ft_putendl_fd("PATH error", STDERR_FILENO);
 	else if (option > 4)
 		return (write_errors2(option, str));
@@ -75,20 +93,13 @@ int	fd_write_errors(char *cmd)
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	if (ft_strchr(cmd, '/') == NULL)
-	{
-		ft_putendl_fd(": command not found", STDERR_FILENO);
-		ret = 127;
-	}
+		write_errors(WRONG_CMD, cmd);
 	else if (fd == -1 && dir == NULL)
-		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+		write_errors(NOFILEORDIR, cmd);
 	else if (fd == -1 && dir != NULL)
-		ft_putendl_fd(": is a directory", STDERR_FILENO);
+		write_errors(IS_DIRECTORY, cmd);
 	else if (fd != -1 && dir == NULL)
-		ft_putendl_fd(": Permission denied", STDERR_FILENO);
-	if (ft_strchr(cmd, '/') == NULL || (fd == -1 && dir == NULL))
-		ret = 127;
-	else
-		ret = 126;
+		write_errors(PERM_DENIED, cmd);
 	if (dir)
 		closedir(dir);
 	if (fd > 0)
