@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/22 00:15:13 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/22 00:22:13 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void		tild_replacer(char **str, char **env);
 int			display_txt(char *str);
 ssize_t		write_output(char *str);
 int			write_errors(int option, char *str);
-int			fd_write_errors(char *cmd);
+void		fd_write_errors(char *cmd);
 int			write_exec_errors(void);
 
 /*------------PARSING---------------*/
@@ -181,7 +181,7 @@ void		status_child(void);
 
 /*------------SIGNAL&EXIT---------------*/
 void		exit_cmd(t_token *token);
-void		exit_prog(t_token **token, char *exit_message, long status);
+void		exit_prog(t_token **token, char *exit_message, int status);
 void		sig_int(int code);
 void		sig_quit(int code);
 void		sig_init(void);

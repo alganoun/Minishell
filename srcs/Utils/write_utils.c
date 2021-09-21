@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/22 00:13:19 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/22 00:16:23 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,10 @@ int		write_errors(int option, char *str)
 	return (-1);
 }
 
-int	fd_write_errors(char *cmd)
+void	fd_write_errors(char *cmd)
 {
 	DIR	*dir;
 	int	fd;
-	int	ret;
 
 	fd = open(cmd, O_WRONLY);
 	dir = opendir(cmd);
@@ -104,7 +103,6 @@ int	fd_write_errors(char *cmd)
 		closedir(dir);
 	if (fd > 0)
 		close(fd);
-	return (ret);
 }
 
 int		write_variable(char *str, char c, char **env)
