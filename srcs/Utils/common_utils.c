@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 08:00:40 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/20 17:02:29 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/24 18:50:38 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		space_into_dot(char **str, char **env)
 		return (write_errors(REDIR_ERROR, NULL));
 	while ((*str)[i])
 	{
-		if ((*str)[i] == '~')
+		if ((*str)[i] == '~' && ((*str)[i + 1] == ' ' || (*str)[i + 1] == '/'
+			|| (*str)[i + 1] == '\0'))
 			tild_replacer(str, env);
 		if (((*str)[i] == '"' && i == 0)
 			|| ((*str)[i] == '"' && (*str)[i - 1] != '\\'))
@@ -52,8 +53,7 @@ int		variable_len(char *str)
 		if (str[i] == '$')
 		{
 			i++;
-			while (str[i] && (str[i] < 32 || str[i] > 47)
-				&& (str[i] < 58 || str[i] > 64) )
+			while (str[i] && (str[i] < 32 || str[i] > 64))
 			{
 				count++;
 				i++;

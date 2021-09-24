@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/09 02:06:33 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/24 17:59:01 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,16 @@ int		count_word(char *str, char *to_replace)
 	return (count);
 }
 
-void	replace_word(char **str, char *name, char *value, char **tab)
+int		replace_word(char **str, char *name, char *value, char **tab)
 {
 	int i;
 	int j;
+	int ret;
 	char *result;
 
 	i = 0;
 	j = 0;
+	ret = 0;
 	result = malloc(count_to_copy(*str, name) + 
 		(count_word(*str, name) * ft_strlen(value)) + 1);
 	while (str && (*str)[i] != '\0')
@@ -97,9 +99,10 @@ void	replace_word(char **str, char *name, char *value, char **tab)
 		{
 			if (ft_strstr(&((*str)[i]), name) == &((*str)[i]))
 			{
-				ft_strcpy(&result[j], value);
+				ft_strcpy(&result[j], value); // reduire ici aussi
 				i += ft_strlen(name);
 				j += ft_strlen(value);
+				ret = 1;
 			}
 			else if (value_existence(&((*str)[i]), tab) == 0)
 				i += variable_len(&((*str)[i])); // voir si il ya besoin de rajouter un +1 ou pas
@@ -111,6 +114,7 @@ void	replace_word(char **str, char *name, char *value, char **tab)
 	safe_free(str); // il faut réduire ici
 	*str = result;
 	result = NULL;
+	return (ret);
 }
 
 void	get_variable_value(char **str, char **env)
@@ -127,7 +131,8 @@ void	get_variable_value(char **str, char **env)
 	i = 0;
 	while(tab[i] != NULL && *str)
 	{
-		replace_word(str, tab[i], my_getenv(tab[i] + 1, env2), tab);
+		if (replace_word(str, tab[i], my_getenv(tab[i] + 1, env2), tab) == 1)
+			i = -1;
 		i++;
 	}
 	safe_free(&sig_int);
