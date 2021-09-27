@@ -34,6 +34,7 @@ SRCS		= ./srcs/Utils/common_utils.c \
 				./srcs/exit.c \
 				./srcs/exec_utils.c \
 				./srcs/redirection.c \
+				./srcs/redirection2.c \
 				./srcs/Built_ins/pwd.c \
 				./srcs/Built_ins/env.c \
 				./srcs/Built_ins/export.c \
