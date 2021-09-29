@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/22 00:16:23 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/29 23:26:14 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ void	fd_write_errors(char *cmd)
 
 	fd = open(cmd, O_WRONLY);
 	dir = opendir(cmd);
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
 	if (ft_strchr(cmd, '/') == NULL)
 		write_errors(WRONG_CMD, cmd);
 	else if (fd == -1 && dir == NULL)
