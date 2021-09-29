@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:39 by musoufi           #+#    #+#             */
-/*   Updated: 2021/09/22 00:18:46 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/29 23:55:36 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,20 @@ char	**bin(t_shell **shell, char *cmd)
 	return (tab);
 }
 
+void	skip_bin(t_token *token)
+{
+	char 		*needle;
+	int			len;
+
+	needle = ft_strnstr(token->cmd, "/bin/", 5);
+	if (needle != NULL)
+	{
+		len = ft_strlen(needle + 5);
+		free(token->cmd);
+		token->cmd = ft_strdup(needle + 5);
+	}
+}
+
 void	exec_cmd(t_token *token, t_shell **shell)
 {
 	int			i;
@@ -91,6 +105,7 @@ void	exec_cmd(t_token *token, t_shell **shell)
 	struct stat	buf;
 
 	i = 0;
+	skip_bin(token);
 	cmd = build_cmd(token);
 	tab = bin(shell, cmd[0]);
 	if (tab == NULL)
@@ -105,14 +120,16 @@ void	exec_cmd(t_token *token, t_shell **shell)
 	exit_prog(&token, NULL, -1);
 }
 
+
 void	exec_cmd_fork(t_token *token, t_shell **shell)
 {
 	int			i;
 	char		**tab;
 	char		**cmd;
-	struct stat	buf;
 
+	struct stat	buf;
 	i = 0;
+	skip_bin(token);
 	cmd = build_cmd(token);
 	tab = bin(shell, cmd[0]);
 	g_sig.pid = fork();
