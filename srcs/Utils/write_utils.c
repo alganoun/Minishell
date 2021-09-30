@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/22 00:16:23 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/30 17:01:52 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ ssize_t		write_output(char *str)
 	return ((write(1, str, ft_strlen(str))) + (write(1, "\n", 1)));
 }
 
-int		write_errors3(int option)
+int		write_errors3(int option, char *str)
 {
 	if (option == NOFILEORDIR)
 	{
@@ -28,6 +28,13 @@ int		write_errors3(int option)
 		ft_putendl_fd(": is a directory", STDERR_FILENO);
 	else if (option == PERM_DENIED)
 		ft_putendl_fd(": Permission denied", STDERR_FILENO);
+	else if (option == REDIR_ERROR2)
+	{
+		ft_putstr_fd("syntax error near unexpected token `",STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd("'", STDERR_FILENO);
+		g_sig.exit_status = 2;
+	}
 	if (option > 8)
 		g_sig.exit_status = 126;
 	return (-1);
@@ -38,7 +45,7 @@ int		write_errors2(int option, char *str)
 	if (option == REDIR_ERROR)
 	{
 		ft_putstr_fd("syntax error near unexpected token `",STDERR_FILENO);
-		if(str[0] == '>' || str[0] == '<')
+		if(str[0] == '|')
 			ft_putstr_fd("newline", STDERR_FILENO);
 		else
 			ft_putstr_fd(str, STDERR_FILENO);
@@ -58,7 +65,7 @@ int		write_errors2(int option, char *str)
 		ft_putendl_fd(": not a valid option", STDERR_FILENO);
 	}
 	else if (option > 7)
-		return (write_errors3(option));
+		return (write_errors3(option, str));
 	return (-1);
 }
 
@@ -89,8 +96,8 @@ void	fd_write_errors(char *cmd)
 
 	fd = open(cmd, O_WRONLY);
 	dir = opendir(cmd);
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
+	//ft_putstr_fd("minishell: ", STDERR_FILENO);
+	//ft_putstr_fd(cmd, STDERR_FILENO);
 	if (ft_strchr(cmd, '/') == NULL)
 		write_errors(WRONG_CMD, cmd);
 	else if (fd == -1 && dir == NULL)

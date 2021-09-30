@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/27 15:35:43 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/09/29 19:37:26 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define NOFILEORDIR	8
 # define IS_DIRECTORY	9
 # define PERM_DENIED	10
+# define REDIR_ERROR2	11
 # define BUFFER_SIZE	1024
 # define EXIT_MSG	"\n[Process completed]"
 

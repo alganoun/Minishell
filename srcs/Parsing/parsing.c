@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 21:30:25 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/20 17:02:10 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/30 16:49:15 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ int		input_process2(char **pre_token, t_token **token, char **env)
 	int i;
 
 	i = 1;
-	if (token_filler(pre_token[0], token, env, 1) == -1)
+	if (ft_strlen(pre_token[0]) > 0 &&
+		token_filler(pre_token[0], token, env, 1) == -1)
 		return (-1);
-	while (pre_token && pre_token[i] != NULL)
+	while (pre_token && pre_token[i] != NULL && ft_strlen(pre_token[i]) > 0)
 	{
 		if (pipe_finder(pre_token[i], token) == 1)
 		{
@@ -58,7 +59,9 @@ int		input_process2(char **pre_token, t_token **token, char **env)
 		}
 		else
 		{
-			if (redir_finder(&pre_token[i], token) > 0)
+			if (redir_finder(&pre_token[i], token) == - 1)
+				return (-1);
+			else if (redir_finder(&pre_token[i], token) > 0)
 				i++;
 			else
 				token_filler(pre_token[i], token, env, 2);

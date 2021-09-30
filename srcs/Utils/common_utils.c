@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 08:00:40 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/24 18:50:38 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/30 17:13:27 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int		space_into_dot(char **str, char **env)
 	i = 0;
 	if (add_missing_space(str) == -1)
 		return (-1);
-	if (*str == NULL)
-		return (write_errors(REDIR_ERROR, NULL));
+	//if (*str == NULL)
+	//	return (write_errors(REDIR_ERROR, NULL));
 	while ((*str)[i])
 	{
 		if ((*str)[i] == '~' && ((*str)[i + 1] == ' ' || (*str)[i + 1] == '/'
@@ -67,7 +67,9 @@ int		variable_len(char *str)
 
 int		is_redir(char *str)
 {
-	int i = 0;
+	int i;
+
+	i = 0;
 	while (str[i] > 47 && str[i] < 58)
 		i++;
 	if ((str[i] == '>' && str[i + 1] == '\0')

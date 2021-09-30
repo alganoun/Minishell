@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 15:02:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/06 18:29:57 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/30 15:51:25 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,11 @@ int		add_missing_space_op(char **str, int *i, int *count)
 	j = *i;
 	while ((*str)[j + 1] == ' ')
 		j++;
-	if ((*str)[j + 1] == '\0')
+	if ((*str)[*i] == '|' && (*str)[j + 1] == '\0')
 		return (write_errors(REDIR_ERROR, &((*str)[*i])));
 	(*count)++;
 	chev_fd(*str, *i, count);
 	return (0);
-
 }
 
 int		add_missing_space(char **str)

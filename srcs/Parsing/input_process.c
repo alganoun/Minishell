@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/19 12:05:38 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/09/30 17:16:53 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ int		pipe_finder(char *str, t_token **token)
 	return (0);
 }
 
+void	redir_finder2(char **tab, t_token **token)
+{
+	(*token)->redir = ft_malloc(sizeof(char *) * 3);
+	(*token)->redir[0] = tab[0];
+	(*token)->redir[1] = tab[1];
+	(*token)->redir[2] = NULL;
+}
+
 int		redir_finder(char **tab, t_token **token) // à reduire
 {
 	int i;
@@ -44,14 +52,11 @@ int		redir_finder(char **tab, t_token **token) // à reduire
 		if (is_redir(tab[i]) == 1)
 		{
 			if (tab[i + 1] == NULL || ft_strlen(tab[i + 1]) < 1)
-				return (write_errors(REDIR_ERROR, NULL));
+				return (write_errors(REDIR_ERROR, "newline"));
+			else if (tab[i + 1][0] == '>' || tab[i + 1][0] == '<')
+				return (write_errors(REDIR_ERROR, &(tab[i + 1][0])));
 			if ((*token)->redir == NULL)
-			{
-				(*token)->redir = ft_malloc(sizeof(char *) * 3);
-				(*token)->redir[0] = tab[0];
-				(*token)->redir[1] = tab[1];
-				(*token)->redir[2] = NULL;
-			}
+				redir_finder2(tab, token);
 			else
 			{
 				reallocate_tab(&((*token)->redir), tab[0]);
