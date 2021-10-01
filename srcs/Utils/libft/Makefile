@@ -1,75 +1,109 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/08/18 12:51:25 by alganoun          #+#    #+#              #
-#    Updated: 2021/08/22 03:57:28 by allanganoun      ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# Colors
+GREY = \033[4;34m
+RED = \033[1;31m
+GREEN = \033[3;32m
+YELLOW = \033[2;49;33m
+BLUE = \033[4;34m
+BLUEE = \033[3;34m
+PURPLE = \033[3;35m
+CYAN = \033[3;36m
+RESET = \033[0m
+ICONOK = \033[1;32m
+ICONKO = \033[1;31m
+CO_DELET = \033[3;31m
+CO_A_OUT = \033[96m
+WHITE = \033[1;49;97m
 
+NAME = libft.a
 
-NAME	= libft.a
+HEADER = ./Includes
 
-HEAD	= ./libft.h
+CC = gcc
 
-SRCS	= ./ft_atoi.c ./ft_bzero.c \
-			./ft_calloc.c ./ft_isalnum.c \
-			./ft_isalpha.c ./ft_isascii.c \
-			./ft_isdigit.c ./ft_isprint.c ./ft_itoa.c \
-			./ft_memccpy.c ./ft_memchr.c \
-			./ft_memcmp.c ./ft_memcpy.c \
-			./ft_memmove.c ./ft_memset.c \
-			./ft_putchar_fd.c ./ft_putendl_fd.c \
-			./ft_putnbr_fd.c ./ft_putstr_fd.c \
-			./ft_split.c ./ft_strchr.c ./ft_strcpy.c \
-			./ft_strdup.c ./ft_strjoin.c \
-			./ft_strlcat.c ./ft_strlcpy.c \
-			./ft_strlen.c ./ft_strmapi.c \
-			./ft_strncmp.c ./ft_strnstr.c ./ft_strstr.c \
-			./ft_strcmp.c ./ft_strrchr.c ./ft_strtrim.c \
-			./ft_substr.c ./ft_tolower.c \
-			./ft_toupper.c \
-			./ft_rm_whitespace.c \
-			./ft_malloc.c ./ft_tablen.c \
-			./ft_tabdup.c \
-			./get_next_line.c
+L = srcs/
 
+SRCS =	$(L)ft_utils.c \
+		$(L)ft_utils2.c \
+		$(L)atoi_numb.c \
+		$(L)ft_isalnum.c \
+		$(L)ft_isalpha.c \
+		$(L)ft_isascii.c \
+		$(L)ft_isdigit.c \
+		$(L)ft_isprint.c \
+		$(L)ft_tolower.c \
+		$(L)ft_toupper.c \
+		$(L)ft_bzero.c \
+		$(L)ft_memchr.c \
+		$(L)ft_memcpy.c \
+		$(L)ft_memmove.c \
+		$(L)ft_memset.c \
+		$(L)ft_memcmp.c \
+		$(L)ft_calloc.c \
+		$(L)ft_strdup.c \
+		$(L)ft_strlcat.c \
+		$(L)ft_strcpy.c \
+		$(L)ft_strlcpy.c \
+		$(L)ft_strlen.c \
+		$(L)ft_strstr.c \
+		$(L)ft_strnstr.c \
+		$(L)ft_strrchr.c \
+		$(L)ft_strchr.c \
+		$(L)ft_strncmp.c \
+		$(L)ft_atoi.c \
+		$(L)ft_substr.c \
+		$(L)ft_strjoin.c \
+		$(L)ft_strtrim.c \
+		$(L)ft_split.c \
+		$(L)ft_itoa.c \
+		$(L)ft_strmapi.c \
+		$(L)ft_putchar_fd.c \
+		$(L)ft_putchar_fd.c \
+		$(L)ft_putendl_fd.c \
+		$(L)ft_putnbr_fd.c \
+		$(L)ft_putstr_fd.c \
+		$(L)ft_memccpy.c \
+		$(L)ft_lstnew.c \
+		$(L)ft_lstadd_front.c \
+		$(L)ft_lstsize.c \
+		$(L)ft_lstlast.c \
+		$(L)ft_lstadd_back.c \
+		$(L)ft_lstdelone.c \
+		$(L)ft_lstclear.c \
+		$(L)ft_lstiter.c \
+		$(L)ft_lstmap.c \
+		$(L)get_next_line.c \
+		$(L)ft_malloc.c \
+		$(L)ft_tabdup.c \
+		$(L)ft_tablen.c \
 
-BONUS	= ./ft_lstadd_front_bonus.c ./ft_lstnew_bonus.c \
-			./ft_lstsize_bonus.c ./ft_lstlast_bonus.c \
-			./ft_lstadd_back_bonus.c ./ft_lstmap_bonus.c \
-			./ft_lstiter_bonus.c ./ft_lstdelone_bonus.c \
-			./ft_lstclear_bonus.c
+OBJS = $(SRCS:.c=.o)
 
-OBJS	= ${SRCS:.c=.o}
+CFLAGS = -Wall -Wextra -Werror
 
-OBJBNUS = ${BONUS:.c=.o}
+all:	$(NAME)
 
-CC 		= gcc -Wall -Wextra -Werror
+%.o: %.c $(HEADER)
+			@printf "\033[2K\r$(PURPLE)$<: $(CYAN)loading..$(RESET)"
+			@gcc $(CFLAGS) -c $< -o $@
 
-RM		= rm -f
-
-all: ${NAME}
-
-$(OBJS) : ${HEAD}
-
-$(OBJBNUS) : ${OBJ} ${HEAD}
-
-$(NAME): ${OBJS}
-		ar rc ${NAME} ${OBJS}
-
-bonus: ${OBJBNUS} ${OBJS}
-		ar rc ${NAME} ${OBJS} ${OBJBNUS}
+$(NAME): $(OBJS) $(HEADER)
+		@ar rcs $(NAME) $(OBJS)
+		@printf "\033[2K\r$(BLUE)$(NAME)$(RESET)$(BLUEE): $(ICONOK)Success [√]$(RESET)\n"
 
 clean:
-		${RM} ${OBJS} ${OBJBNUS}
+		@$(RM) $(OBJS)
 
-fclean: clean
-		${RM} ${NAME}
+fclean:
+		@$(RM) $(OBJS)
+		@$(RM) $(NAME)
 
-re: fclean all
+re : fclean all
 
-.PHONY: all clean fclean re
+help :
+		@printf "\n$(GREY)Welcome to my Makefile.$(RESET)\n\n"
+		@printf "$(YELLOW)all              $(RESET)$(WHITE) - run compilation of libftprintf.a  \n\n"
+		@printf "$(YELLOW)clean            $(RESET)$(WHITE) - delete all .o (OBJS) \n\n"
+		@printf "$(YELLOW)fclean           $(RESET)$(WHITE) - delete all .o (OBJS) and libftprintf.a \n\n"
+		@printf "$(YELLOW)re               $(RESET)$(WHITE) - do fclean and all\n\n"
+
+.PHONY: all clean fclean re help

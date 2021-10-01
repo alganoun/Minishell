@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/06 18:24:40 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 19:01:46 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		display_txt(char *str)
+int	display_txt(char *str)
 {
-	int fd;
-	int ret;
-	char *line;
-	ret = 1;
+	int		fd;
+	int		ret;
+	char	*line;
 
+	ret = 1;
 	fd = open(str, O_RDONLY);
 	if (fd > 0)
 	{
-		while(ret > 0)
+		while (ret > 0)
 		{
 			ret = get_next_line(fd, &line);
 			write_output(line);
@@ -37,7 +37,7 @@ int		display_txt(char *str)
 	return (0);
 }
 
-char *prompt2(char **tmp2, char **tmp, char **line)
+char	*prompt2(char **tmp2, char **tmp, char **line)
 {
 	*tmp2 = ft_strjoin(*line, " ");
 	safe_free(line);
@@ -49,19 +49,19 @@ char *prompt2(char **tmp2, char **tmp, char **line)
 	return (*tmp2);
 }
 
-char *prompt(char **env)
+char	*prompt(char **env)
 {
-	char *tmp;
-	char *tmp2;
-	char *line;
-	size_t len;
+	char	*tmp;
+	char	*tmp2;
+	char	*line;
+	size_t	len;
 
 	tmp2 = ft_strjoin("[", my_getenv("USER", env));
 	line = ft_strjoin(tmp2, "]");
 	safe_free(&tmp2);
 	tmp2 = getcwd(NULL, 0);
 	tmp = ft_strjoin("/Users/", my_getenv("USER", env));
-	if (ft_strcmp(tmp2, tmp) == 0) // il faut faire gaffe à utiliser notre env et pas celui du zsh
+	if (ft_strcmp(tmp2, tmp) == 0)
 	{	
 		safe_free(&tmp);
 		tmp = ft_strdup("~");
@@ -80,14 +80,9 @@ char *prompt(char **env)
 
 void	get_next_input(char **line, char **env)
 {
-	char *prompt_line;
+	char	*prompt_line;
 
 	prompt_line = prompt(env);
-	// if (*line != NULL
-	// {
-	// 	safe_free(line);
-	// 	*line = NULL;
-	// }
 	*line = readline(prompt_line);
 	safe_free(&prompt_line);
 	if (!*line)

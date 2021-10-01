@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 01:40:44 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/20 17:22:18 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 19:36:39 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	squote_missing_space(char **str, char **tmp, int *i, int *j)
 
 void	dchev_missing_space(char **str, char **tmp, int *i, int *j)
 {
-	int a;
+	int	a;
 
 	a = *i;
 	while (a > 0 && (*str)[a - 1] > 47 && (*str)[a - 1] < 58)
@@ -52,7 +52,7 @@ void	dchev_missing_space(char **str, char **tmp, int *i, int *j)
 
 void	pipechev_missing_space(char **str, char **tmp, int *i, int *j)
 {
-	int a;
+	int	a;
 
 	a = *i;
 	while (a > 0 && (*str)[a - 1] > 47 && (*str)[a - 1] < 58)
@@ -65,10 +65,10 @@ void	pipechev_missing_space(char **str, char **tmp, int *i, int *j)
 
 void	tild_replacer(char **str, char **env)
 {
-	int i;
-	int j;
-	char *new_str;
-	char *tild;
+	int		i;
+	int		j;
+	char	*new_str;
+	char	*tild;
 
 	i = 0;
 	j = 0;

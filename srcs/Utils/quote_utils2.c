@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   quote_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 22:11:43 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/29 11:11:07 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 20:04:01 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		simple_quote(char *str, int i)
+int	simple_quote(char *str, int i)
 {
 	i++;
 	while (str[i] && str[i] != '\'')
@@ -22,7 +22,7 @@ int		simple_quote(char *str, int i)
 	return (i);
 }
 
-int		double_quote(char *str, int i)
+int	double_quote(char *str, int i)
 {
 	i++;
 	while (str[i] && str[i] != '"')
@@ -36,18 +36,18 @@ int		double_quote(char *str, int i)
 	return (i);
 }
 
-int		is_printable_quote(char *str, int i, char c)
+int	is_printable_quote(char *str, int i, char c)
 {
 	if ((str[i] != c && str[i] != '\\')
 		|| (str[i] == '\\' && str[i + 1] != c)
-			|| (str[i] == c && str[i - 1] == '\\'))
+		|| (str[i] == c && str[i - 1] == '\\'))
 		return (SUCCESS);
 	return (FALSE);
 }
 
 void	printable_quote_cpy(char *str, char **tmp, int *i, int *j)
 {
-	int quit;
+	int	quit;
 
 	quit = 0;
 	(*i)++;
@@ -64,13 +64,12 @@ void	printable_quote_cpy(char *str, char **tmp, int *i, int *j)
 
 void	printable_quote_cpy2(char *str, char **tmp, int *i, int *j)
 {
-	int quit;
+	int	quit;
 
 	quit = 0;
 	(*i)++;
 	while (str[*i] && quit == 0)
 	{
-
 		if (str[*i] == '\'')
 			quit = 1;
 		else

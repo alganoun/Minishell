@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:07:55 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/09 02:09:32 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 19:00:10 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 char	*str_export_format(char *str)
 {
-	int i;
-	int j;
-	char *new_str;
+	int		i;
+	int		j;
+	char	*new_str;
 
 	i = 0;
 	j = 0;
 	new_str = ft_malloc(ft_strlen(str) + 3);
 	while (str[i])
 	{
-		if ( i != 0 && str[i - 1] == '=')
+		if (i != 0 && str[i - 1] == '=')
 			new_str[j++] = '"';
 		new_str[j++] = str[i++];
 		if (str[i] == '\0' && ft_strchr(str, '=') != NULL)
@@ -35,16 +35,16 @@ char	*str_export_format(char *str)
 
 char	*sort_tab_export(char **tab)
 {
-	int i;
-	int j;
-	int k;
+	int	i;
+	int	j;
+	int	k;
 
 	i = 0;
 	j = 1;
 	while (tab[j] != NULL)
 	{
 		k = 0;
-		while(tab[i][k] == tab[j][k])
+		while (tab[i][k] == tab[j][k])
 			k++;
 		if (tab[i][k] > tab[j][k])
 		{
@@ -59,14 +59,14 @@ char	*sort_tab_export(char **tab)
 
 void	reallocate_unsorted_tab(char ***tab, char *str)
 {
-	int i;
-	int j;
-	char **new_tab;
+	int		i;
+	int		j;
+	char	**new_tab;
 
 	i = 0;
 	j = 0;
 	new_tab = malloc(sizeof(char *) * tablen(*tab));
-	while((*tab)[i] != NULL)
+	while ((*tab)[i] != NULL)
 	{
 		if (ft_strcmp((*tab)[i], str) == 0)
 			i++;
@@ -80,10 +80,10 @@ void	reallocate_unsorted_tab(char ***tab, char *str)
 
 void	print_sorted_tab(char **tab)
 {
-	int i;
-	int tab_len;
-	char **tab2;
-	char **tmp;
+	int		i;
+	int		tab_len;
+	char	**tab2;
+	char	**tmp;
 
 	i = 0;
 	tab_len = tablen(tab);
@@ -92,7 +92,7 @@ void	print_sorted_tab(char **tab)
 	while (tab_len > 0)
 	{
 		tmp[i] = ft_strjoin("declare -x ",
-					str_export_format(sort_tab_export(tab2)));
+				str_export_format(sort_tab_export(tab2)));
 		reallocate_unsorted_tab(&tab2, sort_tab_export(tab2));
 		i++;
 		tab_len--;

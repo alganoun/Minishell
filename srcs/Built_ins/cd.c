@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/20 17:23:11 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 17:32:33 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	write_cd_errors(t_token *token)
 
 void	replace_current_dir(char **env_str)
 {
-	char *tmp;
-	char *dir;
+	char	*tmp;
+	char	*dir;
 
 	dir = getcwd(NULL, 0);
 	tmp = ft_strjoin("PWD=", dir);
@@ -34,7 +34,7 @@ void	replace_current_dir(char **env_str)
 
 void	replace_old_dir(char **env_str, char *old_dir)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_strjoin("OLDPWD=", old_dir);
 	safe_free(env_str);
@@ -44,32 +44,31 @@ void	replace_old_dir(char **env_str, char *old_dir)
 
 void	go_to_dir(t_token *token, char ***env)
 {
-		char *dir;
+	char	*dir;
 
-		dir = NULL;
-		if (ft_strcmp(*token->arg, "-") == 0 || token->arg == NULL)
-		{
-			if (chdir(my_getenv("OLDPWD", *env)) != 0)
-				write_cd_errors(token);
-			if (ft_strcmp(*token->arg, "-") == 0)
-			{
-				dir = getcwd(NULL,0);
-				write_output(dir);
-				safe_free(&dir);
-			}
-		}
-		else if (chdir(token->arg[0]) != 0)
+	dir = NULL;
+	if (ft_strcmp(*token->arg, "-") == 0 || token->arg == NULL)
+	{
+		if (chdir(my_getenv("OLDPWD", *env)) != 0)
 			write_cd_errors(token);
+		if (ft_strcmp(*token->arg, "-") == 0)
+		{
+			dir = getcwd(NULL, 0);
+			write_output(dir);
+			safe_free(&dir);
+		}
+	}
+	else if (chdir(token->arg[0]) != 0)
+		write_cd_errors(token);
 }
 
 void	cd_process(t_token *token, char ***env)
 {
-	int i;
-	char *old_dir;
+	int		i;
+	char	*old_dir;
 
 	old_dir = getcwd(NULL, 0);
 	i = 0;
-
 	go_to_dir(token, env);
 	while ((*env)[i] != NULL)
 	{

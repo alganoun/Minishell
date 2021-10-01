@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/29 19:37:26 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 20:24:28 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # include <dirent.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include "../srcs/Utils/libft/libft.h"
+# include "../srcs/Utils/Libft/Includes/libft.h"
 
 # define ID_ECHO 0
 # define ID_CD 1
@@ -140,6 +140,15 @@ void		printable_quote_cpy2(char *str, char **tmp, int *i, int *j);
 int			is_exportable(char *str);
 void		free_env(t_shell **shell);
 void		tild_replacer(char **str, char **env);
+int			check_name(char *name);
+int			is_exportable(char *str);
+char		**export_name_tab(char **env);
+int			is_forbiden_name2(char *str, int i, int only_assign);
+int			is_forbiden_name(char *str);
+int			equal_detection(char *str);
+int			count_to_keep(char *str, char **env);
+int			unset_is_forbiden_name(char *str);
+void		free_replace(char **str, char **new);
 
 /*------------DISPLAY---------------*/
 int			display_txt(char *str);
@@ -179,8 +188,13 @@ void		exec_cmd_fork(t_token *token, t_shell **shell);
 void		choose(t_token *token, t_shell **shell, int pipe);
 void		redirection(t_token *token, t_shell **shell, int pipe);
 int			set_type(char *redir);
-int 		count_redir(char **redir);
+int			count_redir(char **redir);
 void		status_child(void);
+void		status_child(void);
+char		*build_line(char **tab, char *line);
+char		**build_cmd(t_token *token);
+char		**bin(t_shell **shell, char *cmd);
+void		skip_bin(t_token *token);
 
 /*------------SIGNAL&EXIT---------------*/
 void		exit_cmd(t_token *token);
@@ -191,6 +205,3 @@ void		sig_init(void);
 void		sigint(int sig);
 
 #endif
-
-
-// Pour eexport il se pourrait que l'on puisse se passer des $

@@ -10,7 +10,7 @@ FLAGS		=	-Wall -Wextra -Werror
 
 INFO		=	echo "Minishell is compiling..." &&
 
-LIBFT_PATH	=	./srcs/utils/libft
+LIBFT_PATH	=	./srcs/Utils/Libft
 
 LIBFT		=	$(LIBFT_PATH)/libft.a
 
@@ -21,6 +21,7 @@ SRCS		= ./srcs/Utils/common_utils.c \
 				./srcs/Utils/parsing_utils.c \
 				./srcs/Utils/parsing_utils2.c \
 				./srcs/Utils/free_utils.c \
+				./srcs/Utils/free_utils2.c \
 				./srcs/Utils/display.c \
 				./srcs/Utils/struct_utils.c \
 				./srcs/Utils/write_utils.c \
@@ -30,6 +31,7 @@ SRCS		= ./srcs/Utils/common_utils.c \
 				./srcs/minishell.c \
 				./srcs/cmds.c \
 				./srcs/execution.c \
+				./srcs/execution2.c \
 				./srcs/piping.c \
 				./srcs/exit.c \
 				./srcs/exec_utils.c \
@@ -38,7 +40,9 @@ SRCS		= ./srcs/Utils/common_utils.c \
 				./srcs/Built_ins/pwd.c \
 				./srcs/Built_ins/env.c \
 				./srcs/Built_ins/export.c \
+				./srcs/Built_ins/export2.c \
 				./srcs/Built_ins/unset.c \
+				./srcs/Built_ins/unset2.c \
 				./srcs/Built_ins/cd.c \
 				./srcs/Built_ins/echo.c \
 				./srcs/Built_ins/version.c \
@@ -54,7 +58,7 @@ $(OBJ): $(HEAD)
 $(NAME): $(OBJ)
 	@echo "\033[0;35mLibft is compiling" \
 		&& sleep 1  && echo "...\033[0m"
-	@cd ./srcs/utils/libft && make
+	@cd ./srcs/utils/Libft && make
 	@echo "\033[0;32mLibft compilation was succesfull.\033[0m"
 	@cd ..
 	@echo "\033[0;35mMinishell is compiling" \

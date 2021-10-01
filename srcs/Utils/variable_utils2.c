@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 02:13:06 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/02 12:57:36 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 20:10:38 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char *my_getenv(char *name, char **env)
+char	*my_getenv(char *name, char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i] != NULL)
@@ -29,9 +29,9 @@ char *my_getenv(char *name, char **env)
 
 void	add_dollar(char ***tab)
 {
-	int i;
-	int j;
-	char *str;
+	int		i;
+	int		j;
+	char	*str;
 
 	i = 0;
 	while ((*tab)[i] != NULL)
@@ -54,9 +54,9 @@ void	add_dollar(char ***tab)
 
 char	**value_name_tab(char **env)
 {
-	int i;
-	int j;
-	char **tab;
+	int		i;
+	int		j;
+	char	**tab;
 
 	i = 0;
 	tab = ft_tabdup(env);
@@ -72,10 +72,10 @@ char	**value_name_tab(char **env)
 	return (tab);
 }
 
-int		value_existence(char *str, char **tab)
+int	value_existence(char *str, char **tab)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	tmp = ft_strdup(str);
 	i = variable_len(tmp) + 1;

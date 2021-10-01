@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/24 17:59:01 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 20:09:44 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		is_convertible(char *str, int index)
+int	is_convertible(char *str, int index)
 {
-	int begin;
-	int end;
-	int i;
+	int	begin;
+	int	end;
+	int	i;
 
 	begin = -1;
 	end = -1;
@@ -26,8 +26,8 @@ int		is_convertible(char *str, int index)
 		if ((str[i] == '"' && i == 0)
 			|| (str[i] == '"' && str[i - 1] != '\\'))
 			i = double_quote(str, i);
-		if (((str[i] == '\'' && i == 0) || (str[i] == '\'' && str[i - 1] != '\\'))
-			&& begin == -1) // il faut revoir le cas ou le ' est vu comme un caractère
+		if (((str[i] == '\'' && i == 0) || (str[i] == '\''
+					&& str[i - 1] != '\\')) && begin == -1)
 			begin = i;
 		else if (str[i] == '\'' && begin != -1)
 		{
@@ -41,10 +41,10 @@ int		is_convertible(char *str, int index)
 	return (SUCCESS);
 }
 
-int		count_to_copy(char *str, char *to_replace)
+int	count_to_copy(char *str, char *to_replace)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -59,10 +59,10 @@ int		count_to_copy(char *str, char *to_replace)
 	return (count);
 }
 
-int		count_word(char *str, char *to_replace)
+int	count_word(char *str, char *to_replace)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -81,18 +81,18 @@ int		count_word(char *str, char *to_replace)
 	return (count);
 }
 
-int		replace_word(char **str, char *name, char *value, char **tab)
+int	replace_word(char **str, char *name, char *value, char **tab)
 {
-	int i;
-	int j;
-	int ret;
-	char *result;
+	int		i;
+	int		j;
+	int		ret;
+	char	*result;
 
 	i = 0;
 	j = 0;
 	ret = 0;
-	result = malloc(count_to_copy(*str, name) + 
-		(count_word(*str, name) * ft_strlen(value)) + 1);
+	result = malloc(count_to_copy(*str, name)
+			+ (count_word(*str, name) * ft_strlen(value)) + 1);
 	while (str && (*str)[i] != '\0')
 	{
 		if ((*str)[i] == '$' && is_convertible(*str, i) == SUCCESS)
@@ -105,31 +105,29 @@ int		replace_word(char **str, char *name, char *value, char **tab)
 				ret = 1;
 			}
 			else if (value_existence(&((*str)[i]), tab) == 0)
-				i += variable_len(&((*str)[i])); // voir si il ya besoin de rajouter un +1 ou pas
+				i += variable_len(&((*str)[i]));
 		}
 		if ((*str)[i] != '\0')
-			result[j++] = (*str)[i++]; // il faut faire attention à la copie
+			result[j++] = (*str)[i++];
 	}
 	result[j] = '\0';
-	safe_free(str); // il faut réduire ici
-	*str = result;
-	result = NULL;
+	free_replace(str, &result);
 	return (ret);
 }
 
 void	get_variable_value(char **str, char **env)
 {
-	char **tab;
-	char **env2;
-	char *sig_int;
+	char	**tab;
+	char	**env2;
+	char	*sig_int;
+	int		i;
 
-	int i;
 	sig_int = ft_itoa(g_sig.sigquit);
 	env2 = ft_tabdup(env);
 	reallocate_tab(&env2, ft_strjoin("?=", sig_int));
 	tab = value_name_tab(env2);
 	i = 0;
-	while(tab[i] != NULL && *str)
+	while (tab[i] != NULL && *str)
 	{
 		if (replace_word(str, tab[i], my_getenv(tab[i] + 1, env2), tab) == 1)
 			i = -1;

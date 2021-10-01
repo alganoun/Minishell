@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 09:06:00 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/10 18:13:10 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 19:31:26 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	safe_free(char **str)
 
 void	free_tab(char ***tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (*tab != NULL)
@@ -38,7 +38,8 @@ void	free_tab(char ***tab)
 
 void	free_struct(t_token **token)
 {
-	t_token *next;
+	t_token	*next;
+
 	while ((*token)->next != NULL)
 	{
 		safe_free(&((*token))->cmd);
@@ -58,17 +59,4 @@ void	free_struct(t_token **token)
 	free_tab(&((*token))->redir);
 	free((*token));
 	*token = NULL;
-}
-
-void	free_env(t_shell **shell)
-{
-	free_tab(&((*shell)->env));
-	free(*shell);
-}
-
-int		exit_free(t_token **token, char **line)
-{
-	free_struct(token);
-	safe_free(line);
-	return (-1);
 }

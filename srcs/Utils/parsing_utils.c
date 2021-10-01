@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 15:02:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/30 15:51:25 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 19:33:57 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		is_echo_option(char *str)
+int	is_echo_option(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str && str[i] == '-')
@@ -29,28 +29,23 @@ int		is_echo_option(char *str)
 	return (0);
 }
 
-void	chev_fd(char *str, int i, int *count)
+void	add_missing_space3(char **str, char **tmp, int *i, int *j)
 {
-	int a;
-
-	a = 0;
-	if (str[i] == '>'|| str[i] == '<' )
-	{
-		while (i > 0 && (str[i - 1] > 47 && str[i - 1] < 58))
-		{
-			i--;
-			a++;
-		}
-		if (str[i - 1] == ' ')
-			*count += a;
-	}
+	if ((*str)[*i] == '|' || ((*str)[*i] == '>' && (*str)[(*i) + 1] != '>')
+		|| ((*str)[*i] == '<' && (*str)[(*i) + 1] != '<'))
+		pipechev_missing_space(str, tmp, i, j);
+	else if (((*str)[*i] == '>' && (*str)[(*i) + 1] == '>')
+		|| ((*str)[*i] == '<' && (*str)[(*i) + 1] == '<'))
+		dchev_missing_space(str, tmp, i, j);
+	else
+		(*tmp)[(*j)++] = (*str)[(*i)++];
 }
 
 void	add_missing_space2(char **str, int count)
 {
-	int i;
-	int j;
-	char *tmp;
+	int		i;
+	int		j;
+	char	*tmp;
 
 	i = 0;
 	j = 0;
@@ -63,23 +58,16 @@ void	add_missing_space2(char **str, int count)
 		else if (((*str)[i] == '\'' && i == 0)
 			|| ((*str)[i] == '\'' && (*str)[i - 1] != '\\'))
 			squote_missing_space(str, &tmp, &i, &j);
-		else if ((*str)[i] == '|' || ((*str)[i] == '>' && (*str)[i + 1] != '>')
-			|| ((*str)[i] == '<' && (*str)[i + 1] != '<'))
-			pipechev_missing_space(str, &tmp, &i, &j);
-		else if (((*str)[i] == '>' && (*str)[i + 1] == '>')
-			|| ((*str)[i] == '<' && (*str)[i + 1] == '<'))
-			dchev_missing_space(str, &tmp, &i, &j);
 		else
-			tmp[j++] = (*str)[i++];
+			add_missing_space3(str, &tmp, &i, &j);
 	}
-	tmp[j] = '\0'; //peut être qu'il faut free ce str
-	safe_free(str);
-	*str = tmp;
+	tmp[j] = '\0';
+	free_replace(str, &tmp);
 }
 
-int		add_missing_space_op(char **str, int *i, int *count)
+int	add_missing_space_op(char **str, int *i, int *count)
 {
-	int j;
+	int	j;
 
 	j = *i;
 	while ((*str)[j + 1] == ' ')
@@ -87,14 +75,13 @@ int		add_missing_space_op(char **str, int *i, int *count)
 	if ((*str)[*i] == '|' && (*str)[j + 1] == '\0')
 		return (write_errors(REDIR_ERROR, &((*str)[*i])));
 	(*count)++;
-	chev_fd(*str, *i, count);
 	return (0);
 }
 
-int		add_missing_space(char **str)
+int	add_missing_space(char **str)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -105,7 +92,7 @@ int		add_missing_space(char **str)
 			i = double_quote(*str, i);
 		else if (((*str)[i] == '\'' && i == 0)
 			|| ((*str)[i] == '\'' && (*str)[i - 1] != '\\'))
-			i = simple_quote(*str, i) ;
+			i = simple_quote(*str, i);
 		if (i == -1)
 			return (write_errors(BAD_QUOTES, NULL));
 		else if ((*str)[i] == '|' || ((*str)[i] == '>' && (*str)[i + 1] != '>')

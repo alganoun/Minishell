@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   input_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/30 17:16:53 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 18:33:44 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		pipe_finder(char *str, t_token **token)
+int	pipe_finder(char *str, t_token **token)
 {
-	int i;
-	t_token *new;
+	int		i;
+	t_token	*new;
 
 	i = 0;
-	if (str !=	NULL)
+	if (str != NULL)
 	{
 		if (str[i] == '|' && str[i + 1] == '\0')
 		{
@@ -40,10 +40,10 @@ void	redir_finder2(char **tab, t_token **token)
 	(*token)->redir[2] = NULL;
 }
 
-int		redir_finder(char **tab, t_token **token) // à reduire
+int	redir_finder(char **tab, t_token **token)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -68,15 +68,15 @@ int		redir_finder(char **tab, t_token **token) // à reduire
 	return (0);
 }
 
-int		option_finder(char *str, t_token **token)
+int	option_finder(char *str, t_token **token)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (str !=	NULL && (*token)->arg == NULL)
+	if (str != NULL && (*token)->arg == NULL)
 	{
 		if ((ft_strcmp((*token)->cmd, "echo") != 0
-			&& str[i] == '-' && str[i + 1] != '\0')
+				&& str[i] == '-' && str[i + 1] != '\0')
 			|| (ft_strcmp((*token)->cmd, "echo") == 0
 				&& is_echo_option(str) == 1))
 		{
@@ -85,11 +85,10 @@ int		option_finder(char *str, t_token **token)
 				(*token)->option = (char **)ft_malloc(sizeof(char *) * 2);
 				(*token)->option[0] = str;
 				(*token)->option[1] = NULL;
-				return (SUCCESS);
 			}
 			else
 				reallocate_tab(&((*token)->option), str);
-				return (SUCCESS);
+			return (SUCCESS);
 		}
 	}
 	return (FALSE);
@@ -97,17 +96,17 @@ int		option_finder(char *str, t_token **token)
 
 void	arg_finder(char *str, t_token **token)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (str !=	NULL)
+	if (str != NULL)
 	{
 		if (str[i] || (ft_strcmp((*token)->cmd, "cd") == 0
-			&& ft_strcmp(str, "-") == 0))
+				&& ft_strcmp(str, "-") == 0))
 		{
 			if ((*token)->arg == NULL)
 			{
-				(*token)->arg= (char **)ft_malloc(sizeof(char *) * 2);
+				(*token)->arg = (char **)ft_malloc(sizeof(char *) * 2);
 				(*token)->arg[0] = str;
 				(*token)->arg[1] = NULL;
 			}

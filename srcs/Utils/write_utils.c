@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   write_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/09/30 17:19:49 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 20:26:23 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-ssize_t		write_output(char *str)
+ssize_t	write_output(char *str)
 {
 	return ((write(1, str, ft_strlen(str))) + (write(1, "\n", 1)));
 }
 
-int		write_errors3(int option, char *str)
+int	write_errors3(int option, char *str)
 {
 	if (option == NOFILEORDIR)
 	{
@@ -30,7 +30,7 @@ int		write_errors3(int option, char *str)
 		ft_putendl_fd(": Permission denied", STDERR_FILENO);
 	else if (option == REDIR_ERROR2)
 	{
-		ft_putstr_fd("syntax error near unexpected token `",STDERR_FILENO);
+		ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("'", STDERR_FILENO);
 		g_sig.exit_status = 2;
@@ -40,12 +40,12 @@ int		write_errors3(int option, char *str)
 	return (-1);
 }
 
-int		write_errors2(int option, char *str)
+int	write_errors2(int option, char *str)
 {
 	if (option == REDIR_ERROR)
 	{
-		ft_putstr_fd("syntax error near unexpected token `",STDERR_FILENO);
-		if(str[0] == '|')
+		ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
+		if (str[0] == '|')
 			ft_putstr_fd("newline", STDERR_FILENO);
 		else
 			ft_putstr_fd(str, STDERR_FILENO);
@@ -69,7 +69,7 @@ int		write_errors2(int option, char *str)
 	return (-1);
 }
 
-int		write_errors(int option, char *str)
+int	write_errors(int option, char *str)
 {
 	ft_putstr_fd("Minishell: ", STDERR_FILENO);
 	if (option == BAD_CHAR)
@@ -96,8 +96,6 @@ void	fd_write_errors(char *cmd)
 
 	fd = open(cmd, O_WRONLY);
 	dir = opendir(cmd);
-	//ft_putstr_fd("minishell: ", STDERR_FILENO);
-	//ft_putstr_fd(cmd, STDERR_FILENO);
 	if (ft_strchr(cmd, '/') == NULL)
 		write_errors(WRONG_CMD, cmd);
 	else if (fd == -1 && dir == NULL)
@@ -112,11 +110,11 @@ void	fd_write_errors(char *cmd)
 		close(fd);
 }
 
-int		write_variable(char *str, char c, char **env)
+int	write_variable(char *str, char c, char **env)
 {
-	int i;
-	char *var;
-	char *result;
+	int		i;
+	char	*var;
+	char	*result;
 
 	i = 0;
 	while (str[i] != c && str[i] != ' ')

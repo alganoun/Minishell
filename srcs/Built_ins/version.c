@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   version.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 20:55:08 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/08/02 21:22:22 by allanganoun      ###   ########.fr       */
+/*   Updated: 2021/10/01 20:25:04 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	version_process(t_token *token)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (token->option && token->option[i] != NULL)

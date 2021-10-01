@@ -3,123 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 12:34:34 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/09/22 00:13:35 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/01 18:27:09 by alganoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		check_name(char *name)
-{
-	int i;
-
-	i = 0;
-	while (name[i])
-	{
-		if (name[i] == '=' && i > 0)
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-int		is_exportable(char *str)
-{
-	int i;
-
-	i = 0;
-	if (str[0] == '=')
-		return (FALSE);
-	while (str[i] && str[i] != '=' && ft_isalnum(str[i]) == 1)
-	{
-		if (str[i] == '\'' || str[i] == '"')
-			i++;
-		i++;
-	}
-	if ((str[i] != '=' && str[i] != '\0') || (str[i] == '=' && str[i + 1] == '\0'))
-		return (FALSE);
-	return (SUCCESS);
-}
-
-char	**export_name_tab(char **env)
-{
-	int i;
-	int j;
-	char **tab;
-
-	i = 0;
-	tab = ft_malloc(sizeof(char *) * (tablen(env) + 1));
-	while (env[i] != NULL)
-	{
-		tab[i] = ft_strdup(env[i]);
-		i++;
-	}
-	tab[i] = NULL;
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		j = 0;
-		while (tab[i][j] != '=')
-			j++;
-		tab[i][j + 1] = '\0';
-		i++;
-	}
-	return (tab);
-}
-
-int is_forbiden_name2(char *str, int i, int only_assign)
-{
-	while (i != 0 && str[i])
-	{
-		if (str[i] == '=' && only_assign > 0)
-			i--;
-		else if (!ft_isalpha(str[i]))
-		{
-			if (str[i] == '_' || str[i] == '?' || str[i] == '\\')
-					g_sig.exit_status = 0;
-			else
-					g_sig.exit_status = 1;
-			return (TRUE);
-		}
-		i--;
-	}
-	return (FALSE);
-}
-
-int     is_forbiden_name(char *str)
-{
-	int i;
-	char *end;
-	int only_assign;
-
-	i = 0;
-	only_assign = 0;
-	end = ft_strrchr(str, '=');
-	if (end == NULL)
-		return (FALSE);
-	if (str[i] == '=' && !str[i + 1])
-	{
-		g_sig.exit_status = 1;
-		return (TRUE);
-	}
-	while (&str[i] != end)
-	{
-		if (str[i] == '=' && only_assign == i)
-			only_assign = 0;
-		else
-			only_assign++;
-		i++;
-	}
-	i--;
-	return (is_forbiden_name2(str, i, only_assign));
-}
-
 int	is_assign_operator(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -132,6 +27,13 @@ int	is_assign_operator(char *str)
 		i--;
 	}
 	return (TRUE);
+}
+
+void	export_process3(t_token *token, char ***env, char **str)
+{
+	if (token->exp == 1)
+		get_variable_value(str, *env);
+	reallocate_tab(env, *str);
 }
 
 void	export_process2(t_token *token, char ***env, char **str, char **tab)
@@ -157,25 +59,21 @@ void	export_process2(t_token *token, char ***env, char **str, char **tab)
 		write_errors(6, &((*str)[check_name(*str)]));
 	}
 	else
-	{
-		if (token->exp == 1)
-			get_variable_value(str, *env);
-		reallocate_tab(env, *str);
-	}
+		export_process3(token, env, str);
 }
 
-int		export_process(t_token *token, char ***env)
+int	export_process(t_token *token, char ***env)
 {
-	int i;
-	char *str;
-	char **tab;
+	int		i;
+	char	*str;
+	char	**tab;
 
 	i = 0;
 	tab = export_name_tab(*env);
 	if (token->option)
 		return (write_errors(NOT_VALID_OPT, token->option[0]));
 	if (token->arg == NULL || token->arg[0][0] == '\0')
-			print_sorted_tab(*env);
+		print_sorted_tab(*env);
 	else
 	{
 		while (token->arg && token->arg[i] != NULL)
