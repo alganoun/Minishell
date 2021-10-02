@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 21:30:25 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/02 03:49:06 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/02 15:26:06 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,18 @@ int	input_process2(char **pre_token, t_token **token, char **env)
 int	input_process(char **line, t_token **token, char **env)
 {
 	int		i;
-	int		j;
 	char	**pre_token;
 
 	i = 0;
-	j = 0;
 	if (space_into_dot(line, env) == -1)
 		return (-1);
+	while ((*line)[i] == 13)
+		i++;
+	if ((*line)[i] == '\0')
+	{
+		safe_free(line);
+		return (-1);
+	}
 	pre_token = ft_split(*line, 13);
 	if (input_process2(pre_token, token, env) == -1)
 		return (-1);
