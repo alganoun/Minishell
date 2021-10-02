@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/01 17:32:33 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/03 00:10:17 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	cd_process(t_token *token, char ***env)
 
 	old_dir = getcwd(NULL, 0);
 	i = 0;
-	go_to_dir(token, env);
+	if (token->arg != NULL)
+		go_to_dir(token, env);
 	while ((*env)[i] != NULL)
 	{
 		if (ft_strncmp((*env)[i], "PWD=", 4) == 0)
