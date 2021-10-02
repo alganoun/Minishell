@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:22:24 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/01 20:19:00 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/03 00:40:14 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ int	ft_strisnum(const char *str)
 
 void	exit_prog(t_token **token, char *exit_message, int status)
 {
-	if (status > 0)
+	fprintf(stderr, "exit=%d\n", g_sig.exit_status);
+	if (g_sig.exit_status != -1)
+		status = g_sig.exit_status;
+	fprintf(stderr, "stat=%d\n", status);
+	if (status != -1)
 		g_sig.sigquit = status;
 	if (token)
 		free_struct(token);
@@ -93,16 +97,16 @@ void	exit_cmd(t_token *token)
 			status = ft_atols(token->option[0], &nb);
 		else
 			status = ft_atols(token->arg[0], &nb);
-		if ((token->arg && token->option) || (arg[0] && arg[1]))
-		{
-			ft_putendl_fd("exit\nminishell: exit: too many arguments", STDERR_FILENO);
-			exit_prog(&token, "exit", 1);
-		}
-		else if ((arg[0] && ft_strisnum(arg[0]) == 0) || (status == NULL))
+		if ((arg[0] && ft_strisnum(arg[0]) == 0) || (status == NULL))
 		{
 			ft_putstr_fd("exit\nminishell: exit: ", STDERR_FILENO);
 			ft_putstr_fd(arg[0], STDERR_FILENO);
 			exit_prog(&token, ": numeric argument required", 255);
+		}
+		else if ((token->arg && token->option) || (arg[0] && arg[1]))
+		{
+			ft_putendl_fd("exit\nminishell: exit: too many arguments", STDERR_FILENO);
+			exit_prog(&token, "exit", 1);
 		}
 		else if (arg[0] && ft_strisnum(arg[0]) != 0)
 			exit_prog(&token, "exit", nb);

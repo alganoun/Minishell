@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/02 16:57:58 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/02 22:47:39 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # include <dirent.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include "../srcs/Utils/Libft/Includes/libft.h"
+# include "../srcs/Utils/libft/Includes/libft.h"
 
 # define ID_ECHO 0
 # define ID_CD 1
@@ -158,7 +158,7 @@ int			count_word(char *str, char *to_replace);
 int			display_txt(char *str);
 ssize_t		write_output(char *str);
 int			write_errors(int option, char *str);
-void		fd_write_errors(char *cmd);
+void		fd_write_errors(t_token *token);
 int			write_exec_errors(void);
 
 /*------------PARSING---------------*/
@@ -180,7 +180,7 @@ int			pwd_process(void);
 int			echo_process(t_token *token);
 int			export_process(t_token *token, char ***env);
 int			unset_process(t_token *token, char ***env);
-int			env_process(char **env);
+int			env_process(t_token *token, char **env);
 void		cd_process(t_token *token, char ***env);
 void		version_process(t_token *token);
 

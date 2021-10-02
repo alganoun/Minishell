@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 12:42:11 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/01 17:33:06 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/02 22:17:48 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int	echo_process(t_token *token)
 	}
 	else
 		write(1, "\n", 1);
+	g_sig.exit_status = 0;
 	return (TRUE);
 }

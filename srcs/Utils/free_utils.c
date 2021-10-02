@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 09:06:00 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/01 19:31:26 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/02 21:40:00 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	safe_free(char **str)
 {
 	if (*str)
-		free(*str);
+		//free(*str);
 	*str = NULL;
 }
 

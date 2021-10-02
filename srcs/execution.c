@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:39 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/01 21:10:42 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/02 22:36:21 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	exec_cmd(t_token *token, t_shell **shell)
 			execve(tab[i], cmd, (*shell)->env);
 		i++;
 	}
-	fd_write_errors(token->cmd);
+	fd_write_errors(token);
 	exit_prog(&token, NULL, -1);
 }
 
@@ -57,7 +57,7 @@ void	exec_cmd_fork(t_token *token, t_shell **shell)
 				execve(tab[i], cmd, (*shell)->env);
 			i++;
 		}
-		fd_write_errors(token->cmd);
+		fd_write_errors(token);
 		exit_prog(&token, NULL, -1);
 	}
 	wait(&g_sig.pid);

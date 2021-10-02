@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/03 00:44:43 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 00:52:04 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ void	cd_process(t_token *token, char ***env)
 		i++;
 	}
 	safe_free(&old_dir);
+	g_sig.exit_status = 0;
 }

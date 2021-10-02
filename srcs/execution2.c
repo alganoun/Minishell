@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 20:15:22 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/01 20:17:36 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/03 00:46:38 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	status_child(void)
 {
 	if (WIFEXITED(g_sig.pid))
-		g_sig.sigquit = WEXITSTATUS(g_sig.pid);
+		g_sig.exit_status = WEXITSTATUS(g_sig.pid);
 	if (WIFSIGNALED(g_sig.pid))
 	{
-		g_sig.sigquit = WTERMSIG(g_sig.pid);
-		if (g_sig.sigquit != 131)
-			g_sig.sigquit += 128;
+		g_sig.exit_status = WTERMSIG(g_sig.pid);
+		if (g_sig.exit_status != 131)
+			g_sig.exit_status += 128;
 	}
 }
 

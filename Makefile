@@ -4,7 +4,7 @@ HEAD 		=	./includes/*.h
 
 INC			=	-I./includes/ -I/Users/$(USER)/.brew/opt/readline/include
 
-CC			=	gcc
+CC			=	gcc -g3
 
 FLAGS		=	-Wall -Wextra -Werror
 

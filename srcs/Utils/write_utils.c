@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/02 12:25:40 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 00:23:36 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	write_errors3(int option, char *str)
 		ft_putstr_fd("export: ", STDERR_FILENO);
 		write(STDERR_FILENO, str, 2);
 		ft_putendl_fd(": not a valid option", STDERR_FILENO);
+		g_sig.exit_status = 2;
 	}
 	else if (option == NOFILEORDIR)
 	{
@@ -64,6 +65,8 @@ int	write_errors2(int option, char *str)
 		ft_putstr_fd("export: `", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("' not a valid identifier", STDERR_FILENO);
+		if (g_sig.exit_status == -1)
+			g_sig.exit_status = 1;
 	}
 	else if (option > 6)
 		return (write_errors3(option, str));
@@ -90,21 +93,21 @@ int	write_errors(int option, char *str)
 	return (-1);
 }
 
-void	fd_write_errors(char *cmd)
+void	fd_write_errors(t_token *token)
 {
 	DIR	*dir;
 	int	fd;
 
-	fd = open(cmd, O_WRONLY);
-	dir = opendir(cmd);
-	if (ft_strchr(cmd, '/') == NULL)
-		write_errors(WRONG_CMD, cmd);
+	fd = open(token->cmd, O_WRONLY);
+	dir = opendir(token->cmd);
+	if (ft_strchr(token->cmd, '/') == NULL)
+		write_errors(WRONG_CMD, token->cmd);
 	else if (fd == -1 && dir == NULL)
-		write_errors(NOFILEORDIR, cmd);
+		write_errors(NOFILEORDIR, token->cmd);
 	else if (fd == -1 && dir != NULL)
-		write_errors(IS_DIRECTORY, cmd);
+		write_errors(IS_DIRECTORY, token->cmd);
 	else if (fd != -1 && dir == NULL)
-		write_errors(PERM_DENIED, cmd);
+		write_errors(PERM_DENIED, token->cmd);
 	if (dir)
 		closedir(dir);
 	if (fd > 0)

@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 21:21:41 by musoufi           #+#    #+#             */
-/*   Updated: 2021/09/18 17:34:13 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 00:40:24 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	run_process(t_token *token, t_shell **shell)
 void	exec_builtin(t_token *token, t_shell **shell)
 {
 	if (ft_strcmp(token->cmd, "exit") == 0)
-		exit_prog(&token, NULL, token->ret);
+		exit_prog(&token, NULL, 0);
 	else if (ft_strcmp(token->cmd, "echo") == 0)
 		echo_process(token);
 	else if (ft_strcmp(token->cmd, "cd") == 0)
@@ -51,7 +51,7 @@ void	exec_builtin(t_token *token, t_shell **shell)
 	else if (ft_strcmp(token->cmd, "unset") == 0)
 		unset_process(token, &(*shell)->env);
 	else if (ft_strcmp(token->cmd, "env") == 0)
-		env_process((*shell)->env);
+		env_process(token, (*shell)->env);
 	else if (ft_strcmp(token->cmd, "minishell") == 0)
 		version_process(token);
 	return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 14:42:10 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/01 18:27:58 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/02 22:51:34 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int	unset_process(t_token *token, char ***env)
 		unset_process2(token, env, i);
 		i++;
 	}
+	g_sig.exit_status = 0; //not a valid identifier, use of unsupported character, invalid option
 	return (TRUE);
 }
