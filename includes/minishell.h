@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/02 03:48:39 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/02 13:17:02 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void		free_env(t_shell **shell);
 void		tild_replacer(char **str, char **env);
 int			check_name(char *name);
 int			is_exportable(char *str);
+int			is_convertible(char *str, int index);
 char		**export_name_tab(char **env);
 int			is_forbiden_name2(char *str, int i, int only_assign);
 int			is_forbiden_name(char *str);
@@ -149,6 +150,8 @@ int			equal_detection(char *str);
 int			count_to_keep(char *str, char **env);
 int			unset_is_forbiden_name(char *str);
 void		free_replace(char **str, char **new);
+int			count_to_copy(char *str, char *to_replace);
+int			count_word(char *str, char *to_replace);
 
 /*------------DISPLAY---------------*/
 int			display_txt(char *str);

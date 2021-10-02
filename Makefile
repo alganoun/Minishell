@@ -27,6 +27,7 @@ SRCS		= ./srcs/Utils/common_utils.c \
 				./srcs/Utils/write_utils.c \
 				./srcs/Utils/variable_utils.c \
 				./srcs/Utils/variable_utils2.c \
+				./srcs/Utils/variable_utils3.c \
 				./srcs/Parsing/input_process.c \
 				./srcs/minishell.c \
 				./srcs/cmds.c \

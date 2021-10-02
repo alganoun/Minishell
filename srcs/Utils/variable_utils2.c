@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 02:13:06 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/01 20:10:38 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/02 12:27:13 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,33 @@ int	value_existence(char *str, char **tab)
 	}
 	safe_free(&tmp);
 	return (0);
+}
+
+int	is_convertible(char *str, int index)
+{
+	int	begin;
+	int	end;
+	int	i;
+
+	begin = -1;
+	end = -1;
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] == '"' && i == 0)
+			|| (str[i] == '"' && str[i - 1] != '\\'))
+			i = double_quote(str, i);
+		if (((str[i] == '\'' && i == 0) || (str[i] == '\''
+					&& str[i - 1] != '\\')) && begin == -1)
+			begin = i;
+		else if (str[i] == '\'' && begin != -1)
+		{
+			end = i;
+			if (index > begin && index < end)
+				return (FALSE);
+			begin = 0;
+		}
+		i++;
+	}
+	return (SUCCESS);
 }

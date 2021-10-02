@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/01 20:26:23 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/02 12:25:40 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@ ssize_t	write_output(char *str)
 
 int	write_errors3(int option, char *str)
 {
-	if (option == NOFILEORDIR)
+	if (option == NOT_VALID_OPT)
+	{
+		ft_putstr_fd("export: ", STDERR_FILENO);
+		write(STDERR_FILENO, str, 2);
+		ft_putendl_fd(": not a valid option", STDERR_FILENO);
+	}
+	else if (option == NOFILEORDIR)
 	{
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 		g_sig.exit_status = 127;
@@ -44,7 +50,8 @@ int	write_errors2(int option, char *str)
 {
 	if (option == REDIR_ERROR)
 	{
-		ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
+		ft_putstr_fd("syntax error near unexpected token `"
+			, STDERR_FILENO);
 		if (str[0] == '|')
 			ft_putstr_fd("newline", STDERR_FILENO);
 		else
@@ -58,13 +65,7 @@ int	write_errors2(int option, char *str)
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("' not a valid identifier", STDERR_FILENO);
 	}
-	else if (option == NOT_VALID_OPT)
-	{
-		ft_putstr_fd("export: ", STDERR_FILENO);
-		write(STDERR_FILENO, str, 2);
-		ft_putendl_fd(": not a valid option", STDERR_FILENO);
-	}
-	else if (option > 7)
+	else if (option > 6)
 		return (write_errors3(option, str));
 	return (-1);
 }
@@ -108,27 +109,4 @@ void	fd_write_errors(char *cmd)
 		closedir(dir);
 	if (fd > 0)
 		close(fd);
-}
-
-int	write_variable(char *str, char c, char **env)
-{
-	int		i;
-	char	*var;
-	char	*result;
-
-	i = 0;
-	while (str[i] != c && str[i] != ' ')
-		i++;
-	var = malloc(i + 1);
-	i = 0;
-	while (str[i] != c && str[i] != ' ')
-	{
-		var[i] = str[i];
-		i++;
-	}
-	var[i] = '\0';
-	result = my_getenv(var, env);
-	if (result)
-		write (1, result, ft_strlen(result));
-	return (i);
 }
