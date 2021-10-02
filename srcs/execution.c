@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:39 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/01 20:17:24 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/01 21:10:42 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	exec_cmd(t_token *token, t_shell **shell)
 	int			i;
 	char		**tab;
 	char		**cmd;
-	structstat	buf;
+	struct stat	buf;
 
 	i = 0;
 	skip_bin(token);

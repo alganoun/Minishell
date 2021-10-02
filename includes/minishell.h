@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/01 20:24:28 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/02 03:48:39 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,8 @@ void		arg_finder(char *str, t_token **token);
 int			parsing(char **line, t_token **token_list, char **env);
 int			input_process(char **line, t_token **token, char **env);
 int			input_process2(char **pre_token, t_token **token, char **env);
+int			token_filler(char *pre_token
+			, t_token **token, char **env, int option);
 
 /*------------BUILT-INS---------------*/
 int			pwd_process(void);
