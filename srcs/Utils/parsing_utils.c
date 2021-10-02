@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 15:02:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/01 19:33:57 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/02 14:20:50 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ void	add_missing_space3(char **str, char **tmp, int *i, int *j)
 	else if (((*str)[*i] == '>' && (*str)[(*i) + 1] == '>')
 		|| ((*str)[*i] == '<' && (*str)[(*i) + 1] == '<'))
 		dchev_missing_space(str, tmp, i, j);
-	else
+	else if ((*str)[*i] != '\t')
 		(*tmp)[(*j)++] = (*str)[(*i)++];
+	else
+		(*i)++;
 }
 
 void	add_missing_space2(char **str, int count)
