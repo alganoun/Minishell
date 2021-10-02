@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/01 19:01:46 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/02 16:49:49 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*prompt(char **env)
 	tmp2 = getcwd(NULL, 0);
 	tmp = ft_strjoin("/Users/", my_getenv("USER", env));
 	if (ft_strcmp(tmp2, tmp) == 0)
-	{	
+	{
 		safe_free(&tmp);
 		tmp = ft_strdup("~");
 	}

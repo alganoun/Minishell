@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/02 14:27:53 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/02 16:57:58 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_sig
 	int				sigint;
 	int				sigquit;
 	int				exit_status;
+	int				cmd;
 	pid_t			pid;
 }				t_sig;
 
