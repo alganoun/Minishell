@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 02:13:06 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/02 12:27:13 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 01:24:06 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	is_convertible(char *str, int index)
 			end = i;
 			if (index > begin && index < end)
 				return (FALSE);
-			begin = 0;
+			begin = -1;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/02 13:17:14 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 01:15:46 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	replace_word(char **str, char *name, char *value, char **tab)
 				ret = cpy_variable(&i, &j, name, value);
 			}
 			else if (value_existence(&((*str)[i]), tab) == 0)
-				i += variable_len(&((*str)[i]));
+				i += variable_len(&((*str)[i])) + 1;
 		}
 		if ((*str)[i] != '\0')
 			result[j++] = (*str)[i++];
