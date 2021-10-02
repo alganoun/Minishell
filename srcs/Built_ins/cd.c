@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/01 17:32:33 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/03 00:41:51 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,20 @@ void	go_to_dir(t_token *token, char ***env)
 	char	*dir;
 
 	dir = NULL;
-	if (ft_strcmp(*token->arg, "-") == 0 || token->arg == NULL)
+	if (token->arg == NULL)
+	{
+		dir = ft_strjoin("/Users/", my_getenv("USER", *env));
+		if (chdir(dir) != 0)
+			write_cd_errors(token);
+		safe_free(&dir);
+	}
+	else if (ft_strcmp(*token->arg, "-") == 0)
 	{
 		if (chdir(my_getenv("OLDPWD", *env)) != 0)
 			write_cd_errors(token);
-		if (ft_strcmp(*token->arg, "-") == 0)
-		{
-			dir = getcwd(NULL, 0);
-			write_output(dir);
-			safe_free(&dir);
-		}
+		dir = getcwd(NULL, 0);
+		write_output(dir);
+		safe_free(&dir);
 	}
 	else if (chdir(token->arg[0]) != 0)
 		write_cd_errors(token);
