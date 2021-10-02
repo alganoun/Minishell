@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 00:48:25 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 01:02:22 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,39 +151,18 @@ void    ft_launch_minishell(char *argv, t_shell **shell)
 	}
 }
 
-int     main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-	t_shell *shell;
+	t_shell	*shell;
 
 	(void)argc;
 	(void)argv;
 	signal(SIGQUIT, sigint);
 	signal(SIGINT, sigint);
 	init_shell(env, &shell);
-	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
-	{
-		ft_launch_minishell(argv[2], &shell);
-		fprintf(stderr, "quit=%d\n", g_sig.sigquit);
-		fprintf(stderr, "exit=%d\n", g_sig.exit_status);
-		exit(g_sig.exit_status);
-	}
-	// if (display_txt("banner.txt") == -1)
-	//      return (-1);
-	// minishell(&shell);
+	if (display_txt("banner.txt") == -1)
+		return (-1);
+	minishell(&shell);
+	exit(g_sig.exit_status);
 	return (0);
 }
-// int	main(int argc, char **argv, char **env)
-// {
-// 	t_shell	*shell;
-
-// 	(void)argc;
-// 	(void)argv;
-// 	signal(SIGQUIT, sigint);
-// 	signal(SIGINT, sigint);
-// 	init_shell(env, &shell);
-// 	if (display_txt("banner.txt") == -1)
-// 		return (-1);
-// 	minishell(&shell);
-//	exit(g_sig.exit_status);
-// 	return (0);
-// }
