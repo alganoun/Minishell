@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:22:24 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/03 00:40:14 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 01:13:59 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ int	ft_strisnum(const char *str)
 
 void	exit_prog(t_token **token, char *exit_message, int status)
 {
-	fprintf(stderr, "exit=%d\n", g_sig.exit_status);
 	if (g_sig.exit_status != -1)
 		status = g_sig.exit_status;
-	fprintf(stderr, "stat=%d\n", status);
 	if (status != -1)
 		g_sig.sigquit = status;
 	if (token)
