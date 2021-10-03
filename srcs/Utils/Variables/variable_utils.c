@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/03 12:32:14 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 12:38:34 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	replace_word(char **str, char *name, char *value, char **tab)
 			+ (count_word(*str, name) * ft_strlen(value)) + 1);
 	while (str && (*str)[i] != '\0')
 	{
-		printf("STR = %s\n", *str);
 		if ((*str)[i] == '$' && is_convertible(*str, i) == SUCCESS && ret == 0)
 		{
 			if (ft_strstr(&((*str)[i]), name) == &((*str)[i]))
