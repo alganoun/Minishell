@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/03 00:54:43 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 13:06:46 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	write_cd_errors(t_token *token)
 	write(2, "Minishell: ", 11);
 	write(2, token->arg[0], ft_strlen(token->arg[0]));
 	write(2, ": No such file or directory\n", 28);
+	g_sig.exit_status = 1;
 }
 
 void	replace_current_dir(char **env_str)
@@ -71,6 +72,7 @@ void	cd_process(t_token *token, char ***env)
 	int		i;
 	char	*old_dir;
 
+	g_sig.exit_status = 0;
 	old_dir = getcwd(NULL, 0);
 	i = 0;
 	go_to_dir(token, env);
@@ -88,5 +90,4 @@ void	cd_process(t_token *token, char ***env)
 		i++;
 	}
 	safe_free(&old_dir);
-	g_sig.exit_status = 0;
 }
