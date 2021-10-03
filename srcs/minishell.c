@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 13:24:07 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 13:27:33 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,31 +93,6 @@ void	minishell(t_shell **shell)
 	}
 }
 
-void	ft_launch_minishell(char *argv, t_shell **shell)
-{
-	int		ret;
-	char	*line;
-	t_token	*token;
-
-	ret = 1;
-	token = NULL;
-	line = NULL;
-
-	line = argv;
-	g_sig.cmd = 0;
-	//get_next_input(&line, (*shell)->env);
-	if (ft_strlen(line) > 0 && parsing(&line, &token, (*shell)->env) != -1
-		&& token->cmd != NULL)
-	{
-		g_sig.cmd = 1;
-		g_sig.sigquit = g_sig.exit_status;
-		g_sig.exit_status = -1;
-		piping(&token);
-		ret = run_process(token, shell);
-		free_struct(&token);
-	}
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	*shell;
@@ -130,10 +105,6 @@ int	main(int argc, char **argv, char **env)
 	if (display_txt("banner.txt") == -1)
 		return (-1);
 	minishell(&shell);
-	// if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
-	// {
-	// 	ft_launch_minishell(argv[2], &shell);
-	// }
 	exit(g_sig.exit_status);
 	return (0);
 }
