@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 13:27:33 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 18:26:49 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ void	minishell(t_shell **shell)
 	while (ret != 0)
 	{
 		g_sig.cmd = 0;
+		g_sig.sigquit = g_sig.exit_status;
 		get_next_input(&line, (*shell)->env);
 		if (ft_strlen(line) > 0 && parsing(&line, &token, (*shell)->env) != -1
 			&& token->cmd != NULL)
 		{
 			g_sig.cmd = 1;
-			g_sig.sigquit = g_sig.exit_status;
 			g_sig.exit_status = -1;
 			piping(&token);
 			ret = run_process(token, shell);
