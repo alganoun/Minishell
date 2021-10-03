@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/01 18:33:44 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/03 13:05:50 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	arg_finder(char *str, t_token **token)
 	i = 0;
 	if (str != NULL)
 	{
-		if (str[i] || (ft_strcmp((*token)->cmd, "cd") == 0
+		if (str || (ft_strcmp((*token)->cmd, "cd") == 0
 				&& ft_strcmp(str, "-") == 0))
 		{
 			if ((*token)->arg == NULL)

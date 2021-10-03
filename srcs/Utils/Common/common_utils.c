@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 08:00:40 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 11:52:59 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 13:19:01 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,19 @@ int	variable_len(char *str)
 	count = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && ft_isdigit(str[i + 1]) == 0)
 		{
 			i++;
-			while (str[i] && (str[i] < 32 || str[i] > 64))
+			while (str[i] && (str[i] < 32 || str[i] > 47)
+				&& (str[i] < 58 || str[i] > 64))
 			{
 				count++;
 				i++;
 			}
 			return (count);
 		}
+		else if (str[i] == '$' && ft_isdigit(str[i + 1]) == 1)
+			return (1);
 		i++;
 	}
 	return (count);
