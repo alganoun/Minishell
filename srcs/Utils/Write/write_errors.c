@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 12:29:43 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 12:35:34 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	write_errors4(int option, char *str)
 		ft_putendl_fd("'", STDERR_FILENO);
 		g_sig.exit_status = 2;
 	}
+	return (-1);
 }
 
 int	write_errors3(int option, char *str)
