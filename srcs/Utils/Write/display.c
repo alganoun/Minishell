@@ -6,11 +6,16 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/02 16:49:49 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 12:15:44 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
+
+ssize_t	write_output(char *str)
+{
+	return ((write(1, str, ft_strlen(str))) + (write(1, "\n", 1)));
+}
 
 int	display_txt(char *str)
 {

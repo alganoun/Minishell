@@ -14,32 +14,33 @@ LIBFT_PATH	=	./srcs/Utils/Libft
 
 LIBFT		=	$(LIBFT_PATH)/libft.a
 
-SRCS		= ./srcs/Utils/common_utils.c \
-				./srcs/Utils/quote_utils.c \
-				./srcs/Utils/quote_utils2.c \
-				./srcs/Utils/common_utils2.c \
-				./srcs/Utils/parsing_utils.c \
-				./srcs/Utils/parsing_utils2.c \
-				./srcs/Utils/free_utils.c \
-				./srcs/Utils/free_utils2.c \
-				./srcs/Utils/display.c \
-				./srcs/Utils/struct_utils.c \
-				./srcs/Utils/write_utils.c \
-				./srcs/Utils/variable_utils.c \
-				./srcs/Utils/variable_utils2.c \
-				./srcs/Utils/variable_utils3.c \
+SRCS		= ./srcs/Utils/Common/common_utils.c \
+				./srcs/Utils/Common/common_utils2.c \
+				./srcs/Utils/Parsing_utils/quote_utils.c \
+				./srcs/Utils/Parsing_utils/quote_utils2.c \
+				./srcs/Utils/Parsing_utils/parsing_utils.c \
+				./srcs/Utils/Parsing_utils/parsing_utils2.c \
+				./srcs/Utils/Free/free_utils.c \
+				./srcs/Utils/Free/free_utils2.c \
+				./srcs/Utils/Write/display.c \
+				./srcs/Utils/Write/write_errors.c \
+				./srcs/Utils/Structures/struct_utils.c \
+				./srcs/Utils/Variables/variable_utils.c \
+				./srcs/Utils/Variables/variable_utils2.c \
+				./srcs/Utils/Variables/variable_utils3.c \
+				./srcs/Utils/Execution_utils/exec_utils.c \
 				./srcs/Parsing/input_process.c \
-				./srcs/minishell.c \
-				./srcs/cmds.c \
-				./srcs/execution.c \
-				./srcs/execution2.c \
-				./srcs/piping.c \
-				./srcs/exit.c \
-				./srcs/exec_utils.c \
-				./srcs/redirection.c \
-				./srcs/redirection2.c \
+				./srcs/Parsing/parsing.c \
+				./srcs/Execution/cmds.c \
+				./srcs/Execution/execution.c \
+				./srcs/Execution/execution2.c \
+				./srcs/Execution/Pipping_redir/piping.c \
+				./srcs/Execution/Pipping_redir/redirection.c \
+				./srcs/Execution/Pipping_redir/redirection2.c \
 				./srcs/Built_ins/pwd.c \
 				./srcs/Built_ins/env.c \
+				./srcs/Built_ins/exit.c \
+				./srcs/Built_ins/exit2.c \
 				./srcs/Built_ins/export.c \
 				./srcs/Built_ins/export2.c \
 				./srcs/Built_ins/unset.c \
@@ -47,7 +48,7 @@ SRCS		= ./srcs/Utils/common_utils.c \
 				./srcs/Built_ins/cd.c \
 				./srcs/Built_ins/echo.c \
 				./srcs/Built_ins/version.c \
-				./srcs/Parsing/parsing.c
+				./srcs/minishell.c \
 
 
 OBJ			=	$(SRCS:.c=.o)

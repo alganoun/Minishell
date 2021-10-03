@@ -6,11 +6,22 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:46:26 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/02 17:04:37 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 12:32:01 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
+
+void	redisplay(void)
+{
+	if (g_sig.cmd != 1)
+		ft_putchar_fd('\n', 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	if (g_sig.cmd != 1)
+		rl_redisplay();
+	g_sig.exit_status = 1;
+}
 
 void	sigint(int sig)
 {
@@ -31,15 +42,7 @@ void	sigint(int sig)
 		}
 	}
 	if (sig == SIGINT)
-	{
-		if (g_sig.cmd != 1)
-			ft_putchar_fd('\n', 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		if (g_sig.cmd != 1)
-			rl_redisplay();
-		g_sig.exit_status = 1;
-	}
+		redisplay();
 }
 
 char	**strenv(char *s, char **env)

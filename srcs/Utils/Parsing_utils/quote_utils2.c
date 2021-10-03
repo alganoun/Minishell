@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   quote_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alganoun <alganoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 22:11:43 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/01 20:04:01 by alganoun         ###   ########.fr       */
+/*   Updated: 2021/10/03 11:53:13 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 int	simple_quote(char *str, int i)
 {

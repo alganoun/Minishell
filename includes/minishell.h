@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 01:36:20 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 11:57:49 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,10 @@ int			unset_is_forbiden_name(char *str);
 void		free_replace(char **str, char **new);
 int			count_to_copy(char *str, char *to_replace);
 int			count_word(char *str, char *to_replace);
+int			ft_strisnum(const char *str);
+void		exit_prog(t_token **token, char *exit_message, int status);
+char		**quote_remover_exit(t_token *token);
+long		*ft_atols(const char *str, long *dst);
 
 /*------------DISPLAY---------------*/
 int			display_txt(char *str);
@@ -172,8 +176,8 @@ void		arg_finder(char *str, t_token **token);
 int			parsing(char **line, t_token **token_list, char **env);
 int			input_process(char **line, t_token **token, char **env);
 int			input_process2(char **pre_token, t_token **token, char **env);
-int			token_filler(char *pre_token
-			, t_token **token, char **env, int option);
+int			token_filler(char *pre_token,
+				t_token **token, char **env, int option);
 
 /*------------BUILT-INS---------------*/
 int			pwd_process(void);

@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   write_utils.c                                      :+:      :+:    :+:   */
+/*   write_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 00:23:36 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 12:29:43 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-ssize_t	write_output(char *str)
+int	write_errors4(int option, char *str)
 {
-	return ((write(1, str, ft_strlen(str))) + (write(1, "\n", 1)));
+	if (option == IS_DIRECTORY)
+		ft_putendl_fd(": is a directory", STDERR_FILENO);
+	else if (option == PERM_DENIED)
+		ft_putendl_fd(": Permission denied", STDERR_FILENO);
+	else if (option == REDIR_ERROR2)
+	{
+		ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd("'", STDERR_FILENO);
+		g_sig.exit_status = 2;
+	}
 }
 
 int	write_errors3(int option, char *str)
 {
+	if (option > 8)
+		g_sig.exit_status = 126;
 	if (option == NOT_VALID_OPT)
 	{
 		ft_putstr_fd("export: ", STDERR_FILENO);
@@ -31,19 +43,11 @@ int	write_errors3(int option, char *str)
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 		g_sig.exit_status = 127;
 	}
-	else if (option == IS_DIRECTORY)
-		ft_putendl_fd(": is a directory", STDERR_FILENO);
-	else if (option == PERM_DENIED)
-		ft_putendl_fd(": Permission denied", STDERR_FILENO);
-	else if (option == REDIR_ERROR2)
+	else if (option > 8)
 	{
-		ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd("'", STDERR_FILENO);
-		g_sig.exit_status = 2;
-	}
-	if (option > 8)
 		g_sig.exit_status = 126;
+		write_errors4(option, str);
+	}
 	return (-1);
 }
 
@@ -51,8 +55,8 @@ int	write_errors2(int option, char *str)
 {
 	if (option == REDIR_ERROR)
 	{
-		ft_putstr_fd("syntax error near unexpected token `"
-			, STDERR_FILENO);
+		ft_putstr_fd("syntax error near unexpected token `",
+			STDERR_FILENO);
 		if (str[0] == '|')
 			ft_putstr_fd("newline", STDERR_FILENO);
 		else

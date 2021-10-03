@@ -6,11 +6,11 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/03 02:31:35 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 12:32:14 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	init_values(int *i, int *j, int *ret)
 {
@@ -50,7 +50,7 @@ int	replace_word(char **str, char *name, char *value, char **tab)
 		{
 			if (ft_strstr(&((*str)[i]), name) == &((*str)[i]))
 			{
-				ft_strcpy(&result[j], value); // reduire ici aussi
+				ft_strcpy(&result[j], value);
 				ret = cpy_variable(&i, &j, name, value);
 			}
 			else if (value_existence(&((*str)[i]), tab) == 0)

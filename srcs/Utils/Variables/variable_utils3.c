@@ -6,11 +6,11 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:15:55 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/02 13:16:33 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 11:53:23 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 int	count_to_copy(char *str, char *to_replace)
 {
