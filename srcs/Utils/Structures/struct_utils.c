@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:53:22 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 11:53:21 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 03:13:30 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,19 @@ t_token	*token_new(void)
 
 	init_struct(&token);
 	return (token);
+}
+
+char	*set_shlvl(char *shlvl)
+{
+	int	i;
+	int	new_value;
+
+	i = 0;
+	while (shlvl[i])
+	{
+		if (shlvl[i] == '=')
+			new_value = ft_atoi(&(shlvl[i + 1]));
+		i++;
+	}
+	return (ft_itoa(new_value + 1));
 }

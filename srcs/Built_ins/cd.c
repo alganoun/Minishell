@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/03 00:54:43 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 04:29:34 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,16 @@ void	replace_current_dir(char **env_str)
 	tmp = NULL;
 }
 
-void	replace_old_dir(char **env_str, char *old_dir)
+int	replace_old_dir(char **env_str, char *old_dir, int option, char ***env)
 {
 	char	*tmp;
 
 	tmp = ft_strjoin("OLDPWD=", old_dir);
-	safe_free(env_str);
-	*env_str = tmp;
-	tmp = NULL;
+	if (option == 1)
+		free_replace(env_str, &tmp);
+	else if (option == 2)
+		reallocate_tab(env, tmp);
+	return (TRUE);
 }
 
 void	go_to_dir(t_token *token, char ***env)
@@ -69,10 +71,12 @@ void	go_to_dir(t_token *token, char ***env)
 void	cd_process(t_token *token, char ***env)
 {
 	int		i;
+	int		ret;
 	char	*old_dir;
 
 	old_dir = getcwd(NULL, 0);
 	i = 0;
+	ret = 0;
 	go_to_dir(token, env);
 	while ((*env)[i] != NULL)
 	{
@@ -84,9 +88,11 @@ void	cd_process(t_token *token, char ***env)
 	while ((*env)[i] != NULL)
 	{
 		if (ft_strncmp((*env)[i], "OLDPWD=", 7) == 0)
-			replace_old_dir(&((*env)[i]), old_dir);
+			ret = replace_old_dir(&((*env)[i]), old_dir, 1, env);
 		i++;
 	}
+	if (ret != TRUE)
+		replace_old_dir(&((*env)[i]), old_dir, 2, env);
 	safe_free(&old_dir);
 	g_sig.exit_status = 0;
 }

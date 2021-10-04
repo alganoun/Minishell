@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/03 12:45:38 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 04:32:20 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	replace_word(char **str, char *name, char *value, char **tab)
 	{
 		if ((*str)[i] == '$' && is_convertible(*str, i) == SUCCESS && ret == 0)
 		{
+			ret = 2;
 			if (ft_strstr(&((*str)[i]), name) == &((*str)[i]))
 			{
 				ft_strcpy(&result[j], value);
@@ -73,6 +74,9 @@ void	get_variable_value(char **str, char **env)
 	reallocate_tab(&env2, ft_strjoin("?=", sig_int));
 	tab = value_name_tab(env2);
 	i = 0;
+	if ((*str)[0] == '~' && ((*str)[1] == '/'
+			|| (*str)[1] == '\0'))
+		tild_replacer(str, env);
 	while (tab[i] != NULL && *str)
 	{
 		if (replace_word(str, tab[i], my_getenv(tab[i] + 1, env2), tab) == 1)

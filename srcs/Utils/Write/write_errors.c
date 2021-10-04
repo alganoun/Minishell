@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 12:35:34 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 00:37:05 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 int	write_errors4(int option, char *str)
 {
 	if (option == IS_DIRECTORY)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": is a directory", STDERR_FILENO);
+	}
 	else if (option == PERM_DENIED)
 		ft_putendl_fd(": Permission denied", STDERR_FILENO);
 	else if (option == REDIR_ERROR2)
@@ -41,6 +44,7 @@ int	write_errors3(int option, char *str)
 	}
 	else if (option == NOFILEORDIR)
 	{
+		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 		g_sig.exit_status = 127;
 	}

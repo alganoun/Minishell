@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 01:40:44 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/03 11:53:12 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 23:21:22 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	pipechev_missing_space(char **str, char **tmp, int *i, int *j)
 	(*tmp)[(*j)++] = ' ';
 }
 
-void	tild_replacer(char **str, char **env)
+void	tild_replacer(char **str, char **env) // il faut utiliser replace
 {
 	int		i;
 	int		j;

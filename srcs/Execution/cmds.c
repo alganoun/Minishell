@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 21:21:41 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/03 11:54:07 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 04:33:33 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,23 @@ void	choose(t_token *token, t_shell **shell, int pipe)
 		redirection(token, shell, pipe);
 	else
 		execution(token, shell, pipe);
+	if (token->arg != NULL)
+		replace_last_cmd(token->cmd, token->arg[0], &((*shell)->env));
+	else
+		replace_last_cmd(NULL, token->cmd, &((*shell)->env));
 }
 
 void	execution(t_token *token, t_shell **shell, int pipe)
 {
-	if (is_builtin(token) == FALSE && pipe == TRUE)
+	if (is_builtin(token) == FALSE && pipe == TRUE
+		&& my_getenv("PATH", (*shell)->env) != NULL)
 		exec_cmd(token, shell);
-	else if (is_builtin(token) == FALSE && pipe == FALSE)
+	else if (is_builtin(token) == FALSE && pipe == FALSE
+		&& my_getenv("PATH", (*shell)->env) != NULL)
 		exec_cmd_fork(token, shell);
+	else if (is_builtin(token) == FALSE
+		&& my_getenv("PATH", (*shell)->env) == NULL)
+		write_errors(NOFILEORDIR, token->cmd);
 	else
 	{
 		exec_builtin(token, shell);

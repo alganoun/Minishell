@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 13:20:28 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 04:31:55 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,20 @@
 void	init_shell(char **old_env, t_shell **shell)
 {
 	int	i;
+	int	j;
 	int	lenght;
 
 	i = 0;
-	lenght = tablen(old_env);
+	j = 0;
+	lenght = tablen(old_env) - 1;
 	(*shell) = ft_malloc(sizeof(t_shell));
 	(*shell)->env = ft_malloc((lenght + 1) * sizeof(char *));
 	while (old_env[i] != NULL)
 	{
-		(*shell)->env[i] = ft_strdup(old_env[i]);
+		if (ft_strncmp("SHLVL=", old_env[i], 6) == 0)
+			(*shell)->env[j++] = ft_strjoin("SHLVL=", set_shlvl(old_env[i]));
+		else if (ft_strncmp("OLDPWD=", old_env[i], 7) != 0)
+			(*shell)->env[j++] = ft_strdup(old_env[i]);
 		i++;
 	}
 	(*shell)->env[i] = NULL;
