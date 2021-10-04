@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/04 04:31:55 by allanganoun      ###   ########lyon.fr   */
+=======
+/*   Updated: 2021/10/03 18:26:49 by musoufi          ###   ########lyon.fr   */
+>>>>>>> 382cd3508699b57a689ec4033f4d6b23acada166
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +88,7 @@ void	minishell(t_shell **shell)
 	while (ret != 0)
 	{
 		g_sig.cmd = 0;
+		g_sig.sigquit = g_sig.exit_status;
 		get_next_input(&line, (*shell)->env);
 		if (ft_strlen(line) > 0 && parsing(&line, &token, (*shell)->env) != -1
 			&& token->cmd != NULL)

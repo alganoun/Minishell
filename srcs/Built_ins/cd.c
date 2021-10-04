@@ -6,7 +6,11 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/04 04:29:34 by allanganoun      ###   ########lyon.fr   */
+=======
+/*   Updated: 2021/10/03 13:06:46 by musoufi          ###   ########lyon.fr   */
+>>>>>>> 382cd3508699b57a689ec4033f4d6b23acada166
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +21,7 @@ void	write_cd_errors(t_token *token)
 	write(2, "Minishell: ", 11);
 	write(2, token->arg[0], ft_strlen(token->arg[0]));
 	write(2, ": No such file or directory\n", 28);
+	g_sig.exit_status = 1;
 }
 
 void	replace_current_dir(char **env_str)
@@ -74,6 +79,7 @@ void	cd_process(t_token *token, char ***env)
 	int		ret;
 	char	*old_dir;
 
+	g_sig.exit_status = 0;
 	old_dir = getcwd(NULL, 0);
 	i = 0;
 	ret = 0;
@@ -94,5 +100,4 @@ void	cd_process(t_token *token, char ***env)
 	if (ret != TRUE)
 		replace_old_dir(&((*env)[i]), old_dir, 2, env);
 	safe_free(&old_dir);
-	g_sig.exit_status = 0;
 }
