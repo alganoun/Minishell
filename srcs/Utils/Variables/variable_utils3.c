@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:15:55 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/03 11:53:23 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 16:18:30 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	count_to_copy(char *str, char *to_replace)
 	count = 0;
 	while (str && str[i])
 	{
-		if (str[i] == '$' && ft_strstr(&(str[i]), to_replace) == &(str[i]))
+		if (str[i] == '$' 
+			&& ft_strncmp(&(str[i]), to_replace, variable_len(&(str[i])) == 0))
 			i += variable_len(&str[i]);
 		else
 			count++;

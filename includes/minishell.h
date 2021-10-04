@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/04 04:38:01 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 12:10:44 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # include <dirent.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include "../srcs/Utils/libft/Includes/libft.h"
+# include "../srcs/Utils/Libft/Includes/libft.h"
 
 # define ID_ECHO 0
 # define ID_CD 1

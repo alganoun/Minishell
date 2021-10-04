@@ -6,11 +6,20 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:39 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/04 00:46:21 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 16:19:43 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	end_exec(char ***cmd, char ***tab)
+{
+	(void)tab;
+	free_tab(cmd);
+	free_tab(tab);
+	wait(&g_sig.pid);
+	status_child();
+}
 
 void	exec_cmd(t_token *token, t_shell **shell)
 {
@@ -60,6 +69,5 @@ void	exec_cmd_fork(t_token *token, t_shell **shell)
 		fd_write_errors(token);
 		exit_prog(&token, NULL, -1);
 	}
-	wait(&g_sig.pid);
-	status_child();
+	end_exec(&cmd, &tab);
 }

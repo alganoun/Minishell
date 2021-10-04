@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/04 04:38:04 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 13:00:13 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	init_shell(char **old_env, t_shell **shell)
 {
-	int	i;
-	int	j;
-	int	lenght;
+	int		i;
+	int		j;
+	int		lenght;
+	char	*tmp;
 
 	i = 0;
 	j = 0;
@@ -25,13 +26,15 @@ void	init_shell(char **old_env, t_shell **shell)
 	(*shell)->env = ft_malloc((lenght + 1) * sizeof(char *));
 	while (old_env[i] != NULL)
 	{
+		tmp = set_shlvl(old_env[i]);
 		if (ft_strncmp("SHLVL=", old_env[i], 6) == 0)
-			(*shell)->env[j++] = ft_strjoin("SHLVL=", set_shlvl(old_env[i]));
+			(*shell)->env[j++] = ft_strjoin("SHLVL=", tmp);
 		else if (ft_strncmp("OLDPWD=", old_env[i], 7) != 0)
 			(*shell)->env[j++] = ft_strdup(old_env[i]);
+		safe_free(&tmp);
 		i++;
 	}
-	(*shell)->env[i] = NULL;
+	(*shell)->env[j] = NULL;	
 }
 
 void	piping(t_token **token)

@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 20:15:22 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/04 00:43:59 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 15:42:09 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,26 @@ char	**bin(t_shell **shell, char *cmd)
 	int		sum;
 	char	**path;
 	char	**tab;
+	char	*tmp;
 
 	i = 0;
 	sum = 0;
 	path = strenv("PATH", (*shell)->env);
 	while (path[i])
-	{
-		sum += ft_strlen(path[i]);
-		i++;
-	}
+		sum += ft_strlen(path[i++]);
 	i = 0;
-	tab = malloc(sizeof(char *) * (sum + ((2 + ft_strlen(cmd)) * i)));
+	tab = ft_malloc(sizeof(char *) * (sum + ((2 + ft_strlen(cmd)) * i)));
 	if (tab == NULL)
 		return (NULL);
 	while (path[i])
 	{
 		tab[i] = ft_strjoin(path[i], "/");
-		tab[i] = ft_strjoin(tab[i], cmd);
+		tmp = tab[i];
+		tab[i] = ft_strjoin(tmp, cmd);
+		safe_free(&tmp);
 		i++;
 	}
+	free_tab(&path);
 	return (tab);
 }
 

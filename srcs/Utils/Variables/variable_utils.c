@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 19:34:27 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/04 04:32:20 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 16:13:23 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	replace_word(char **str, char *name, char *value, char **tab)
 		if ((*str)[i] == '$' && is_convertible(*str, i) == SUCCESS && ret == 0)
 		{
 			ret = 2;
-			if (ft_strstr(&((*str)[i]), name) == &((*str)[i]))
+			if (ft_strncmp(&((*str)[i]), name, variable_len(&((*str)[i]))) == 0)
 			{
 				ft_strcpy(&result[j], value);
 				ret = cpy_variable(&i, &j, name, value);
 			}
 			else if (value_existence(&((*str)[i]), tab) == 0)
-				i += variable_len(&((*str)[i])) + 1;
+				i += variable_len(&((*str)[i]));
 		}
 		if ((*str)[i] != '\0')
 			result[j++] = (*str)[i++];

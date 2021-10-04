@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 09:06:00 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 13:26:11 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 17:51:07 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	free_struct(t_token **token)
 		free_tab(&((*token))->redir);
 		next = (*token)->next;
 		free(*token);
-		*token = NULL;
 		*token = next;
 	}
 	safe_free(&(*token)->cmd);

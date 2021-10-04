@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 19:07:38 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 11:53:10 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 17:55:26 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	free_env(t_shell **shell)
 {
 	free_tab(&((*shell)->env));
 	free(*shell);
+	*shell = NULL;
 }
 
 int	exit_free(t_token **token, char **line)

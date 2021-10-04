@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:07:55 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/04 04:33:09 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 17:38:17 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,9 @@ void	reallocate_unsorted_tab(char ***tab, char *str)
 			new_tab[j++] = ft_strdup((*tab)[i++]);
 	}
 	new_tab[j] = NULL;
-	free(*tab);
+	free_tab(tab);
 	*tab = new_tab;
+	new_tab = NULL;
 }
 
 void	print_sorted_tab(char **tab)
@@ -112,6 +113,7 @@ void	print_sorted_tab(char **tab)
 	int		tab_len;
 	char	**tab2;
 	char	**tmp;
+	char	*tmp2;
 
 	i = 0;
 	tab_len = tablen(tab);
@@ -119,8 +121,9 @@ void	print_sorted_tab(char **tab)
 	tmp = malloc(sizeof(char *) * (tab_len + 1));
 	while (tab_len > 0)
 	{
-		tmp[i] = ft_strjoin("declare -x ",
-				str_export_format(sort_tab_export(tab2)));
+		tmp2 = str_export_format(sort_tab_export(tab2));
+		tmp[i] = ft_strjoin("declare -x ", tmp2);
+		safe_free(&tmp2);
 		reallocate_unsorted_tab(&tab2, sort_tab_export(tab2));
 		i++;
 		tab_len--;

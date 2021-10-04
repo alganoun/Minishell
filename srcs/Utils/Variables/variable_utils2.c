@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 02:13:06 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/03 11:53:22 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 16:15:34 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	value_existence(char *str, char **tab)
 	char	*tmp;
 
 	tmp = ft_strdup(str);
-	i = variable_len(tmp) + 1;
+	i = variable_len(tmp);
 	if (i == 1)
 		return (1);
 	tmp[i] = '\0';

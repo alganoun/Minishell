@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 08:00:40 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 23:23:07 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 16:13:45 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int	variable_len(char *str)
 				count++;
 				i++;
 			}
-			return (count);
+			return (count + 1);
 		}
 		else if (str[i] == '$' && ft_isdigit(str[i + 1]) == 1)
-			return (1);
+			return (2);
 		i++;
 	}
 	return (count);
