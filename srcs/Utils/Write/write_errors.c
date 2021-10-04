@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/10/04 00:37:05 by allanganoun      ###   ########lyon.fr   */
-=======
-/*   Updated: 2021/10/03 13:14:09 by musoufi          ###   ########lyon.fr   */
->>>>>>> 382cd3508699b57a689ec4033f4d6b23acada166
+/*   Updated: 2021/10/04 04:38:05 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
