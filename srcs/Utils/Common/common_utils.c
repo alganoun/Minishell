@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 08:00:40 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/04 23:11:45 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 23:15:12 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	variable_len(char *str)
 			i++;
 			while ((str[i] && str[i] == '?')
 				|| (str[i] && (str[i] < 32 || str[i] > 47)
-				&& (str[i] < 58 || str[i] > 64)))
+					&& (str[i] < 58 || str[i] > 64)))
 			{
 				count++;
 				i++;
