@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   write_errors2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/10 23:29:18 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/05 18:30:07 by allanganoun      ###   ########lyon.fr   */
+/*   Created: 2021/10/05 18:20:53 by allanganoun       #+#    #+#             */
+/*   Updated: 2021/10/05 18:30:50 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-int	pwd_process(t_token *token)
+int	write_errors5(char *cmd, char *opt)
 {
-	char	buff[PATH_MAX];
-
-	if (token->option != NULL)
-		write_errors5(token->cmd, token->option);
-	else if (getcwd(buff, PATH_MAX))
-	{
-		ft_putendl_fd(buff, 1);
-		g_sig.exit_status = 0;
-	}
-	else
-	{
-		ft_putendl_fd("PATH error", STDERR_FILENO);
-		g_sig.exit_status = 1;
-	}
-	return (TRUE);
+	ft_putstr_fd("Minishell :", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(" :", STDERR_FILENO);
+	write(STDERR_FILENO, opt, 2);
+	ft_putendl_fd(" :invalid option", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": usage :", STDERR_FILENO);
+	ft_putendl_fd(cmd, STDERR_FILENO);
 }

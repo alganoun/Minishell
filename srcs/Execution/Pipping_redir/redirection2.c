@@ -68,7 +68,7 @@ int	heredoc(t_token *token, char *limiter)
 		else
 			break ;
 	}
-	
+
 	close(fd[1]);
 	return (fd[0]);
 }

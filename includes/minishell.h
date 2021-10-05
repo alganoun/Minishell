@@ -3,10 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/05 17:39:27 by musoufi          ###   ########lyon.fr   */
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+/*   Updated: 2021/10/05 18:33:39 by allanganoun      ###   ########lyon.fr   */
+=======
+/*   Updated: 2021/10/05 18:26:40 by allanganoun      ###   ########lyon.fr   */
+>>>>>>> Stashed changes
+=======
+/*   Updated: 2021/10/05 18:26:40 by allanganoun      ###   ########lyon.fr   */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +43,7 @@
 # define IS_DIRECTORY	9
 # define PERM_DENIED	10
 # define REDIR_ERROR2	11
+# define BAD_OPTION		12
 # define BUFFER_SIZE	1024
 # define EXIT_MSG	"\n[Process completed]"
 
@@ -164,6 +173,7 @@ char		*set_shlvl(char *shlvl);
 int			display_txt(char *str);
 ssize_t		write_output(char *str);
 int			write_errors(int option, char *str);
+int			write_errors5(char *cmd, char *opt);
 void		fd_write_errors(t_token *token);
 int			write_exec_errors(void);
 
@@ -180,7 +190,7 @@ int			input_process(char **line, t_token **token, char **env);
 int			input_process2(char **pre_token, t_token **token, char **env);
 
 /*------------BUILT-INS---------------*/
-int			pwd_process(void);
+int			pwd_process(t_token *token);
 int			echo_process(t_token *token);
 int			export_process(t_token *token, char ***env);
 int			unset_process(t_token *token, char ***env);

@@ -4,7 +4,7 @@ HEAD 		=	./includes/*.h
 
 INC			=	-I./includes/ -I/Users/$(USER)/.brew/opt/readline/include
 
-CC			=	gcc 
+CC			=	gcc
 
 FLAGS		=	-Wall -Wextra -Werror
 
@@ -24,6 +24,7 @@ SRCS		= ./srcs/Utils/Common/common_utils.c \
 				./srcs/Utils/Free/free_utils2.c \
 				./srcs/Utils/Write/display.c \
 				./srcs/Utils/Write/write_errors.c \
+				./srcs/Utils/Write/write_errors2.c \
 				./srcs/Utils/Structures/struct_utils.c \
 				./srcs/Utils/Variables/variable_utils.c \
 				./srcs/Utils/Variables/variable_utils2.c \
