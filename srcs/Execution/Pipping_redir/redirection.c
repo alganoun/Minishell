@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 14:17:24 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/03 11:54:41 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 18:03:34 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,11 @@ void	redirection(t_token *token, t_shell **shell, int pipe)
 				O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
 		else if (token->type == IN)
 			token->std = open(token->redir[i + 1], O_RDONLY, S_IRWXU);
-		else if (token->type == INDEL)
-			token->std = open(token->redir[i + 1], O_RDONLY, S_IRWXU);
 		if (j <= 1)
 			redir_dup(token, shell, pipe);
 		i += 2;
 		token->type = set_type(token->redir[i]);
 		j--;
 	}
+	//
 }

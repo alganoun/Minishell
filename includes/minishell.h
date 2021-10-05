@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/05 14:11:25 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 17:39:27 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ void		exec_cmd(t_token *token, t_shell **shell);
 void		exec_cmd_fork(t_token *token, t_shell **shell);
 void		choose(t_token *token, t_shell **shell, int pipe);
 void		redirection(t_token *token, t_shell **shell, int pipe);
+int			heredoc(t_token *token, char *limiter);
 int			set_type(char *redir);
 int			count_redir(char **redir);
 void		status_child(void);

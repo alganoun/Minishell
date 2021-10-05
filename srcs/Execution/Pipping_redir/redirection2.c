@@ -44,3 +44,31 @@ int	count_redir(char **redir)
 	}
 	return (j);
 }
+
+int	heredoc(t_token *token, char *limiter)
+{
+	char 	*line;
+	int 	fd[2];
+	size_t	len;
+
+	(void)token;
+	pipe(fd);
+	len = ft_strlen(limiter);
+	while (1)
+	{
+		line = readline("> ");
+		len = ft_strlen(line);
+		if (ft_strncmp(line, limiter, len) != 0)
+		{
+			// interpret line $VAR
+			write(fd[1], line, len);
+			write(fd[1], "\n", 1);
+			free(line);
+		}
+		else
+			break ;
+	}
+	
+	close(fd[1]);
+	return (fd[0]);
+}

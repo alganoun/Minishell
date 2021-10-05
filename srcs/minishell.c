@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/04 13:00:13 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 17:52:23 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,25 @@ void	piping(t_token **token)
 	}
 }
 
+void	search_for_heredoc(t_token *token)
+{
+	int	i;
+
+	while (token)
+	{
+		i = 0;
+		while (token->redir && token->redir[i]
+			&& ft_strncmp(token->redir[i], "<<", 3) == 0)
+		{
+			if (token->std > 2)
+				close(token->std);
+			token->std = heredoc(token, token->redir[i + 1]);
+			i += 2;
+		}
+		token = token->next;
+	}
+}
+
 int	parsing(char **line, t_token **token_list, char **env)
 {
 	int		i;
@@ -72,6 +91,7 @@ int	parsing(char **line, t_token **token_list, char **env)
 	if (input_process(line, &new, env) == -1)
 		return (-1);
 	safe_free(line);
+	search_for_heredoc(*token_list);
 	return (0);
 }
 
