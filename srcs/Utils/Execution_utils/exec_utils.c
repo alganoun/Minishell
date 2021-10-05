@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:46:26 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/03 12:32:01 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 14:35:52 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ void	sigint(int sig)
 				g_sig.exit_status = 130;
 			}
 		}
+	}
+	else if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
 	}
 	if (sig == SIGINT)
 		redisplay();
