@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 19:42:09 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/06 15:10:05 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:40:38 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,11 @@ void	replace_current_dir(char **env_str)
 	tmp = NULL;
 }
 
-int	replace_old_dir(char **env_str, char *old_dir, int option, char ***env)
+int	replace_old_dir(char **env_str, char *old_dir)
 {
 	char	*tmp;
 
 	tmp = ft_strjoin("OLDPWD=", old_dir);
-	if (option == 1)
-		free_replace(env_str, &tmp);
-	else if (option == 2)
-		reallocate_tab(env, tmp);
+	free_replace(env_str, &tmp);
 	return (TRUE);
 }

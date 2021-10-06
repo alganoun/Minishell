@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/06 04:44:15 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:40:27 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void	cd_process_old(char ***env, char *old_dir)
 	while ((*env)[i] != NULL)
 	{
 		if (ft_strncmp((*env)[i], "OLDPWD=", 7) == 0)
-			ret = replace_old_dir(&((*env)[i]), old_dir, 1, env);
+			ret = replace_old_dir(&((*env)[i]), old_dir);
 		i++;
 	}
 	if (ret != TRUE)
-		replace_old_dir(&((*env)[i]), old_dir, 2, env);
+		replace_old_dir(&((*env)[i]), old_dir);
 }
 
 int	cd_process(t_token *token, char ***env)

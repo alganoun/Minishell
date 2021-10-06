@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/06 15:14:33 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:41:01 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,7 @@ long		*ft_atols(const char *str, long *dst);
 void		replace_last_cmd(char *cmd, char *str, char ***env);
 char		*set_shlvl(char *shlvl);
 void		replace_current_dir(char **env_str);
-int			replace_old_dir(char **env_str,
-				char *old_dir, int option, char ***env);
+int			replace_old_dir(char **env_str, char *old_dir);
 int			cd_home(char **env);
 void		init_values(int *i, int *j, int *ret);
 int			variable_process_end(int j, int ret, char **str, char **result);
