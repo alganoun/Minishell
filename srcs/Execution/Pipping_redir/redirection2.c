@@ -63,12 +63,12 @@ int	heredoc(t_token *token, char **env, char *limiter)
 			get_variable_value_2(&line, env);
 			write(fd[1], line, ft_strlen(line));
 			write(fd[1], "\n", 1);
-			free(line);
+			safe_free(&line);
 		}
 		else
 			break ;
 	}
-
+	safe_free(&line);
 	close(fd[1]);
 	return (fd[0]);
 }
