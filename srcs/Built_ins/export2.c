@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 17:39:32 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/06 03:18:37 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:09:13 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	is_exportable(char *str)
 	{
 		if ((str[i] > 32 && str[i] < 65)
 			|| (str[i] > 90 && str[i] < 95)
-				|| str[i] == '`' || str[i] == 123
-					|| str[i] == 125 || str[i] == 36)
+			|| str[i] == '`' || str[i] == 123
+			|| str[i] == 125 || str[i] == 36)
 		{
 			g_sig.exit_status = 1;
 			return (FALSE);

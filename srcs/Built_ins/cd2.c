@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 19:42:09 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/06 02:38:16 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:10:05 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	cd_home(char **env)
 {
-	char *dir;
+	char	*dir;
 
 	dir = my_getenv("HOME", env);
 	if (chdir(dir) != 0)
@@ -22,7 +22,6 @@ int	cd_home(char **env)
 	safe_free(&dir);
 	return (0);
 }
-
 
 void	replace_current_dir(char **env_str)
 {

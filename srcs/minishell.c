@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 08:37:43 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/06 14:45:19 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:11:09 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,6 @@ void	piping(t_token **token)
 			tmpa = tmpa->next;
 			tmpb = tmpb->next;
 		}
-	}
-}
-
-void	search_for_heredoc(t_token *token, char **env)
-{
-	int	i;
-
-	while (token)
-	{
-		i = 0;
-		while (token->redir && token->redir[i]
-			&& ft_strncmp(token->redir[i], "<<", 3) == 0)
-		{
-			if (token->std > 2)
-				close(token->std);
-			token->std = heredoc(token, env, token->redir[i + 1]);
-			i += 2;
-		}
-		token = token->next;
 	}
 }
 

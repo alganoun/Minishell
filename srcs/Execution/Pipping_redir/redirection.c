@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 14:17:24 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/06 07:03:08 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:06:03 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,4 @@ void	redirection(t_token *token, t_shell **shell, int pipe)
 		token->type = set_type(token->redir[i]);
 		j--;
 	}
-	//
 }

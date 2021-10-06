@@ -39,6 +39,7 @@ SRCS		= ./srcs/Utils/Common/common_utils.c \
 				./srcs/Execution/Pipping_redir/piping.c \
 				./srcs/Execution/Pipping_redir/redirection.c \
 				./srcs/Execution/Pipping_redir/redirection2.c \
+				./srcs/Execution/Pipping_redir/heredoc.c \
 				./srcs/Built_ins/pwd.c \
 				./srcs/Built_ins/env.c \
 				./srcs/Built_ins/exit.c \

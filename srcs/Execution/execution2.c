@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 20:15:22 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/06 15:01:58 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:15:28 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char	**bin(t_shell **shell, char *cmd)
 	free_tab(&path);
 	return (tab);
 }
+<<<<<<< Updated upstream
 
 void	skip_bin(t_token *token)
 {
@@ -122,3 +123,5 @@ char **check_bin(t_token *token, t_shell **shell)
 	safe_free(&tmp);
 	return (tab);
 }
+=======
+>>>>>>> Stashed changes

@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 14:42:10 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/06 14:10:50 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:09:02 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	is_unsetable(char *str)
 	{
 		if ((str[i] > 32 && str[i] < 65)
 			|| (str[i] > 90 && str[i] < 95)
-				|| str[i] == '`' || str[i] == 123
-					|| str[i] == 125 || str[i] == 36 || str[i] == 126)
+			|| str[i] == '`' || str[i] == 123
+			|| str[i] == 125 || str[i] == 36 || str[i] == 126)
 		{
 			g_sig.exit_status = 1;
 			return (FALSE);
