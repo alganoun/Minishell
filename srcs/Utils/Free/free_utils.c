@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 09:06:00 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/06 14:05:21 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 14:34:38 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	safe_free(char **str)
 {
 	if (*str)
-		//free(*str);
+		free(*str);
 	*str = NULL;
 }
 

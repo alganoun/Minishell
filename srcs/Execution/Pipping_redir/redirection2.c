@@ -47,8 +47,8 @@ int	count_redir(char **redir)
 
 int	heredoc(t_token *token, char *limiter)
 {
-	char 	*line;
-	int 	fd[2];
+	char	*line;
+	int		fd[2];
 	size_t	len;
 
 	(void)token;
