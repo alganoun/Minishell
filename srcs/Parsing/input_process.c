@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:34:59 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 13:05:50 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 04:13:50 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	option_finder(char *str, t_token **token)
 	int	i;
 
 	i = 0;
-	if (str != NULL && (*token)->arg == NULL)
+	if (str != NULL && (*token)->cmd != NULL && (*token)->arg == NULL)
 	{
 		if ((ft_strcmp((*token)->cmd, "echo") != 0
 				&& str[i] == '-' && str[i + 1] != '\0')
@@ -99,7 +99,7 @@ void	arg_finder(char *str, t_token **token)
 	int	i;
 
 	i = 0;
-	if (str != NULL)
+	if (str != NULL && (*token)->cmd != NULL)
 	{
 		if (str || (ft_strcmp((*token)->cmd, "cd") == 0
 				&& ft_strcmp(str, "-") == 0))

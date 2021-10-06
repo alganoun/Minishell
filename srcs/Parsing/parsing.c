@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 21:30:25 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/04 01:43:49 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 04:14:33 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	token_filler(char **pre_token, t_token **token, char **env, int option)
 		get_variable_value(&(pre_token[0]), env);
 	if (quote_remover(&(pre_token[0])) == -1)
 		return (-1);
-	if (option == 1)
+	if (option == 1 && (*token)->redir == NULL)
 		(*token)->cmd = pre_token[0];
 	if (option == 2)
 	{
