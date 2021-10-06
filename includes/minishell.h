@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/06 02:38:23 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 14:00:47 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ char		*build_line(char **tab, char *line);
 char		**build_cmd(t_token *token);
 char		**bin(t_shell **shell, char *cmd);
 void		skip_bin(t_token *token);
+char 		**check_bin(t_token *token, t_shell **shell);
 
 /*------------SIGNAL&EXIT---------------*/
 void		exit_cmd(t_token *token);

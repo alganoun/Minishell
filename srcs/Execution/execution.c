@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:39 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/04 16:19:43 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 13:37:23 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ void	exec_cmd(t_token *token, t_shell **shell)
 	struct stat	buf;
 
 	i = 0;
-	skip_bin(token);
+	tab = check_bin(token, shell);
 	cmd = build_cmd(token);
-	tab = bin(shell, cmd[0]);
 	if (tab == NULL)
 		return ;
 	while (tab[i])
@@ -52,9 +51,8 @@ void	exec_cmd_fork(t_token *token, t_shell **shell)
 	struct stat	buf;
 
 	i = 0;
-	skip_bin(token);
+	tab = check_bin(token, shell);
 	cmd = build_cmd(token);
-	tab = bin(shell, cmd[0]);
 	g_sig.pid = fork();
 	if (g_sig.pid < 0)
 		ft_putstr_fd("fail\n", 2);

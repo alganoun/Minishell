@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:00:24 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/05 18:37:38 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 14:24:44 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	write_errors4(int option, char *str)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": is a directory", STDERR_FILENO);
+		g_sig.exit_status = 126;
 	}
 	else if (option == PERM_DENIED)
 	{
@@ -94,7 +95,10 @@ int	write_errors(int option, char *str)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": command not found", STDERR_FILENO);
-		g_sig.exit_status = 127;
+		if (ft_strncmp(str, ".", 2) == 0)
+			g_sig.exit_status = 2;
+		else
+			g_sig.exit_status = 127;
 	}
 	else if (option == BAD_QUOTES)
 		ft_putendl_fd("Quotes open, close them", STDERR_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 12:19:07 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 12:15:44 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 13:39:46 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	display_txt(char *str)
 		write_output(line);
 		free(line);
 	}
-	if (ret != 0)
-		return (write_errors(1, str));
+	// if (ret != 0)
+	// 	return (write_errors(1, str));
 	return (0);
 }
 

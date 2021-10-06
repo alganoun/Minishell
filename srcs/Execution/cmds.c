@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 21:21:41 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/05 20:03:10 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 12:51:15 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,11 @@ void	choose(t_token *token, t_shell **shell, int pipe)
 
 void	execution(t_token *token, t_shell **shell, int pipe)
 {
-	if (is_builtin(token) == FALSE && pipe == TRUE
-		&& my_getenv("PATH", (*shell)->env) != NULL)
+	if (is_builtin(token) == FALSE && pipe == TRUE)
 		exec_cmd(token, shell);
-	else if (is_builtin(token) == FALSE && pipe == FALSE
-		&& my_getenv("PATH", (*shell)->env) != NULL)
+	else if (is_builtin(token) == FALSE && pipe == FALSE)
 		exec_cmd_fork(token, shell);
-	else if (is_builtin(token) == FALSE
-		&& my_getenv("PATH", (*shell)->env) == NULL)
+	else if (is_builtin(token) == FALSE)
 		write_errors(NOFILEORDIR, token->cmd);
 	else
 	{
