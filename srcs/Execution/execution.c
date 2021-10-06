@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:39 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/06 15:15:33 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:20:45 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	**check_bin(t_token *token, t_shell **shell)
 	char	*tmp;
 
 	tab = NULL;
+	tmp = NULL;
 	if (ft_strcmp(token->cmd, "./Minishell") == 0)
 		tab = ft_split(token->cmd, ' ');
 	else if (ft_strcmp(token->cmd, "Minishell") == 0)

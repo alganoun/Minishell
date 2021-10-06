@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:11:34 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/06 15:14:22 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:20:27 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	search_for_heredoc(t_token *token, char **env)
 {
 	int	i;
 
+	i = 0;
 	while (token)
 	{
 		i = 0;

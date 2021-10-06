@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 20:15:22 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/06 15:17:01 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:25:09 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ void	status_child(void)
 
 char	*build_line(char **tab, char *line)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	while (tab[i])
 	{
-		line = ft_strjoin(line, tab[i]);
-		line = ft_strjoin(line, " ");
+		tmp = line;
+		line = ft_strjoin(tmp, tab[i]);
+		safe_free(&tmp);
+		tmp = line;
+		line = ft_strjoin(tmp, " ");
+		safe_free(&tmp);
 		i++;
 	}
 	return (line);
