@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   common_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
+/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:07:55 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/05 20:03:03 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 14:35:27 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
 
 char	*str_export_format(char *str)
 {

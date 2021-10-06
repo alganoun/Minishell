@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/06 14:00:47 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 14:45:03 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,10 @@ void		replace_current_dir(char **env_str);
 int			replace_old_dir(char **env_str,
 				char *old_dir, int option, char ***env);
 int			cd_home(char **env);
+void		init_values(int *i, int *j, int *ret);
+int			variable_process_end(int j, int ret, char **str, char **result);
+int			cpy_variable(int *i, int *j, char *name, char *value);
+void		get_variable_value_2(char **str, char **env);
 
 /*------------DISPLAY---------------*/
 int			display_txt(char *str);
@@ -202,7 +206,7 @@ void		exec_cmd(t_token *token, t_shell **shell);
 void		exec_cmd_fork(t_token *token, t_shell **shell);
 void		choose(t_token *token, t_shell **shell, int pipe);
 void		redirection(t_token *token, t_shell **shell, int pipe);
-int			heredoc(t_token *token, char *limiter);
+int			heredoc(t_token *token, char **env, char *limiter);
 int			set_type(char *redir);
 int			count_redir(char **redir);
 void		status_child(void);

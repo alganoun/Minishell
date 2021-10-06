@@ -29,6 +29,7 @@ SRCS		= ./srcs/Utils/Common/common_utils.c \
 				./srcs/Utils/Variables/variable_utils.c \
 				./srcs/Utils/Variables/variable_utils2.c \
 				./srcs/Utils/Variables/variable_utils3.c \
+				./srcs/Utils/Variables/variable_utils4.c \
 				./srcs/Utils/Execution_utils/exec_utils.c \
 				./srcs/Parsing/input_process.c \
 				./srcs/Parsing/parsing.c \

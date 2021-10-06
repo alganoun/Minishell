@@ -45,7 +45,7 @@ int	count_redir(char **redir)
 	return (j);
 }
 
-int	heredoc(t_token *token, char *limiter)
+int	heredoc(t_token *token, char **env, char *limiter)
 {
 	char	*line;
 	int		fd[2];
@@ -60,8 +60,8 @@ int	heredoc(t_token *token, char *limiter)
 		len = ft_strlen(line);
 		if (ft_strncmp(line, limiter, len) != 0)
 		{
-			// interpret line $VAR
-			write(fd[1], line, len);
+			get_variable_value_2(&line, env);
+			write(fd[1], line, ft_strlen(line));
 			write(fd[1], "\n", 1);
 			free(line);
 		}
