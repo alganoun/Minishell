@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 21:21:41 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/04 04:33:33 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 20:03:10 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	exec_builtin(t_token *token, t_shell **shell)
 	else if (ft_strcmp(token->cmd, "cd") == 0)
 		cd_process(token, &(*shell)->env);
 	else if (ft_strcmp(token->cmd, "pwd") == 0)
-		pwd_process();
+		pwd_process(token);
 	else if (ft_strcmp(token->cmd, "export") == 0)
 		export_process(token, &(*shell)->env);
 	else if (ft_strcmp(token->cmd, "unset") == 0)
@@ -84,10 +84,6 @@ void	choose(t_token *token, t_shell **shell, int pipe)
 		redirection(token, shell, pipe);
 	else
 		execution(token, shell, pipe);
-	if (token->arg != NULL)
-		replace_last_cmd(token->cmd, token->arg[0], &((*shell)->env));
-	else
-		replace_last_cmd(NULL, token->cmd, &((*shell)->env));
 }
 
 void	execution(t_token *token, t_shell **shell, int pipe)

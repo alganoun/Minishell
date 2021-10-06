@@ -47,6 +47,7 @@ SRCS		= ./srcs/Utils/Common/common_utils.c \
 				./srcs/Built_ins/unset.c \
 				./srcs/Built_ins/unset2.c \
 				./srcs/Built_ins/cd.c \
+				./srcs/Built_ins/cd2.c \
 				./srcs/Built_ins/echo.c \
 				./srcs/Built_ins/version.c \
 				./srcs/minishell.c \

@@ -6,39 +6,12 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:07:55 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/04 17:38:17 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 20:03:03 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	replace_last_cmd(char *cmd, char *str, char ***env)
-{
-	char	*tmp;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while ((*env)[i])
-	{
-		if (ft_strncmp((*env)[i], "_=", 2) == 0)
-		{
-			if (cmd != NULL && ft_strcmp(cmd, "export") == 0)
-			{
-				while (str[j])
-				{
-					if (str[j] == '=')
-						str[j] = '\0';
-					j++;
-				}
-			}
-			tmp = ft_strjoin("_=", str);
-			free_replace(&((*env)[i]), &tmp);
-		}
-		i++;
-	}
-}
 
 char	*str_export_format(char *str)
 {

@@ -6,43 +6,23 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/04 12:11:45 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 02:10:24 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	write_cd_errors(t_token *token)
+void	write_cd_errors(t_token *token, int option)
 {
-	write(2, "Minishell: ", 11);
-	write(2, token->arg[0], ft_strlen(token->arg[0]));
-	write(2, ": No such file or directory\n", 28);
-	g_sig.exit_status = 1;
-}
-
-void	replace_current_dir(char **env_str)
-{
-	char	*tmp;
-	char	*dir;
-
-	dir = getcwd(NULL, 0);
-	tmp = ft_strjoin("PWD=", dir);
-	safe_free(&dir);
-	safe_free(env_str);
-	*env_str = tmp;
-	tmp = NULL;
-}
-
-int	replace_old_dir(char **env_str, char *old_dir, int option, char ***env)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin("OLDPWD=", old_dir);
 	if (option == 1)
-		free_replace(env_str, &tmp);
+		ft_putendl_fd("Minishell: cd: OLDPWD not set", STDERR_FILENO);
 	else if (option == 2)
-		reallocate_tab(env, tmp);
-	return (TRUE);
+	{
+		write(STDERR_FILENO, "Minishell: ", 11);
+		write(STDERR_FILENO, token->arg[0], ft_strlen(token->arg[0]));
+		write(STDERR_FILENO, ": No such file or directory\n", 28);
+	}
+	g_sig.exit_status = 1;
 }
 
 void	go_to_dir(t_token *token, char ***env)
@@ -52,41 +32,48 @@ void	go_to_dir(t_token *token, char ***env)
 	dir = NULL;
 	if (token->arg == NULL)
 	{
-		dir = ft_strjoin("/Users/", my_getenv("USER", *env));
+		dir = my_getenv("HOME", *env);
 		if (chdir(dir) != 0)
-			write_cd_errors(token);
+			write_cd_errors(token, 2);
 		safe_free(&dir);
 	}
 	else if (ft_strcmp(*token->arg, "-") == 0)
 	{
-		if (chdir(my_getenv("OLDPWD", *env)) != 0)
-			write_cd_errors(token);
-		dir = getcwd(NULL, 0);
-		write_output(dir);
-		safe_free(&dir);
+		if (my_getenv("OLDPWD", *env) == NULL)
+			write_cd_errors(token, 1);
+		else if (chdir(my_getenv("OLDPWD", *env)) == 0)
+		{
+			dir = getcwd(NULL, 0);
+			write_output(dir);
+			safe_free(&dir);
+		}
+		else
+			write_cd_errors(token, 2);
 	}
 	else if (chdir(token->arg[0]) != 0)
-		write_cd_errors(token);
+		write_cd_errors(token, 2);
 }
 
-void	cd_process(t_token *token, char ***env)
+void	cd_process_current(char ***env)
 {
-	int		i;
-	int		ret;
-	char	*old_dir;
+	int	i;
 
-	g_sig.exit_status = 0;
-	old_dir = getcwd(NULL, 0);
 	i = 0;
-	ret = 0;
-	go_to_dir(token, env);
 	while ((*env)[i] != NULL)
 	{
 		if (ft_strncmp((*env)[i], "PWD=", 4) == 0)
 			replace_current_dir(&((*env)[i]));
 		i++;
 	}
+}
+
+void	cd_process_old(char ***env, char *old_dir)
+{
+	int		i;
+	int		ret;
+
 	i = 0;
+	ret = 0;
 	while ((*env)[i] != NULL)
 	{
 		if (ft_strncmp((*env)[i], "OLDPWD=", 7) == 0)
@@ -96,4 +83,17 @@ void	cd_process(t_token *token, char ***env)
 	if (ret != TRUE)
 		replace_old_dir(&((*env)[i]), old_dir, 2, env);
 	safe_free(&old_dir);
+}
+
+int	cd_process(t_token *token, char ***env)
+{
+	char	*old_dir;
+
+	old_dir = getcwd(NULL, 0);
+	if (token->option)
+		return (write_errors5(token->cmd, token->option[0], 2));
+	go_to_dir(token, env);
+	cd_process_current(env);
+	cd_process_old(env, old_dir);
+	return (TRUE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 17:39:32 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/03 00:14:32 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 01:15:32 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ int	is_exportable(char *str)
 	i = 0;
 	if (str[0] == '=')
 		return (FALSE);
-	while (str[i] && str[i] != '=' && ft_isalnum(str[i]) == 1)
+	while (str[i] && str[i] != '=')
 	{
-		if (str[i] == '\'' || str[i] == '"')
-			i++;
+		if ((str[i] > 32 && str[i] < 65)
+			|| (str[i] > 90 && str[i] < 95) || str[i] == '`')
+		{
+			g_sig.exit_status = 1;
+			return (FALSE);
+		}
 		i++;
 	}
 	if ((str[i] != '=' && str[i] != '\0')
@@ -77,9 +81,10 @@ int	is_forbiden_name2(char *str, int i, int only_assign)
 	{
 		if (str[i] == '=' && only_assign > 0)
 			i--;
-		else if (!ft_isalpha(str[i]))
+		else if ((str[i] > 32 && str[i] < 65)
+			|| (str[i] > 90 && str[i] < 95) || str[i] == '`')
 		{
-			if (str[i] == '_' || str[i] == '?' || str[i] == '\\')
+			if (str[i] == '?' || str[i] == '/')
 				g_sig.exit_status = 0;
 			else
 				g_sig.exit_status = 1;
@@ -100,7 +105,7 @@ int	is_forbiden_name(char *str)
 	only_assign = 0;
 	end = ft_strrchr(str, '=');
 	if (end == NULL)
-		return (FALSE);
+		return (TRUE);
 	if (str[i] == '=' && !str[i + 1])
 	{
 		g_sig.exit_status = 1;

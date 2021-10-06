@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 01:40:44 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/04 23:00:49 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 01:27:24 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	tild_replacer(char **str, char **env)
 
 	i = 0;
 	j = 0;
-	tild = ft_strjoin("/Users/", my_getenv("USER", env));
+	tild = my_getenv("HOME", env);
 	new_str = ft_malloc(ft_strlen(tild) + ft_strlen(*str) + 1);
 	while (str && (*str)[i])
 	{

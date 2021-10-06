@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 14:42:10 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/03 12:11:14 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 19:59:04 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	unset_process(t_token *token, char ***env)
 	int		i;
 
 	i = 0;
+	if (token->option)
+		return (write_errors5(token->cmd, token->option[0], 1));
 	if (token->arg == NULL)
 		return (TRUE);
 	while (token->arg[i] != NULL)
@@ -55,6 +57,5 @@ int	unset_process(t_token *token, char ***env)
 		i++;
 	}
 	g_sig.exit_status = 0;
-	/*not a valid identifier, use of unsupported character, invalid option*/
 	return (TRUE);
 }
