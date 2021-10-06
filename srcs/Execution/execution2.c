@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 20:15:22 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/06 15:15:28 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:17:01 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,45 +83,3 @@ char	**bin(t_shell **shell, char *cmd)
 	free_tab(&path);
 	return (tab);
 }
-<<<<<<< Updated upstream
-
-void	skip_bin(t_token *token)
-{
-	char	*needle;
-	int		len;
-
-	needle = ft_strnstr(token->cmd, "/bin/", 5);
-	if (needle != NULL)
-	{
-		len = ft_strlen(needle + 5);
-		free(token->cmd);
-		token->cmd = ft_strdup(needle + 5);
-	}
-}
-
-char **check_bin(t_token *token, t_shell **shell)
-{
-	char **tab;
-	char *tmp;
-
-	tab = NULL;
-	tmp = NULL;
-	if (ft_strcmp(token->cmd, "./Minishell") == 0)
-		tab = ft_split(token->cmd, ' ');
-	else if (ft_strcmp(token->cmd, "Minishell") == 0)
-	{
-		tmp = ft_strjoin("./Minishell", NULL);
-		tab = ft_split(tmp, ' ');
-	}
-	else if (token->cmd[0] == '/')
-		tab = ft_split(token->cmd, ' ');
-	else if (my_getenv("PATH", (*shell)->env))
-	{
-		skip_bin(token);
-		tab = bin(shell, token->cmd);
-	}
-	safe_free(&tmp);
-	return (tab);
-}
-=======
->>>>>>> Stashed changes
