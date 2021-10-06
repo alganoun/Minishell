@@ -6,7 +6,7 @@
 /*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 14:17:24 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/05 18:03:34 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 07:03:08 by musoufi          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void	redirection(t_token *token, t_shell **shell, int pipe)
 	{
 		if (token->type == TRUNC)
 			token->std = open(token->redir[i + 1], \
-				O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+				O_CREAT | O_WRONLY | O_TRUNC, 644);
 		else if (token->type == APPEND)
 			token->std = open(token->redir[i + 1], \
-				O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+				O_CREAT | O_WRONLY | O_APPEND, 644);
 		else if (token->type == IN)
-			token->std = open(token->redir[i + 1], O_RDONLY, S_IRWXU);
+			token->std = open(token->redir[i + 1], O_RDONLY, 644);
 		if (j <= 1)
 			redir_dup(token, shell, pipe);
 		i += 2;
