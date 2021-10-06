@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/06 02:38:29 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 04:44:15 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	cd_process_old(char ***env, char *old_dir)
 	}
 	if (ret != TRUE)
 		replace_old_dir(&((*env)[i]), old_dir, 2, env);
-	safe_free(&old_dir);
 }
 
 int	cd_process(t_token *token, char ***env)
@@ -97,5 +96,6 @@ int	cd_process(t_token *token, char ***env)
 		cd_process_current(env);
 		cd_process_old(env, old_dir);
 	}
+	safe_free(&old_dir);
 	return (TRUE);
 }
