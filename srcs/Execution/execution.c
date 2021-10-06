@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: musoufi <musoufi@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 20:36:39 by musoufi           #+#    #+#             */
-/*   Updated: 2021/10/06 13:37:23 by musoufi          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:03:36 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	exec_cmd_fork(t_token *token, t_shell **shell)
 		ft_putstr_fd("fail\n", 2);
 	else if (!g_sig.pid)
 	{
-		while (tab[i])
+		while (tab && tab[i])
 		{
 			if (stat(tab[i], &buf) == 0)
 				execve(tab[i], cmd, (*shell)->env);
