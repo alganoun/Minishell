@@ -6,13 +6,13 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:28:32 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/06 02:10:24 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 02:38:29 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	write_cd_errors(t_token *token, int option)
+int	write_cd_errors(t_token *token, int option)
 {
 	if (option == 1)
 		ft_putendl_fd("Minishell: cd: OLDPWD not set", STDERR_FILENO);
@@ -23,24 +23,23 @@ void	write_cd_errors(t_token *token, int option)
 		write(STDERR_FILENO, ": No such file or directory\n", 28);
 	}
 	g_sig.exit_status = 1;
+	return (-1);
 }
 
-void	go_to_dir(t_token *token, char ***env)
+int	go_to_dir(t_token *token, char ***env)
 {
 	char	*dir;
 
 	dir = NULL;
 	if (token->arg == NULL)
 	{
-		dir = my_getenv("HOME", *env);
-		if (chdir(dir) != 0)
-			write_cd_errors(token, 2);
-		safe_free(&dir);
+		if (cd_home(*env) == -1)
+			return (write_cd_errors(token, 2));
 	}
 	else if (ft_strcmp(*token->arg, "-") == 0)
 	{
 		if (my_getenv("OLDPWD", *env) == NULL)
-			write_cd_errors(token, 1);
+			return (write_cd_errors(token, 1));
 		else if (chdir(my_getenv("OLDPWD", *env)) == 0)
 		{
 			dir = getcwd(NULL, 0);
@@ -48,10 +47,11 @@ void	go_to_dir(t_token *token, char ***env)
 			safe_free(&dir);
 		}
 		else
-			write_cd_errors(token, 2);
+			return (write_cd_errors(token, 2));
 	}
 	else if (chdir(token->arg[0]) != 0)
-		write_cd_errors(token, 2);
+		return (write_cd_errors(token, 2));
+	return (0);
 }
 
 void	cd_process_current(char ***env)
@@ -92,8 +92,10 @@ int	cd_process(t_token *token, char ***env)
 	old_dir = getcwd(NULL, 0);
 	if (token->option)
 		return (write_errors5(token->cmd, token->option[0], 2));
-	go_to_dir(token, env);
-	cd_process_current(env);
-	cd_process_old(env, old_dir);
+	if (go_to_dir(token, env) != -1)
+	{
+		cd_process_current(env);
+		cd_process_old(env, old_dir);
+	}
 	return (TRUE);
 }

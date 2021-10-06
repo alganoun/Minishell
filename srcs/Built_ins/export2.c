@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 17:39:32 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/06 01:15:32 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 03:18:37 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,16 @@ int	is_exportable(char *str)
 	while (str[i] && str[i] != '=')
 	{
 		if ((str[i] > 32 && str[i] < 65)
-			|| (str[i] > 90 && str[i] < 95) || str[i] == '`')
+			|| (str[i] > 90 && str[i] < 95)
+				|| str[i] == '`' || str[i] == 123
+					|| str[i] == 125 || str[i] == 36)
 		{
 			g_sig.exit_status = 1;
 			return (FALSE);
 		}
 		i++;
 	}
-	if ((str[i] != '=' && str[i] != '\0')
-		|| (str[i] == '=' && str[i + 1] == '\0'))
+	if (str[i] != '=' && str[i] != '\0')
 		return (FALSE);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 08:54:52 by alganoun          #+#    #+#             */
-/*   Updated: 2021/10/05 19:53:33 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 02:38:23 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ char		*set_shlvl(char *shlvl);
 void		replace_current_dir(char **env_str);
 int			replace_old_dir(char **env_str,
 				char *old_dir, int option, char ***env);
+int			cd_home(char **env);
 
 /*------------DISPLAY---------------*/
 int			display_txt(char *str);

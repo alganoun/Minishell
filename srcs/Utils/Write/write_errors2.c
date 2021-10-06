@@ -6,7 +6,7 @@
 /*   By: allanganoun <allanganoun@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 18:20:53 by allanganoun       #+#    #+#             */
-/*   Updated: 2021/10/05 19:58:48 by allanganoun      ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 03:16:30 by allanganoun      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ int	write_errors5(char *cmd, char *opt, int name)
 		ft_putstr_fd(cmd, STDERR_FILENO);
 		ft_putendl_fd(" [dir]", STDERR_FILENO);
 	}
-	g_sig.exit_status = 1;
+	g_sig.exit_status = 2;
 	return (-1);
 }
